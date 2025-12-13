@@ -1,0 +1,43 @@
+# TeX auxiliary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+*.lb
+*.bbl
+*.blg
+*.dvi
+*.glg
+*.gls
+*.ilg
+*.ind
+*.ist
+*.maf
+*.mtc
+*.mtc1
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.fdb_latexmk
+*.synctex(busy)
+
+# Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.* # might exclude image files if used for figure conversion
+*.pdf # Uncomment this line if you do not want to track generated PDF files
+
+# Editors/OS specific files (optional, good practice to include)
+.DS_Store
+*.swp
+*.bak
+*~
+.vscode/ # if using VS Code, to ignore editor-specific settings
