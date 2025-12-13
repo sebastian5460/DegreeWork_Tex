@@ -1324,15 +1324,6 @@ A continuación, se describen con mayor detalle los cambios realizados en la ló
 
 
 
-
-
-
-
-
-
-
-
-
 \subsection{Cambios generales de preprocesamiento}
 
 Un primer cambio importante consiste en la introducción de una comprobación automática de la orientación de los ejes del sensor. En la versión original era necesario asumir que el teléfono estaba correctamente orientado, mientras que en la versión actual se verifica la magnitud relativa de los desplazamientos integrados en los dos ejes horizontales. Si el desplazamiento lateral resulta ser significativamente menor que el desplazamiento antero–posterior, se interpreta que los ejes han sido invertidos, lo cual puede ocurrir si el dispositivo es colocado al revés o con rotación. En ese caso se realiza un intercambio automático de componentes y su posterior reintegración, garantizando así que el procesamiento posterior trabaje siempre con las mismas referencias físicas. Este cambio aumenta considerablemente la robustez del algoritmo y elimina fallos que antes dependían exclusivamente de la correcta posición del dispositivo.
@@ -1372,9 +1363,36 @@ Finalmente, la lógica que detecta el inicio de la última fase también se simp
 Podría resumirse que la versión actual reestructura la lógica no solamente cambiando valores numéricos, sino modificando profundamente la manera en que los movimientos se interpretan. El algoritmo deja de depender sólo del desplazamiento integrado y de secuencias de cruces por umbrales altos, y pasa a apoyarse en una combinación de desplazamiento, derivada del movimiento y velocidad angular. Los umbrales se ajustan a valores más realistas, eliminando dependencia de picos poco robustos y evitando que pequeñas oscilaciones sean interpretadas como movimientos significativos. Por tanto, la nueva lógica distingue mejor cada fase, reduce el número de banderas intermedias y mejora la capacidad del sistema para segmentar la prueba con mayor fiabilidad clínica.
 
 
+\section{Plataforma de la marcha humana}
+
+Como parte del trabajo de grado se encuentra el desarrollo de una plataforma web para el análisis de los datos tomados por la aplicación móvil, dicha plataforma está siendo desarrollada por el grupo de investigación GICI, y en este apartado se describen las actividades realizadas hasta el momento en conjunto con el equipo de desarrollo de la plataforma.
+
+\subsection{Arquitectura de la plataforma}
+Para la arquitectura de la plataforma web se propuso una arquitectura cliente-servidor, en la cual los usuarios (fisioterapeutas y administradores) podrán acceder a la plataforma por medio de un navegador web, y el servidor se encargará de gestionar las peticiones de los usuarios, así como de almacenar y procesar los datos tomados por la aplicación móvil. La base de datos estará alojada en la nube para permitir el acceso remoto a los datos desde cualquier lugar con conexión a internet.\\
+
+Cabe resaltar que la plataforma albergará la información de varios trabajos de grado e investigación relacionados con el análisis de la marcha humana, por lo que la arquitectura deberá ser escalable y flexible para permitir la integración de nuevos módulos y funcionalidades en el futuro. Para dichos trabajos nos referirémos como ``subsistemas''.\\
+
+De esta manera, la plataforma web estará compuesta por varios subsistemas, cada uno con su propia funcionalidad y objetivos específicos, pero todos ellos integrados en una única plataforma para facilitar el acceso y análisis de los datos relacionados con la marcha humana. Para la comunicación entre los subsistemasy la plataforma web se utilizarán API's RESTful, las cuales permitirán el envío y recepción de datos de manera segura y eficiente.\\
+
+Antes de poder enviar los datos al servidor, cada subsistema deberá autenticar a los usuarios por medio de un sistema de autenticación basado en tokens JWT (JSON Web Tokens), el cual permitirá verificar la identidad de los usuarios. Los usuarios que podrán enviar sus datos al servidor serán creados directamente desde la plataforma de la marcha por los administradores, quienes serán los encargados de proporcionar usuario y contraseña a los pacientes. De esta manera, cuando los pacientes hayan realizado las pruebas en cada subsistema, éstos deberán primero autenticarse con el servidor desde cada subsismtema, obtener un token JWT, y luego enviar los datos al servidor por medio de una API RESTful. La comunición con el servidor desde cada subsistema será unidireccional, es decir, los subsistemas sólo podrán enviar datos al servidor, pero no podrán recibir datos desde el mismo, ya que los administradores y fisioterapeutas serán los encargados de analizar los datos desde la plataforma web.\\
+
+
+
+\begin{figure}[H]
+	\begin {center}    	
+  \includegraphics[width=0.8\textwidth]{Images/Gait_Platform_Infrastructure.jpeg}
+    	\caption{Arquitectura cliente-servidor de la plataforma web de la marcha humana.}
+    	\label{fig:software-architecture-data-automation}
+	\end {center}
+\end{figure}
+
+Como se observa en la \autoref{fig:software-architecture-data-automation}, toda comunicación entre los subsistemas y la plataforma tendrá que pasar por el firewall de la plataforma La Plataforma de Procesamiento Distribuido para Emulación de Procesos en Ingeniería (PERI), con el fin de garantizar la seguridad de los datos que se envían al servidor.\\
+
 
 \subsubsection{Limitaciones de la plataforma}
-Desde un principio se consideró la opción de otorgar a los pacientes la libertad de crear su propio usuario directamente desde la aplicación, sin embargo, debido a que para el desarrollo de la plataforma no se tenía total libertad de codificación, no se pudo llegar a un acuerdo para la creación de los usuarios directamente de la aplicación, debido a las limitaciones de la plataforma y a la preocupación de saturación de usuarios por parte de la aplicación, por ende, los pacientes solamente podrán ser creados desde la plataforma de la marcha por los administradores, y serán estos los que proporcionarán usuario y contraseña.
+Desde un principio se consideró la opción de otorgar a los pacientes la libertad de crear su propio usuario directamente desde la aplicación, sin embargo, debido a que para el desarrollo de la plataforma no se tenía total libertad de codificación, no se pudo llegar a un acuerdo para la creación de los usuarios directamente desde la aplicación, debido a las limitaciones de la plataforma y a la preocupación de saturación de usuarios por parte de la aplicación, por ende, los pacientes solamente podrán ser creados desde la plataforma de la marcha por los administradores, y serán estos los que proporcionarán usuario y contraseña.
+
+Por otro lado, dado que actualmente la plataforma funciona solo con un servidor, el número máximo de peticiones que un usuario puede realizar al día es de 10, es decir que solamente porá eniar 10 pruebas realizadas al servidor, si los subsistemas itentan enviar más de 10 al día, el servidor arrojará una respuesta de error.
 
 
 
