@@ -1020,16 +1020,16 @@ Con el ánimo de que la prueba pueda ser ejecutada por cualquier persona incluso
 
 \begin{figure}[h!]
     \centering
-    \begin{subfigure}{0.45\textwidth}
+    \begin{subfigure}{0.7\textwidth}
         \centering
-        \includegraphics[width=0.75\linewidth]{Images/sujetador_celular_horizontal.jpg}
+        \includegraphics[width=0.8\linewidth]{Images/sujetador_celular_horizontal.jpg}
         \caption{Riñonera deportiva horizontal.}
         \label{fig:SujetadorCelularComercial}
     \end{subfigure}
-    \hspace{1cm}
-    \begin{subfigure}{0.45\textwidth}
+    \vspace{1cm}
+    \begin{subfigure}{0.7\textwidth}
         \centering
-        \includegraphics[width=0.75\linewidth]{Images/HomeViewAutoTug.png}
+        \includegraphics[width=0.8\linewidth]{Images/Cellphone_holder_sewn.jpeg}
         \caption{Sujetador celular confeccionado.}
         \label{fig:SujetadorConfeccionado}
     \end{subfigure}
@@ -1389,197 +1389,132 @@ Antes de poder enviar los datos al servidor, cada subsistema deberá autenticar 
 Como se observa en la \autoref{fig:software-architecture-data-automation}, toda comunicación entre los subsistemas y la plataforma tendrá que pasar por el firewall de la plataforma La Plataforma de Procesamiento Distribuido para Emulación de Procesos en Ingeniería (PERI), con el fin de garantizar la seguridad de los datos que se envían al servidor.\\
 
 
+
 \subsubsection{Limitaciones de la plataforma}
 Desde un principio se consideró la opción de otorgar a los pacientes la libertad de crear su propio usuario directamente desde la aplicación, sin embargo, debido a que para el desarrollo de la plataforma no se tenía total libertad de codificación, no se pudo llegar a un acuerdo para la creación de los usuarios directamente desde la aplicación, debido a las limitaciones de la plataforma y a la preocupación de saturación de usuarios por parte de la aplicación, por ende, los pacientes solamente podrán ser creados desde la plataforma de la marcha por los administradores, y serán estos los que proporcionarán usuario y contraseña.
 
-Por otro lado, dado que actualmente la plataforma funciona solo con un servidor, el número máximo de peticiones que un usuario puede realizar al día es de 10, es decir que solamente porá eniar 10 pruebas realizadas al servidor, si los subsistemas itentan enviar más de 10 al día, el servidor arrojará una respuesta de error.
+Por otro lado, dado que actualmente la plataforma funciona solo con un servidor, el número máximo de peticiones que un usuario puede realizar al día es de 10, es decir que solamente porá enviar 10 pruebas realizadas al servidor al día por usuario, si los subsistemas itentan enviar más de 10 al día por usuario, el servidor arrojará una respuesta de error.
+
+\subsection{Escalabilidad}
+
+Dado que el grupo de investigación GICI decicidió desarrollar su propio servidor por medio de un computador físico, la plataforma web tiene ciertas limitaciones en cuanto a la escalabilidad, ya que el servidor tiene un límite de almacenamiento y procesamiento, por lo que si se desea aumentar la capacidad de almacenamiento y procesamiento, se deberá adquirir un nuevo servidor con mayores capacidades, dificultando la escalabilidad y flexibilidad.\\
+
+\section{Pruebas de validación}
 
+Para la pruebas de validación se realizaron pruebas en el laboratorio del Servicio de Rehabilitación Humana (SERH), de la Universidad del Valle, en donde se contó con la colaboración de 5 sujetos de prueba sanos, quienes realizaron la prueba `Timed Up and Go' con el BTS GSensor disponible en el laboratorio, al mismo tiempo, se colocó encima de éste el telefono celular sujeto con el portacelular adaptado (Ver imagen tal), de esta manera, la aplicación tomaría los datos bajo la misma prueba, lo que permite compara los resultados obtenidos. \\
 
+\subsection{Protocolo para la toma de datos}
 
+Dado que tanto el BTS GSensor como la aplicación móvil disponen de un tiempo de calibración antes de empezar la prueba, se modificó el código fuente de la aplicación para poder permitir que ambos dispositivos se encuentren calibrados y empezar la prueba. Para esto, se decició proceder de la siguiente manera. Primero se colocan ambos dispositivos como se mencionó anteriormente, acto seguido el investigador presiona el botón de calibrar en la aplicación, una vez presionado, la aplicación dará 6 segundos para que el paciente se ubique en la silla, una vez transcurrido este tiempo comenzará la calibración del dispositivo, una vez calibrado suena un beep indicando que el dispositivo se encuentra calibrado, esta es la señal para que el encargado del laboratorio SERH presione el botón de calibrar el BTS desde el computador, una vez que el BTS esté calibrado, éste dará la indicación al paciente para que pueda comenzar la prueba. Una vez el paciente termine la prueba, el encargado del laboratorio presionará el botón de terminar prueba desde el computador. La aplicación se modificó para esta prueba de validación de tal manera que detecte el fin de la prueba una vez que detecte 5 segundos de inactividad después de haber sensado el primer movimiento característico, es decir desde que el paciente se levantó de su silla, por esto motivo, el paciente sigue inmóvil durante otros cinco segundos una vez que el encargado del laboratorio haya terminado la prueba, cuando la aplicación detecte que terminó la prueba, volverá a sonar un beep, indicando que la prueba ha terminado y los datos tomados correctamente. Acto seguido, el paciente se para de la silla para que el investigador pueda presionar el botón de `Guardar' o `Descartar prueba', según considere. Gracias a este protocolo, la aplicación móvil guardará por un mayor tiempo los datos tomados, debido a que éste debe esperar a que el BTS calibre una vez que la aplicación ya haya calibrado, sin embargo, cuando los datos se envien al servidor, este tiempo extra al principio no tendrá mayor relevancia dado que el algoritmo de la detección de las fases es capaz de determinar el principio de la prueba una vez se cumplan las características contempladas durante el desarrollo del algoritmo, dado que al momento de que el paciente se levante, la señal en el giroscopio en el eje X tomará valores por encima de 0.5 radianes/s y un desplazamiento absoluto superior a 0.1 radianes, se determina que es ahí donde comienza la prueba, por lo que los tiempos de ahí en adelante deben ser coherentes con los tiempos tomados por el BTS GSensor.\\
 
-% \begin{figure}[h!]
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{Images/start-test-old-version.png}
-%         \caption{Vista original de la aplicación TUG para arrancar el test.}
-%         \label{fig:old-view-start-test}
-%     \end{subfigure}
-%     \hspace{1cm}
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{Images/Start-test-view-new-version.png}
-%         \caption{Propuesta de nueva vista aplicación TUG para arrancar el test.}
-%         \label{fig:new-view-start-test}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{Images/Cellphone_position_autoTug.jpeg}
+    \caption{Colocación del celular para la toma de datos.}
+    \label{fig:Phone_position_autoTug}
+\end{figure}
 
-%     \end{subfigure}
-%     \caption{Comparación de vistas para arrancar la prueba del \textit{Timed Up and Go}.}
-%     \label{fig:start-test-comparison-old-new-version}
-% \end{figure}
+La \autoref{fig:Phone_position_autoTug} muestra la colocación del celular encima del BTS GSensor, para la toma de datos durante las pruebas de validación. Ambos dispositivos se situan en la parte baja de la espalda, a la altura de la L2, asegurándose que ambos dispositivos queden bien sujetos para evitar movimientos indeseados durante la prueba.\\
 
-La vista original para arrancar la prueba del \textit{Timed Up and Go} como se muestra en la \autoref{fig:old-view-start-test}, está llena de información y botones que en primera instancia no tendrían utilidad sin antes haber realizado la prueba. Por esta razón se propone una vista minimalista, intuitiva y dejando la única opción ejecutable después de haber ingresado los datos de usuario, como se aprecia en la \autoref{fig:new-view-start-test}. Así mismo, antes de iniciar la prueba, habrá una animación en el centro de la pantalla ilustrando la ejecución de la prueba. De esta manera se siguen las metodologías de \textit{UX/UI design} revisadas anteriormente y se toma como referencia el inicio de la prueba de la IMU \textit{BTS G-Sensor}, el cual muestra una animación de la prueba.
+\subsection{Análisis de los resultados}
 
-\subsection{Actividad 2.4. Análisis de los algoritmos diseñados por el ingeniero Arturo Perez para la prueba Timed Up and Go.}
+Una vez tomadas las pruebas, se procedió a analizar los resultados obtenidos por ambos dispositivos, para esto se exportaron los datos tomados por el BTS GSensor en formato .csv, y se descargó el reporte generado por el Software de computador, mientras que para la aplicación móvil, también se exportaron los datos tomados en formato .csv y se descargó el reporte generado por el servidor web una vez los datos fueron enviados al servidor.\\
 
-Los algoritmos realizados en el trabajo \cite{Sistema-portable-TUG-AKuleshov} fueron analizados para poder replicar ejecutar la aplicación móvil, dicho análisis servirá para poder realizar los cambios correspondientes en los algoritmos que permitirán la toma de datos de los nuevos parámetros de aceleración discutidos en la \autoref{subc:objective-population-segmentation}.
+Para el análisis de los resultados, se compararon los tiempos obtenidos por ambos dispositivos para cada una de las fases de la prueba `Timed Up and Go', es decir, se compararon los tiempos obtenidos para la fase sentado--parado, marcha 1, giro 1, marcha 2, giro 2 y parado--sentado. Para esto, se creó una tabla en Google Sheets, en donde se almacenaron los tiempos obtenidos por ambos dispositivos para cada fase, y luego se calcularon las diferencias entre ambos tiempos para cada fase y cada sujeto de prueba.\\
 
-Las actividades 2.5, 2.6 y 2.7 se realizarán en el próximo semestre académico del presente año debido a la complejidad tema.
+\begin{table}[H]
+\centering
+\caption{Métricas de acuerdo entre la aplicación Android y el BTS GSensor para el TUG}
+\label{tab:agreement_metrics}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccccc}
+\hline
+\textbf{Fase} & \textbf{n} & \textbf{Sesgo (s)} & \textbf{SD$_{diff}$ (s)} & \textbf{MAE (s)} & \textbf{RMSE (s)} & \textbf{LoA$_{low}$ (s)} & \textbf{LoA$_{high}$ (s)} & \textbf{MAPE (\%)} \\
+\hline
+Sit-to-Stand   & 14 & 0.280 & 0.204 & 0.289 & 0.342 & -0.119 & 0.679 & 17.95 \\
+Gait 1         & 14 & -0.219 & 0.406 & 0.366 & 0.448 & -1.015 & 0.576 & 15.46 \\
+Turn 1         & 14 & 0.174 & 0.335 & 0.279 & 0.366 & -0.483 & 0.830 & 15.61 \\
+Gait 2         & 14 & -0.349 & 0.487 & 0.504 & 0.585 & -1.304 & 0.607 & 19.39 \\
+Turn 2         & 14 & 0.256 & 0.501 & 0.469 & 0.546 & -0.727 & 1.238 & 33.78 \\
+Stand-to-Sit   & 14 & 0.410 & 0.331 & 0.441 & 0.519 & -0.239 & 1.059 & 25.01 \\
+\textbf{Total} & \textbf{14} & \textbf{0.186} & \textbf{0.193} & \textbf{0.239} & \textbf{0.263} & \textbf{-0.192} & \textbf{0.565} & \textbf{2.02} \\
+\hline
+\end{tabular}
+}
+\end{table}
 
+Como se observa en la Tabla~\ref{tab:agreement_metrics}, el tiempo total del TUG presenta un sesgo mínimo y límites de concordancia estrechos, mientras que las subfases exhiben mayor variabilidad relativa.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[H]
+\centering
+\caption{Coeficiente de correlación intraclase ICC(2,1) entre la aplicación y el BTS GSensor (paciente--ensayo)}
+\label{tab:icc_trials}
+\begin{tabular}{lccc}
+\hline
+\textbf{Fase} & \textbf{ICC(2,1)} & \textbf{IC 95\%} & \textbf{Interpretación} \\
+\hline
+Sit-to-Stand & 0.373 & [-0.12,\;0.75] & Pobre \\
+Gait 1       & 0.925 & [0.76,\;0.98]  & Excelente \\
+Turn 1       & 0.604 & [0.15,\;0.85]  & Moderada \\
+Gait 2       & 0.767 & [0.31,\;0.92]  & Buena \\
+Turn 2       & 0.393 & [-0.08,\;0.74] & Pobre \\
+Stand-to-Sit & 0.455 & [-0.11,\;0.80] & Pobre \\
+\textbf{Total} & \textbf{0.994} & \textbf{[0.94,\;1.00]} & \textbf{Excelente} \\
+\hline
+\end{tabular}
+\end{table}
 
-\section{Desarrollar la aplicación web con almacenamiento en la nube.} \label{sec:3.web-application-development}
 
-\subsection{Actividad 3.1. Desarrollo de la arquitectura de software del aplicativo web incluyendo la elección del servidor o proveedor de servicios donde se almacenarán los datos de los usuarios.} \label{subc:3.1.Web-software-architecture}
 
-Uno de los propósitos del presente trabajo de grado es lograr la automatización del almacenamiento de los datos tomados por la aplicación móvil para que estos puedan ser analizados de manera remota por un especialista, es por esto que se propone la arquitectura de la figura \ref{fig:software-architecture-data-automation}, la cual permitiría el flujo de datos unidireccional para los usuarios de la aplicación (pacientes que realizan la prueba) y bidireccional para los fisioterapeutas que analizarán los datos los cuales tendrán privilegios de administrador y podrán visualizar todos los datos recopilados por la aplicación.
+\begin{table}[H]
+\centering
+\caption{Coeficiente de correlación intraclase ICC(2,1) usando el promedio de ensayos por paciente}
+\label{tab:icc_patient_mean}
+\begin{tabular}{lccc}
+\hline
+\textbf{Fase} & \textbf{ICC(2,1)} & \textbf{IC 95\%} & \textbf{Interpretación} \\
+\hline
+Sit-to-Stand & 0.341 & [-0.10,\;0.81] & Baja \\
+Gait 1       & 0.900 & [0.52,\;0.98]  & Buena--Excelente \\
+Turn 1       & 0.572 & [-0.09,\;0.91] & Moderada \\
+Gait 2       & 0.757 & [0.08,\;0.95]  & Buena \\
+Turn 2       & 0.410 & [-0.23,\;0.85] & Baja \\
+Stand-to-Sit & 0.276 & [-0.16,\;0.77] & Baja \\
+\textbf{Total} & \textbf{0.993} & \textbf{[0.77,\;1.00]} & \textbf{Excelente} \\
+\hline
+\end{tabular}
+\end{table}
 
-Los datos podrán ser visualizados desde la plataforma virtual de análisis de la marcha humana la cual será desarrollada por el grupo de investigación GICI y con los aportes del presente trabajo de grado. De esta manera, la arquitectura que se propone deberá ser evaluada por todo el equipo de investigación y estará sujeta a los cambios que el grupo tome en conjunto. \\
+Las Tablas~\ref{tab:icc_trials} y \ref{tab:icc_patient_mean} muestran los valores de ICC(2,1) para cada fase del TUG, tanto considerando cada ensayo individual como el promedio por paciente. El tiempo total exhibe una confiabilidad excelente en ambos casos, mientras que las subfases presentan variabilidad en la confiabilidad, con varias fases en rangos bajos a moderados. Esto se debe especialmente en la sensibilidad de las subfases a errores en la segmentación temporal automática, de acuerdo a los algoritmos planteados para la detección de cada fase.\\
 
-\textbf{Requisitos no funcionales:}
 
-\begin{tabularx}{\textwidth}{X X X}
-    - Verificación de usuario & - Base datos central & - Interfaz amigable \\
-    - Escalabilidad h/v & - Mantenibilidad & - Administración de permisos \\
-    - Uso de API's & - Protección datos personales
-\end{tabularx} \\ \\
+Los valores de ICC presentados en las Tablas~\ref{tab:icc_trials} y~\ref{tab:icc_patient_mean} confirman una confiabilidad excelente para el tiempo total del TUG y limitada para algunas subfases.
 
+Es importante destacar que la inclusión de un sujeto con una marcha patológica simulada incrementó la heterogeneidad de la muestra, lo cual contribuyó a valores elevados de ICC en el tiempo total, mientras que en las subfases el efecto fue limitado debido a la mayor sensibilidad de estas a errores de segmentación temporal.
 
-\textbf{Actores de la arquitectura:} 
 
-\begin{tabularx}{\textwidth}{X X X}
-    - Base datos General & - Usuario & - Autenticación usuario \\
-    - Dispositivos (nodos) & 
+\subsection{Consideraciones}
 
-\end{tabularx} \\
+Si bien es cierto que se logró realizar la prueba por medio de la aplicación móvil y el BTS GSensor al mismo tiempo, existen todavía diferencias que se deben tener en cuenta para la conclusión final de los resultados, como el periodo de muestreo de cada dispositivo, sieno 100 Hz para el  BTS GSensor y de 50Hz para el dispositivo móvio, sin embargo, teniendo en cuenta que los movimientos del cuerpo humano no suelen ir más allá de los 10 Hz, no se debería tener mayor complicación con este preiodo de muestreo. La otra consideración que sí puede influir notablemente en los resultados es la posición espacial de los disósitivos, ya que, el celular al estar encima del GSensor, se genera un offset en el eje de la persona, por lo que las velocidades angulares y aceleraciones pueden verse afectados en su cálculo final, además de que los dipositivos nunca van a estar totalmente alineados en el plano frontal.\\
 
 
+\section{Conclusiones de la validación (BTS GSensor vs. aplicación Android)}
 
-\subsection{Actividad 3.2. Desarrollo de la interfaz web aplicando metodologías de \textit{UI/UX design} junto con técnicas de optimización de páginas web.} \label{subc:3.2.Web-interface-development}
+Se validó una aplicación móvil Android para la prueba Timed Up and Go (TUG) comparando sus mediciones de tiempo con un sensor BTS GSensor, considerado como referencia. Se analizaron $n=14$ mediciones (7 sujetos $\times$ 2 ensayos), incluyendo un ensayo adicional con marcha lenta simulando patología.
 
-El desarrollo de la aplicación web debe verse respaldado con un diagrama funcional que permita visualizar todo el alcance del aplicativo, sin embargo, dado que este aplicativo estará alojado en la plataforma digital desarrollado por el grupo de investigación de control industrial ``GICI'', no se podrán desarrollar a completitud hasta haber definido la metodología que se llevará cabo para el desarrollo de dicha plataforma. Pese a esto, se adelantaron los trabajos del lado del \textit{Frontend} de algunas visualizaciones que dispondrá la plataforma una vez se concluya con qué tipo de servicios trabajará la plataforma en su totalidad, entre otras palabras, una vez se concluya cómo se trabajará el \textit{Backend} en la plataforma.
+\subsection{Tiempo total del TUG}
+Los resultados evidencian un acuerdo elevado entre la aplicación y el sensor de referencia para el \textbf{tiempo total} del TUG. El sesgo promedio (aplicación $-$ BTS) fue de $+0.186$ s, indicando una ligera sobreestimación por parte de la aplicación. Los límites de concordancia al 95\% (Bland--Altman) fueron estrechos, $[-0.192,\ 0.565]$ s, y los errores globales fueron bajos (MAE $=0.239$ s; RMSE $=0.263$ s; MAPE $=2.02\%$). Adicionalmente, el coeficiente de correlación intraclase ICC(2,1) para el tiempo total fue $0.994$, lo cual corresponde a una \textbf{confiabilidad excelente} en términos de acuerdo absoluto.
 
-% Se recomienda utilizar un patrón de arquitectura como el de cliente-servidor o el modelo MVC ya que son los que mejor se adaptan a las necesidades del proyecto.
+En conjunto, estos hallazgos sustentan que la aplicación es \textbf{válida por acuerdo} e \textbf{intercambiable} con el BTS GSensor para el uso clínico centrado en el \textbf{tiempo total} del TUG, dado que el desacuerdo esperado se mantiene en el orden de décimas de segundo.
 
+\subsection{Análisis por subfases del TUG}
+En contraste, el análisis por subfases mostró discrepancias relativamente mayores. Por ejemplo, para \textit{stand\_to\_sit} se observó un sesgo de $+0.41$ s y límites de concordancia $[-0.239,\ 1.059]$ s (MAPE $\approx 25\%$), mientras que para \textit{turn2} los límites de concordancia fueron $[-0.727,\ 1.238]$ s (MAPE $\approx 33.8\%$). Los valores de ICC(2,1) por subfase se ubicaron predominantemente en rangos \textbf{pobres a moderados} (p.ej., \textit{sit\_to\_stand} $\approx 0.37$, \textit{turn2} $\approx 0.39$), sugiriendo que la segmentación temporal automática de la aplicación requiere mejoras para análisis clínico fino por componente.
 
+Por tanto, si bien la aplicación es altamente confiable para el \textbf{tiempo total}, su uso para interpretación clínica de \textbf{subfases} debe considerarse exploratorio hasta optimizar el algoritmo de detección de eventos (inicio/fin de cada fase) y ampliar el tamaño muestral.
 
-% \begin{figure}[h!]
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{Images/Login_gait_platform_View.pdf}
-%         \caption{Login aplicación web.}
-%         \label{fig:login-gait-platform-view}
-%     \end{subfigure}
-%     \hspace{1cm}
-%     \begin{subfigure}{0.45\textwidth}
-%         \centering
-%         \includegraphics[width=1\linewidth]{Images/Home_Admin View_Gait_Platform.pdf}
-%         \caption{Vista principal aplicación web.}
-%         \label{fig:home-admin-view-gait-platform}
-%     \end{subfigure}
-%     \caption{Interfaces propuestas para el \textit{Login} y la vista principal de la aplicación web plataforma de la marcha humana.}
-%     \label{fig:gait-platform-home-login-view}
-% \end{figure}
-
-En la \autoref{fig:login-gait-platform-view} se propone un Login sencillo para el acceso a usuario registrados o la solicitud de creación de usuario que será evaluada por los administradores del sitio. Por otra parte en la \autoref{fig:home-admin-view-gait-platform} se desarrolló una propuesta para la visualización de las diferentes opciones que tendrá un usuario con permisos de administrador el cual deberá tener acceso a los diferentes proyectos que estén utilizando la plataforma digital para alojar los datos que estos recolecten, de igual manera tendrá acceso a la administración de memoria y a la gestión de permisos de nuevos usuarios. 
-
-De momento estas vistas son solo una propuesta que tendrá que ser discutida con el grupo de investigación y determinar si son implementas.
-
-\subsection{Actividad 3.3. Diseño de la base de datos donde se almacenarán los datos de los usuarios implementando protocolos de seguridad informática.}
-
-El diseño de la base de datos a implementar en el proyecto se ve influida en el tipo de arquitectura para la base de datos que se desarrollará en la plataforma digital de la marcha. Sin embargo, un diseño preliminar de la base de datos se ve en la \autoref{fig:relational-entity-database}, donde se pueden distinguir 3 tablas principales con el fin de seguir las reglas de una base de datos en su tercera formal normal. La tabla ``Datos usuario'' presenta una relación de uno a muchos con la tabla "Pruebas registradas", ya que un mismo usuario puede tener registradas una más pruebas en la base de datos. Así mismo, la tabla "Pruebas registradas" presenta una relación de uno a uno con la tabla "Metadatos", donde cada prueba registrada tiene una fecha y hora específicas.
-
-\section{Conclusiones} \label{sec:conclusions}
-
-% 
-
-
-$\theta_Y(k) = \theta_Y(k-1) + \omega_Y(k),\Delta t$
-
-
-% sumando la velocidad angular instantánea $\omega_Y$ por el intervalo de muestreo. Esta integración actúa como un filtro de ruido, suavizando las variaciones rápidas y acumulando solo el cambio neto de orientación. El algoritmo impone condiciones sobre $\theta_Y$ para determinar el inicio del giro: cuando el ángulo integrado supera un umbral (por ejemplo, $|\theta_Y| > 2,5$), significa que el usuario comenzó a girar su cuerpo. En ese instante (t₂) se marca el comienzo del primer giro. Dado que el giro puede ser hacia la izquierda o derecha, se evalúa el signo de $\omega_Y$/$\theta_Y$ para distinguir la dirección y establecer banderas (Giro_a_izquierda o Giro_a_derecha). Para refinar el tiempo exacto t₂, el algoritmo realiza un barrido temporal inverso: una vez detectado que $|\theta_Y|$ excedió 2,5, se recorre la señal hacia atrás para encontrar el punto donde $\theta_Y$ comenzó a desviarse (por ejemplo, donde $\theta_Y$ cruzó ±0,5), y ese punto se toma como el inicio efectivo del giro. Durante el desarrollo del giro alrededor del cono, la señal integrada $\theta_Y$ presenta típicamente una secuencia de variaciones positiva, luego negativa y nuevamente positiva (o viceversa) mientras el sujeto rodea el cono y se realinea para el camino de regreso. El fin del primer giro se identifica cuando el sujeto termina de rodear el cono y vuelve a orientarse hacia la dirección de regreso. Algorítmicamente, esto se refleja en $\theta_Y$ estabilizándose tras cambiar de signo por última vez. Por ejemplo, para un giro hacia la izquierda, $\theta_Y$ alcanzará un valor negativo extremo cuando el sujeto esté girando alrededor del cono, y al terminar el giro $\theta_Y$ volverá a aumentar (>-3,2 rad) indicando que el sujeto se enderezó hacia la trayectoria de vuelta. Ese instante se marca como t₃, fin del giro 1 e inicio de la segunda marcha.
-
-
-% Marcha de regreso (segunda fase de caminata): Tras completar el primer giro, el sujeto camina de regreso hacia la silla. El inicio de la marcha de regreso t₃ se definió al terminar el giro previo; no obstante, si el sujeto hace una pequeña pausa tras el giro (como se observó en algunos casos), el algoritmo puede tomar el reinicio claro de la señal de giróscopo Y o acelerómetro como referencia. Durante la marcha de regreso, nuevamente se observan patrones de paso en acelerómetro (picos periódicos) y el giróscopo Y permanece relativamente estable, dado que el sujeto camina en línea recta. El final de esta fase ocurrirá cuando el sujeto inicie el giro final para sentarse, detectado a continuación.
-
-
-% Giro final para sentarse (segundo giro 180°): Al llegar de vuelta cerca de la silla, el sujeto debe girar ~180° sobre su propio eje para orientarse con la silla y sentarse. Esta fase de giro 2 suele ser más rápida y de menor desplazamiento que el giro en el cono, apareciendo como una única variación prominente en la señal del giróscopo Y. El algoritmo, nuevamente analizando la integral $\theta_Y$, determina el inicio del segundo giro t₄ cuando detecta dicha variación final. Dado que la dirección de este giro final depende de cómo realizó el giro inicial (podría girar en el mismo sentido que el primer giro o en el opuesto), se consideraron cuatro casos posibles combinando las orientaciones (izquierda-izquierda, izquierda-derecha, derecha-izquierda, derecha-derecha). En la etapa de desarrollo se definieron rangos de $\theta_Y$ integrados para clasificar el caso: por ejemplo, si al terminar la marcha de regreso la integral $\theta_Y$ se encuentra en un rango alto positivo (bandera Bandera_arriba_2), implicaría que ambos giros previos fueron hacia la izquierda, entonces se espera que el segundo giro inicie cuando $\theta_Y$ supere cierto valor positivo (ej. >6); si $\theta_Y$ está cerca de cero con una bandera intermedia (Bandera_medio_2), indicaría giros opuestos en ida y vuelta, etc., ajustando el umbral condicional (ej. >0 o >0,25) según el caso. De manera análoga, un valor alto negativo de $\theta_Y$ (bandera Bandera_abajo_2) indicaría giros previos a la derecha, esperando el segundo giro cuando $\theta_Y < -6`. Estas condiciones lógicas (implementadas con if/else anidados) garantizan detectar robustamente el comienzo del giro final t₄ en cualquiera de los cuatro escenarios posibles. En resumen, t₄ marca el momento en que el sujeto empieza a pivotar para sentarse. //
-
-
-% Sentarse en la silla (transición bípedo-sedente) y fin de la prueba: Finalmente, se delimita la fase de sentarse, desde que el sujeto inicia la maniobra de descenso hasta que se estabiliza sentado. Para detectar el inicio de la fase de sentado (t₅), se vuelve a analizar el giróscopo X. Al igual que en la etapa inicial, este eje capta el balanceo antero-posterior del tronco. Cuando el sujeto comienza a sentarse, suele inclinar el torso hacia adelante y luego hacia atrás al apoyarse en la silla. El algoritmo busca entonces una variación significativa de $\omega_X$: por ejemplo, cuando $\omega_X$ excede +1 (umbral que indica un movimiento angular brusco hacia adelante) se toma ese momento –o su antecedente inmediato determinado por barrido inverso cuando $\omega_X$ cruza de valores negativos a 0– como t₅. A partir de t₅, el sistema considera que el sujeto está en proceso de sentarse. El fin de la fase de sentado y fin de la prueba se determina cuando el giróscopo X indica que el movimiento ha cesado completamente. En la práctica, se espera la secuencia: inclinación adelante (señal $X$ positiva), seguida de inclinación atrás al recostarse (señal $X$ negativa) y finalmente estabilización. Así, se emplean dos umbrales similares a los de la etapa inicial: al detectar que $\omega_X$ cae por debajo de un pequeño valor negativo (ej. < –0,05), se activa una bandera (Bandera_arriba_1_fin) indicando que el tronco comenzó a recostarse; luego, cuando $\omega_X$ vuelve a subir por encima de –0,05 (es decir, la oscilación termina y la señal retorna cerca de cero), se activa Bandera_abajo_1_fin que marca el fin de la transición de sentado. El tiempo correspondiente se registra como t₆, finalizando oficialmente el cronómetro del TUG. En escenarios reales, se añade la condición de que si tras t₆ no se detecta actividad durante un corto intervalo (señales inerciales quietas), se confirma el fin de la prueba. Esto previene contar tiempo o ruido residual después de que el sujeto ya se sentó.
-
-
-Cálculo de tiempos de subfases y variables derivadas: Con los instantes $t_0, t_1, ..., t_6$ determinados por el algoritmo de segmentación, se calculan los tiempos de cada subfase del TUG mediante simples diferencias. En particular:
-Tiempo total del TUG: $T_{\text{total}} = t_{6} - t_{0}$. Es el indicador global de desempeño (menos tiempo implica mejor movilidad funcional).
-
-
-Tiempo de levantarse (sedente-bípedo): $T_{\text{levantar}} = t_{1} - t_{0}$, correspondiente a la transición de estar sentado a estar de pie.
-
-
-Tiempo de marcha inicial (ida 3 m): $T_{\text{marcha1}} = t_{2} - t_{1}$, cubre desde que el sujeto empieza a caminar hasta justo antes de iniciar el giro en el cono.
-
-
-Tiempo de giro en el cono: $T_{\text{giro1}} = t_{3} - t_{2}$, duración para completar el primer giro de 180° alrededor del cono.
-
-
-Tiempo de marcha de regreso: $T_{\text{marcha2}} = t_{4} - t_{3}$, desde que termina el primer giro hasta antes de iniciar el giro final para sentarse.
-
-
-Tiempo de giro final (pre-sentado): $T_{\text{giro2}} = t_{5} - t_{4}$, tiempo empleado en girar 180° para orientarse con la silla.
-
-
-Tiempo de sentarse (bípedo-sedente): $T_{\text{sentarse}} = t_{6} - t_{5}$, corresponde a la maniobra de descenso y acomodación en la silla.
-
-
-Cada una de estas variables temporales ofrece información sobre el desempeño en esa sub-tarea específica. La suma de todos los tiempos parciales equivale al tiempo total del TUG ($T_{\text{total}} \approx \sum_{i} T_{\text{subfase}_i}$). Un análisis cuantitativo de estos parámetros parciales permite identificar si un desempeño pobre en la prueba se debe a lentitud en alguna fase particular (por ejemplo, marcha lenta vs. dificultad en giros o en levantarse/sentarse). En el contexto de evaluación de riesgo de caídas, estas variables biomecánicas segmentadas brindan un perfil más completo: por ejemplo, un tiempo de giro prolongado podría indicar problemas de equilibrio o coordinación, mientras que un tiempo de transición sentado-parado elevado puede sugerir disminución de fuerza en miembros inferiores.\\
-
-% Además de los tiempos, del procesamiento de las señales inerciales se pueden derivar otras variables biomecánicas de interés. Por ejemplo, la aceleración lineal medida en cada eje puede integrarse (una vez corregida la componente de gravedad) para estimar velocidades lineales o incluso desplazamientos durante la marcha. En este proyecto, dado que la distancia de marcha es fija (3 m ida y 3 m vuelta), no fue imprescindible calcular la posición, pero sí podrían obtenerse velocidades promedio de marcha a partir de $T_{\text{marcha1}}$ y $T_{\text{marcha2}}$ (velocidad ≈ distancia/tiempo). Igualmente, la señal de velocidad angular (giróscopo) integrada proporciona ángulos de giro efectivos del sujeto (por ejemplo, la integral del eje Y al final del giro en el cono debería acercarse a ~$\pi$ radianes, es decir 180°). Durante el procesamiento se observó que la integración de $\omega_Y$ no solo facilitó la detección de eventos, sino que también redujo el ruido presente en $\omega_Y$ cruda, actuando como un filtro acumulativo. Las señales de aceleración pueden filtrarse adicionalmente para separar movimientos de baja frecuencia (asociados a desplazamientos del cuerpo) de componentes de alta frecuencia (vibraciones o impacto de pasos). Para futuras mejoras, podrían aplicarse filtros pasaaltos para aislar los picos de aceleración al contacto de cada paso, calculando cadencia o número de pasos, o bien filtros pasabajos e integración doble para estimar el desplazamiento de manera más precisa.
-
-
-
-% 
-
-
-
-
-
-
-
-
-En el presente informe de los avances registrados para el trabajo de Grado 1 se lograron investigar y documentar los conceptos teóricos necesarios para el desarrollo del proyecto, así como definir la población objetivo, la gama de equipos donde correrá la aplicación y los nuevos parámetros de interés para la recolección de datos.
-
-Aunque no se logró concretar el objetivo específico 2, se pueden destacar avances importantes en cuanto la funcionalidad del aplicativo móvil. De igual manera, se realizaron avances en la estructura y desarrollo de la aplicación móvil y web, así como una vista preliminar de la arquitectura y la base de datos a implementar.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\subsection{Implicaciones metodológicas}
+Dado el tamaño muestral reducido, se recomienda ampliar la muestra e incluir más participantes con patrones de marcha patológicos reales. Asimismo, debido a que existen medidas repetidas por sujeto, se sugiere complementar el análisis de Bland--Altman con métodos para datos repetidos (p.ej., modelos que consideren correlación intra-sujeto) y reportar intervalos de confianza de los parámetros principales (sesgo, LoA e ICC) en futuros estudios.
 
 
 
@@ -1589,9 +1524,114 @@ Aunque no se logró concretar el objetivo específico 2, se pueden destacar avan
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \clearpage
+
+\section{RESULTADOS}
+
+En este estudio se evaluó la validez y confiabilidad de una aplicación móvil Android para la prueba Timed Up and Go (TUG), utilizando como referencia un sensor inercial BTS GSensor. Se analizaron siete sujetos, cada uno con dos repeticiones de la prueba, obteniéndose un total de 14 mediciones. Adicionalmente, uno de los sujetos realizó una ejecución con marcha patológica simulada, con el objetivo de incrementar la variabilidad funcional de la muestra.
+
+\subsection{Análisis de acuerdo entre métodos}
+
+El acuerdo entre la aplicación y el BTS GSensor se evaluó mediante el análisis de Bland--Altman, complementado con métricas de error absoluto y relativo. La Tabla~\ref{tab:agreement_metrics} resume el sesgo, la dispersión de las diferencias, los límites de concordancia al 95\% (LoA), el error absoluto medio (MAE), el error cuadrático medio (RMSE) y el error porcentual absoluto medio (MAPE) para cada subfase y para el tiempo total del TUG.
+
+Para el tiempo total, el sesgo promedio fue de $+0.186$ s, indicando una ligera sobreestimación sistemática de la aplicación respecto al sensor de referencia. Los límites de concordancia se ubicaron entre $-0.192$ s y $+0.565$ s, con valores de MAE y RMSE inferiores a $0.3$ s y un MAPE del $2.02\%$. Estos resultados indican un acuerdo estrecho y errores de magnitud reducida para el tiempo total del TUG.
+
+En contraste, las subfases presentaron mayor variabilidad relativa. Fases como \textit{turn2} y \textit{stand-to-sit} exhibieron límites de concordancia más amplios (hasta $\pm 1.2$ s) y valores elevados de MAPE (hasta $33.8\%$), lo que sugiere una menor precisión de la aplicación en la segmentación temporal automática de eventos específicos.
+
+\subsection{Confiabilidad inter-método}
+
+La confiabilidad entre la aplicación y el BTS GSensor se evaluó mediante el coeficiente de correlación intraclase (ICC) bajo un modelo de dos vías con acuerdo absoluto (ICC(2,1)). Los resultados considerando cada ensayo como una unidad independiente se presentan en la Tabla~\ref{tab:icc_trials}, mientras que la Tabla~\ref{tab:icc_patient_mean} muestra los valores obtenidos al promediar los ensayos por paciente.
+
+Para el tiempo total del TUG, se obtuvo un valor de ICC(2,1) de $0.994$ (IC 95\%: $[0.94,\;1.00]$), lo cual corresponde a una confiabilidad excelente. En las subfases, los valores de ICC oscilaron entre pobres y buenos, dependiendo de la fase analizada, siendo particularmente bajos en \textit{sit-to-stand}, \textit{turn2} y \textit{stand-to-sit}.
+
+La reducción del ICC observada al utilizar el promedio por paciente se atribuye a la disminución de la varianza entre sujetos, fenómeno esperado en muestras pequeñas y homogéneas, y no necesariamente a un incremento del error absoluto de medición.
+
+\section{Discusión}
+
+El objetivo principal de este estudio fue determinar si una aplicación móvil puede proporcionar mediciones confiables y válidas del tiempo del TUG en comparación con un sensor inercial de referencia. Los resultados muestran una clara diferencia entre el desempeño de la aplicación para el tiempo total de la prueba y para el análisis detallado por subfases.
+
+\subsection{Validez clínica del tiempo total del TUG}
+
+El tiempo total del TUG es el desenlace clínico más utilizado en la práctica, debido a su asociación con movilidad funcional, riesgo de caídas y estado general del paciente. En este estudio, los límites de concordancia para el tiempo total se mantuvieron dentro de un rango inferior a $\pm 0.6$ s, valor considerablemente menor que los cambios mínimos detectables (MDC) reportados en la literatura para el TUG, que suelen superar los 2 s en diversas poblaciones clínicas.
+
+En consecuencia, las diferencias observadas entre la aplicación y el BTS GSensor pueden considerarse clínicamente irrelevantes, lo que respalda la intercambiabilidad de ambos métodos para la medición del tiempo total del TUG. Este hallazgo se refuerza con un ICC(2,1) cercano a la unidad, indicando que la mayor parte de la variabilidad observada corresponde a diferencias reales entre sujetos y no a error de medición.
+
+\subsection{Análisis por subfases y limitaciones de segmentación}
+
+A diferencia del tiempo total, las subfases del TUG mostraron errores relativos más elevados y valores de ICC moderados a pobres. Esto puede atribuirse a la sensibilidad de la segmentación temporal automática a la detección precisa de eventos biomecánicos, como el inicio y fin de los giros o de las transiciones posturales.
+
+En subfases de corta duración, errores absolutos del orden de décimas de segundo se traducen en errores porcentuales elevados, lo cual explica los valores altos de MAPE observados. Además, el tamaño muestral reducido limita la estabilidad de los estimadores de ICC para estas fases. Otro punto a tener en cuenta es la posición en la que se encontraba el celular durante la toma de datos, ya que al estar encima del BTS GSensor, se genera un offset en el eje de la persona, lo que puede afectar la precisión de las mediciones de aceleración y velocidad angular, impactando negativamente en la segmentación temporal automática.
+
+\subsection{Influencia del sujeto con marcha patológica simulada}
+
+La inclusión de un sujeto que realizó la prueba simulando una marcha patológica incrementó deliberadamente la heterogeneidad de la muestra. Este incremento favorece la estimación del ICC para el tiempo total, al aumentar la varianza entre sujetos, sin introducir un sesgo apreciable en el análisis de Bland--Altman. No obstante, su impacto en las subfases fue limitado, lo que refuerza la hipótesis de que los principales errores en estas fases están relacionados con la segmentación y no con la variabilidad funcional del sujeto.
+
 \section{CONCLUSIONES}
 
+Los resultados de este estudio permiten concluir que la aplicación móvil desarrollada es una herramienta válida y confiable para la medición del tiempo total de la prueba Timed Up and Go, mostrando un alto grado de acuerdo con el BTS GSensor y una confiabilidad excelente según el coeficiente de correlación intraclase.
+
+Las diferencias observadas entre ambos métodos para el tiempo total se encuentran dentro de márgenes clínicamente aceptables, lo que habilita el uso de la aplicación como una alternativa de bajo costo y fácil implementación para la evaluación funcional de la movilidad.
+
+Sin embargo, el análisis detallado por subfases presentó una confiabilidad limitada, atribuible principalmente a la complejidad de la segmentación temporal automática, y debido a que son sensores diferentes y los algoritmos para la detección de las fases son diferentes, se encuentra una amplia variabilidad en los resultados finales, esto no quiere decir que los datos obtenidos estén errones, para afirmar esto se deberían hacer pruebas con más sujetos de prueba y utilizando otras marcas reconocidas para la ejecución de la prueba. Sin embargo, por los datos arrojados por el presente trabajo de investigación, se concluye que, el uso de la aplicación para interpretación clínica de subfases específicas del TUG debe considerarse exploratorio hasta que se implementen mejoras algorítmicas y se validen en muestras más amplias, diversas y con diferentes patrones de calibración.\\
+
+Por otro lado, debido a que se desconocían los algoritmos y cálculos implementados en el BTS GSensor, tanto para la detección como para el cálculode las demás variables de interés, no se obtuvieron datos similares entre las variables arrojadas por el BTS y la aplicación móvil. no se puede afirmar con certeza que los datos obtenidos por este dispositivo sean 100\% confiables, sin embargo, al ser un dispositivo reconocido en el ámbito clínico y de investigación, se asume que los datos obtenidos por este dispositivo son lo suficientemente confiables para ser utilizados como referencia en la validación de la aplicación móvil.\\
+
+Finalmente, este trabajo sienta las bases para el desarrollo de herramientas móviles confiables en la evaluación funcional, demostrando que, bajo un diseño metodológico adecuado, es posible alcanzar niveles de precisión comparables a sistemas de referencia utilizados en entornos clínicos y de investigación.\\
+
+
+\clearpage
+
+\section{Trabajos futuros}
+
+El presente Trabajo de Grado permitió el desarrollo integral de una aplicación móvil para la evaluación funcional mediante la prueba Timed Up and Go (TUG), así como la implementación de una plataforma servidor y microservicios para el almacenamiento y procesamiento de datos de marcha humana. A partir de los resultados obtenidos y del alcance alcanzado, se identifican diversas líneas de trabajo futuro orientadas a la mejora, expansión y validación clínica del sistema desarrollado.
+
+\subsection{Optimización y extensión de los algoritmos de segmentación}
+
+Si bien en este trabajo se realizaron mejoras significativas a los algoritmos de detección de fases del TUG heredados de un trabajo de maestría previo, los resultados evidencian que la segmentación automática de subfases continúa siendo un desafío, especialmente en eventos de corta duración como giros y transiciones posturales.
+
+Como trabajo futuro, se propone:
+\begin{itemize}
+    \item Incorporar técnicas avanzadas de filtrado adaptativo y detección de eventos basadas en modelos probabilísticos o aprendizaje automático.
+    \item Evaluar el uso de modelos supervisados entrenados con bases de datos ampliadas y anotaciones manuales realizadas por expertos clínicos.
+    \item Implementar estrategias de segmentación multimodal que integren información cinemática y temporal para mejorar la precisión en subfases específicas.
+\end{itemize}
+
+\subsection{Validación clínica con poblaciones patológicas reales}
+
+El presente estudio incluyó una ejecución con marcha patológica simulada, lo cual permitió aumentar la heterogeneidad funcional de la muestra. Sin embargo, para fortalecer la validez externa del sistema, se plantea como trabajo futuro la realización de estudios con poblaciones clínicas reales, tales como adultos mayores, pacientes con enfermedad de Parkinson, accidente cerebrovascular o trastornos musculoesqueléticos.
+
+Estos estudios permitirán:
+\begin{itemize}
+    \item Evaluar la robustez de los algoritmos ante patrones de marcha alterados.
+    \item Establecer valores normativos y rangos clínicos específicos para las variables extraídas.
+    \item Analizar la sensibilidad del sistema para detectar cambios longitudinales en el desempeño funcional.
+\end{itemize}
+
+\subsection{Ampliación del ecosistema de subsistemas de marcha}
+
+Actualmente, el microservicio desarrollado para el subsistema TUG permite la extracción automática de múltiples variables relevantes, incluyendo tiempos de subfases, aceleraciones en los ejes antero-posterior, lateral y vertical, velocidades angulares y rangos de flexión-extensión. Como línea futura, se propone extender esta arquitectura modular para integrar nuevos subsistemas relacionados con la marcha humana, tales como análisis de marcha continua, pruebas de equilibrio dinámico o evaluación de doble tarea.
+
+Esta ampliación permitiría consolidar la plataforma como un sistema integral de análisis funcional basado en sensores inerciales.
+
+\subsection{Evolución de la plataforma web y análisis longitudinal}
+
+La plataforma servidor desarrollada en colaboración con el grupo de investigación GICI constituye una base sólida para el almacenamiento seguro y estructurado de datos clínicos y señales crudas. Como trabajo futuro, se plantea:
+\begin{itemize}
+    \item El desarrollo de interfaces web para visualización avanzada de resultados y evolución temporal de los pacientes.
+    \item La implementación de herramientas de análisis longitudinal y generación automática de reportes clínicos.
+    \item La incorporación de mecanismos de control de acceso diferenciados para profesionales de la salud, investigadores y administradores del sistema.
+\end{itemize}
+
+\subsection{Escalabilidad, interoperabilidad y despliegue}
+
+Finalmente, como proyección a largo plazo, se considera relevante trabajar en la escalabilidad del sistema y su interoperabilidad con otras plataformas de salud digital. Esto incluye la adaptación a estándares de intercambio de información clínica, la optimización del rendimiento del servidor ante un mayor volumen de usuarios y el despliegue del sistema en entornos reales de atención clínica y telemedicina.
+
+En conjunto, estas líneas de trabajo futuro buscan consolidar el sistema desarrollado como una herramienta robusta, escalable y clínicamente relevante para la evaluación funcional de la marcha humana mediante tecnologías móviles.
+
+
+
+
 % Conclusiones aquí.
+
 
 \clearpage
 \section{RECOMENDACIONES}
