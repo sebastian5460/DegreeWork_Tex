@@ -1173,6 +1173,81 @@ Este patrón busca capturar la desaceleración y estabilización final del tronc
 
 
 
+\section{Comparación con el algoritmo previo}
+\label{sec:comparacion-algoritmo-previo}
+
+El algoritmo previo (aplicativo de escritorio en C\#) y la versión actual (microservicio en PHP) comparten la idea base de segmentar el \textit{TUG} a partir de (i) velocidades angulares del giroscopio y (ii) desplazamientos angulares integrados. No obstante, la implementación actual introduce cambios relevantes en los criterios de detección, especialmente en el giro 1, la transición giro 1$\rightarrow$marcha 2, el giro 2 y el inicio de sentado final. A continuación se resumen las diferencias \textbf{únicamente} para la detección de fases.
+
+\subsection*{Sentado--parado y transición a marcha 1}
+En el algoritmo previo, el inicio de sentado--parado se determinaba cuando $g_x(t)>0.05~\text{rad/s}$. Posteriormente, la detección del inicio de marcha 1 dependía de un patrón de cruce que requería $g_x(t)<-0.05$ y luego $g_x(t)>0.05$, y finalmente una condición adicional $g_x(t)>0$ para fijar $t_{g1}^{ini}$.
+
+En el microservicio, el inicio de sentado--parado se hace más restrictivo al exigir simultáneamente:
+\[
+g_x(t)>0.1~\text{rad/s} \quad \wedge \quad \theta_x(t)>0.1~\text{rad},
+\]
+lo cual reduce falsos positivos por oscilaciones breves (por ejemplo, ajustes posturales en la silla). Además, la transición a marcha 1 se determina mediante un patrón de banderas similar, pero la condición de estabilización se implementa como una verificación estricta en cero ($g_x(t)=0.0$) antes de declarar el inicio de marcha 1. En la práctica, este criterio busca marcar el instante donde el gesto de levantamiento ya terminó y la señal se estabiliza.
+
+\subsection*{Inicio del giro 1}
+En el algoritmo previo, el giro 1 se activaba cuando el desplazamiento integrado lateral superaba un umbral amplio:
+\[
+\theta_y(t)<-2.5 \quad \text{o} \quad \theta_y(t)>2.5,
+\]
+y luego se estimaba el instante de inicio recorriendo la señal invertida (\textit{DesplazamientoY\_inv}) para detectar un ``paso'' por una banda interna $\pm 0.5$, usando banderas distintas para giro a izquierda o derecha. Es decir, el método dependía de un patrón previo en el desplazamiento (cruce de una banda) antes de llegar al umbral final, lo cual podía fallar si el sujeto realizaba una trayectoria que no generaba el patrón esperado (por ejemplo, sin un ajuste inicial alrededor del cono).
+
+En el microservicio, el giro 1 se redefine con un esquema de doble umbral más cercano temporalmente al evento:
+\[
+|\theta_y(t)|>0.9~\text{rad} \;\; \Rightarrow \;\; \text{retro-búsqueda del primer } |\theta_y(t)|>0.6~\text{rad}.
+\]
+Este cambio reduce la dependencia de la forma exacta de la trayectoria (p.\,ej., un ``microgiro'' previo) y hace que la detección del inicio del giro se base en la acumulación local y sostenida del desplazamiento.
+
+\subsection*{Inicio de marcha 2 (fin del giro 1)}
+Una diferencia crítica es cómo se marca el final del giro 1 y el inicio de la marcha 2.
+
+En el algoritmo previo, una vez definido el sentido del giro 1, el inicio de marcha 2 se detectaba por un cruce alrededor de un umbral fijo cercano a la zona final del giro:
+\[
+\text{si giro a izquierda: } \theta_y(t)<-3.2 \Rightarrow \theta_y(t)>-3.2;
+\qquad
+\text{si giro a derecha: } \theta_y(t)>3.2 \Rightarrow \theta_y(t)<3.2.
+\]
+Este criterio dependía principalmente del desplazamiento integrado y de una sola condición de cruce.
+
+En el microservicio, el inicio de marcha 2 se fija de forma diferente: se exige que exista evidencia de giro (desplazamiento acumulado $|\theta_y|\ge 0.9$) y, además, se utiliza una regla de estabilización temporal basada en $g_y(t)=0.0$ durante $N_{est}=10$ muestras consecutivas. Al cumplirse esa estabilidad, se define el inicio de marcha 2 como $t_{i-N_{est}}$. Esta modificación busca mitigar que el instante de cambio giro$\rightarrow$marcha varíe con el estilo de giro, imponiendo una condición de ``fin de giro'' basada en estabilización de la velocidad angular.
+
+\subsection*{Inicio del giro 2}
+En el algoritmo previo, el giro 2 se iniciaba por una lógica de banderas con ventanas de valores del desplazamiento:
+\[
+\theta_y(t)\in(3,6)\Rightarrow\text{bandera arriba},\;
+\theta_y(t)\in(-1,1)\Rightarrow\text{bandera medio},\;\\
+\theta_y(t)\in(-6,-3)\Rightarrow\text{bandera abajo},
+\]
+y luego se declaraba inicio del giro al cruzar umbrales como $\theta_y(t)>6$, $\theta_y(t)>0.25$ o $\theta_y(t)<-6$. Esta estrategia mezclaba varias condiciones redundantes (por ejemplo, dos reglas muy cercanas para la banda media) y no incorporaba explícitamente coherencia con el sentido del giro 1.
+
+En el microservicio, la detección del giro 2 se condiciona explícitamente por el sentido inferido al finalizar el giro 1 (giro a derecha vs. giro a izquierda). Según esa condición, se activan umbrales de entrada diferentes sobre $\theta_y(t)$ (por ejemplo $>5.5$ o $<1.5$ en una rama, y $>-1.5$ o $<-5.5$ en la otra). Luego, para evitar declarar un giro por pequeñas derivas, se identifica un inicio de movimiento mediante la derivada discreta:
+\[
+\dot{\theta}_y(t)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i},
+\]
+usando un umbral fijo $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$. Finalmente, el instante de inicio del giro 2 se confirma con umbrales internos dependientes de la rama (\(\pm 3.3\), \(\pm 2.5\)). En conjunto, el giro 2 en la versión actual combina (i) coherencia de sentido, (ii) acumulación suficiente y (iii) cambio sostenido de tendencia, lo cual mejora la robustez ante variabilidad intersujeto.
+
+\subsection*{Inicio de parado--sentado y fin de prueba}
+En el algoritmo previo, el inicio de parado--sentado se activaba con un umbral alto en $g_x(t)$ (por ejemplo, $g_x(t)>1$) y luego se buscaba hacia atrás en la señal invertida ($\textit{Lista\_Gx\_inv}$) el primer instante donde $g_x(t)<0$ para fijar el inicio del sentado. Este procedimiento dependía de un pico pronunciado y de una búsqueda retrospectiva.
+
+En el microservicio, el inicio de parado--sentado se hace más sensible al reducir el umbral a $g_x(t)>0.01~\text{rad/s}$ (una vez ya se detectó el inicio del giro 2). Esto permite capturar el inicio del gesto de sentarse sin exigir un pico grande. Adicionalmente, la versión actual separa explícitamente el \textit{fin del giro 2} usando:
+\[
+|g_y(t)|<0.05~\text{rad/s},
+\]
+lo cual no existía como evento independiente en el algoritmo previo.
+
+Por último, en ambos algoritmos el fin de prueba se determina con un patrón de cruce y retorno en $g_x(t)$ alrededor de $-0.05$, aunque en el microservicio la implementación está encapsulada en banderas equivalentes para marcar la estabilización final del tronco.
+
+\subsection*{Resumen de cambios}
+En síntesis, la versión actual reemplaza varias dependencias del algoritmo previo (bandas amplias en $\theta_y$, búsquedas retrospectivas extensas y picos grandes) por criterios más robustos basados en: doble umbral local para giro 1, estabilización en $g_y$ para iniciar marcha 2, coherencia de sentido y derivada de $\theta_y$ para giro 2, y un criterio más sensible para inicio de sentado final. Estos cambios apuntan a mejorar la detección en ejecuciones reales donde el sujeto puede bordear el cono con trayectorias distintas (con o sin giro preliminar), reduciendo fallos por variabilidad de estilo de marcha y giro.
+
+
+
+
+
+
+
 
 
 
