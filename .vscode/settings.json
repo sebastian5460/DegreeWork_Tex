@@ -1,5 +1,6 @@
 {
   "cSpell.language": "en,es-ES",
   "spellright.language": ["en", "es"],
-  "spellright.documentTypes": ["markdown", "latex", "plaintext"]
+  "spellright.documentTypes": ["markdown", "latex", "plaintext"],
+  "cSpell.words": ["subfases"]
 }

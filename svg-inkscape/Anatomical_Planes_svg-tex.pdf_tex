@@ -1,0 +1,71 @@
+%% Creator: Inkscape 1.4.2 (f4327f4, 2025-05-13), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'Anatomical_Planes_svg-tex.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{482.24221802bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.94599441)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{Anatomical_Planes_svg-tex.pdf}}%
+    \put(0.90669809,0.49604551){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Plano Transversal\end{tabular}}}}%
+    \put(0.61379495,0.04524864){\color[rgb]{0,0,0}\rotatebox{-15.446084}{\makebox(0,0)[rt]{\lineheight{0}\smash{\begin{tabular}[t]{r}Plano Sagital\end{tabular}}}}}%
+    \put(0.24190697,0.03183329){\color[rgb]{0,0,0}\rotatebox{15.705224}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Plano Coronal\end{tabular}}}}}%
+    \put(0.46061868,0.91655104){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Eje Craneocaudal\end{tabular}}}}%
+    \put(0.01515178,0.35640629){\color[rgb]{0,0,0}\rotatebox{14.844672}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Eje\end{tabular}}}}}%
+    \put(0.70080952,0.35334662){\color[rgb]{0,0,0}\rotatebox{-15.157021}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(Dorsoventral)\end{tabular}}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{Anatomical_Planes_svg-tex.pdf}}%
+    \put(0.87180118,0.46897133){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(Axial)\end{tabular}}}}%
+    \put(0.70080952,0.38134087){\color[rgb]{0,0,0}\rotatebox{-15.157021}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Anteroposterior\end{tabular}}}}}%
+    \put(0.70080952,0.4093351){\color[rgb]{0,0,0}\rotatebox{-15.157021}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Eje\end{tabular}}}}}%
+    \put(0.24190697,0.00383905){\color[rgb]{0,0,0}\rotatebox{15.705224}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(Frontal)\end{tabular}}}}}%
+    \put(0.01515178,0.32841206){\color[rgb]{0,0,0}\rotatebox{14.844672}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}Izquierda-derecha\end{tabular}}}}}%
+    \put(0.01515178,0.30041783){\color[rgb]{0,0,0}\rotatebox{14.844672}{\makebox(0,0)[lt]{\lineheight{0}\smash{\begin{tabular}[t]{l}(Laterolateral)\end{tabular}}}}}%
+  \end{picture}%
+\endgroup%
