@@ -34,6 +34,8 @@
 \usepackage{tabularx}
 \usepackage{booktabs}
 \usepackage{subcaption} % to caption of subfigures
+\usepackage{longtable} % tables that span multiple pages
+
 
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc}
@@ -379,12 +381,6 @@ Finalmente, agradezco profundamente a mi familia por su apoyo constante, compren
 \noindent \textbf{ACELERÓMETRO:} Sensor que mide la aceleración lineal de un cuerpo en uno o varios ejes, incluyendo tanto aceleraciones debidas al movimiento como a la gravedad.  
 \vspace{0.3cm}
 
-\noindent \textbf{\textit{API} (Application Programming Interface):} Conjunto de definiciones, protocolos y funciones que permite la comunicación e intercambio de datos entre diferentes componentes o servicios de software.  
-\vspace{0.3cm}
-
-\noindent \textbf{BASE DE DATOS RELACIONAL:} Sistema de gestión de datos que organiza la información en tablas relacionadas entre sí mediante claves primarias y foráneas, facilitando la integridad y consistencia de los datos.  
-\vspace{0.3cm}
-
 \noindent \textbf{BLAND--ALTMAN:} Método estadístico utilizado para evaluar el grado de acuerdo entre dos métodos de medición cuantitativos, basado en el análisis del sesgo y los límites de concordancia.  
 \vspace{0.3cm}
 
@@ -400,22 +396,11 @@ Finalmente, agradezco profundamente a mi familia por su apoyo constante, compren
 \noindent \textbf{iTUG:} Sigla de \textit{Instrumented Timed Up and Go}. Variante instrumentada de la prueba funcional Timed Up and Go que incorpora sensores inerciales para registrar señales cinemáticas durante su ejecución, permitiendo la obtención de variables adicionales como aceleraciones, velocidades angulares y segmentación automática de subfases, con el fin de mejorar la evaluación objetiva de la movilidad y el desempeño funcional del paciente.
 \vspace{0.3cm}
 
-\noindent \textbf{JWT:} Sigla de \textit{JSON Web Token}. Mecanismo de autenticación basado en tokens firmados digitalmente que permite transmitir información segura entre cliente y servidor de forma compacta y autónoma.
 
-\vspace{0.3cm}
 
 \noindent \textbf{MDC (Minimal Detectable Change):} Cambio mínimo en una medición que puede interpretarse como un cambio real, por encima del error de medición, con un nivel de confianza estadística predefinido.  
 \vspace{0.3cm}
 
-\noindent \textbf{MICROSERVICIO:} Arquitectura de software en la cual una aplicación se compone de servicios independientes, especializados y desacoplados, que se comunican entre sí mediante interfaces bien definidas.  
-\vspace{0.3cm}
-
-\noindent \textbf{PLATAFORMA CLIENTE--SERVIDOR:} Modelo de arquitectura de software donde los clientes realizan solicitudes y un servidor centralizado gestiona la lógica, el procesamiento y el almacenamiento de los datos.  
-\vspace{0.3cm}
-
-\noindent \textbf{RUP:} Sigla de \textit{Rational Unified Process}. Metodología de desarrollo de software iterativa e incremental que estructura el ciclo de vida del sistema en fases y disciplinas bien definidas.
-
-\vspace{0.3cm}
 
 \noindent \textbf{SENSOR INERCIAL:} Dispositivo electrónico utilizado para medir aceleraciones lineales, velocidades angulares y orientación espacial, comúnmente empleado en aplicaciones de análisis del movimiento humano.  
 \vspace{0.3cm}
@@ -429,8 +414,6 @@ Finalmente, agradezco profundamente a mi familia por su apoyo constante, compren
 \noindent \textbf{TRL (Technology Readiness Level):} Escala que clasifica el nivel de madurez tecnológica de un sistema, desde conceptos básicos (TRL 1) hasta sistemas completamente operativos en entornos reales y comerciales (TRL 9).  
 \vspace{0.3cm}
 
-\noindent \textbf{UX/UI:} Siglas de \textit{User Experience} y \textit{User Interface}. Conceptos asociados al diseño de sistemas interactivos que buscan optimizar la experiencia del usuario y la usabilidad de la interfaz gráfica.
-\vspace{0.3cm}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -558,30 +541,27 @@ Escalar la aplicación Timed Up and Go a un TRL 6 en la escala tecnológica, con
 
 
 \chapter{MARCO DE REFERENCIA}
+\label{ch:metodologia}
 
 \section{Antecedentes}
 
-El uso de teléfonos inteligentes en evaluación de marcha ha aumentado debido a su disponibilidad, portabilidad e incorporación de sensores inerciales. En una revisión exploratoria, Strongman et al. reportan evidencia de validez y confiabilidad en el uso de acelerómetros de \textit{smartphones} para capturar información cinemática de la marcha, destacando su potencial como alternativa de bajo costo frente a tecnologías especializadas \cite{reliabilty-smartphone-kinematic}. Adicionalmente, se han reportado resultados comparables para variables cinemáticas entre dispositivos móviles y sistemas de captura de movimiento, lo cual respalda su aplicabilidad en contextos clínicos y de investigación \cite{subtasks}.\\
+El uso de teléfonos inteligentes en la evaluación de la marcha ha aumentado de manera significativa debido a su alta disponibilidad, portabilidad y a la incorporación de sensores inerciales capaces de registrar información cinemática del movimiento humano. Diversos estudios han reportado evidencia de validez y confiabilidad en el uso de acelerómetros y giroscopios integrados en \textit{smartphones} para la medición de variables asociadas a la marcha, destacando su potencial como alternativa de bajo costo frente a tecnologías especializadas \cite{reliabilty-smartphone-kinematic,subtasks}.\\
 
-En particular, la instrumentación de la prueba \textit{Timed Up and Go} (iTUG) ha mostrado un incremento del valor informativo frente al \textit{TUG} tradicional, ya que permite extraer características temporales y cinemáticas asociadas a subfases del movimiento. Una revisión sistemática enfocada en iTUG destaca que la mayoría de propuestas emplean sensores inerciales y que la ubicación en la región lumbar baja es frecuente por su cercanía al centro de masa, facilitando la implementación clínica \cite{iTUG}.\\
+En particular, la instrumentación de la prueba \textit{Timed Up and Go} (\textit{iTUG}) ha mostrado un incremento del valor informativo frente al \textit{TUG} tradicional, al permitir la extracción de variables temporales y cinemáticas asociadas a subfases específicas del movimiento. Una revisión sistemática sobre iTUG destaca que la mayoría de las propuestas emplean sensores inerciales y que la ubicación en la región lumbar baja es frecuente por su cercanía al centro de masa, lo que facilita la implementación clínica \cite{iTUG}.
 
 \subsection{Trabajo previo y limitaciones}
 
-Como antecedente directo, el trabajo de maestría de Pérez Kuleshova desarrolló un prototipo basado en \textit{smartphone} para capturar señales inerciales y estimar los tiempos de subfases del \textit{TUG}, complementado con un aplicativo de escritorio para el procesamiento posterior \cite{Sistema-portable-TUG-AKuleshov}. Aunque se logró la adquisición y segmentación básica de subetapas, el flujo presentaba limitaciones para su adopción operativa: dependencia de transferencia manual de datos al computador, ausencia de persistencia estructurada por paciente y falta de integración con una plataforma centralizada. Asimismo, el trabajo plantea como líneas de mejora la optimización del procesamiento, una interfaz más usable y mecanismos de almacenamiento en la nube.\\
+Como antecedente directo, el trabajo de maestría de Pérez Kuleshova desarrolló un prototipo basado en \textit{smartphone} para la adquisición de señales inerciales y la estimación de los tiempos de subfases del \textit{TUG}, complementado con un aplicativo de escritorio para el procesamiento posterior \cite{Sistema-portable-TUG-AKuleshov}. Aunque se logró la segmentación básica de subetapas, el flujo presentaba limitaciones para su adopción operativa, entre ellas la dependencia de transferencia manual de datos, la ausencia de persistencia estructurada por paciente y la falta de integración con una plataforma centralizada.\\
 
-Este Trabajo de Grado retoma dicho antecedente y lo extiende hacia una solución autónoma y conectada: (i) aplicación móvil con gestión de pacientes y pruebas en modo local y \textit{online}; (ii) envío autenticado al servidor; (iii) procesamiento en servidor mediante microservicio para extracción de variables temporales y cinemáticas.\\
+El presente Trabajo de Grado retoma dicho antecedente y lo extiende hacia una solución autónoma y conectada, incorporando: (i) una aplicación móvil con gestión de pacientes y pruebas en modo local y \textit{online}; (ii) envío autenticado de datos a un servidor central; y (iii) procesamiento automático mediante un microservicio para la extracción de variables temporales y cinemáticas.
 
 \section{Prueba \textit{Timed Up and Go} e instrumentación}
 
-La prueba \textit{Timed Up and Go} (\textit{TUG}) es una prueba funcional ampliamente utilizada para evaluar la movilidad básica de una persona mediante el tiempo requerido para levantarse de una silla, caminar una distancia de tres metros, realizar un giro de 180°, regresar al punto inicial y sentarse nuevamente \cite{Convergent-Validity-wearable-sensors}. Aunque el tiempo total de ejecución es el indicador más empleado en la práctica clínica, el análisis segmentado por subfases permite obtener información adicional al identificar en qué componentes del movimiento se concentra el desempeño del paciente, como las transiciones posturales, la marcha o los giros \cite{Association-Between-Performance-on-TUG}.\\
+La prueba \textit{Timed Up and Go} (\textit{TUG}) es una prueba funcional ampliamente utilizada para evaluar la movilidad básica mediante el tiempo requerido para levantarse de una silla, caminar tres metros, realizar un giro de 180°, regresar al punto inicial y sentarse nuevamente \cite{Convergent-Validity-wearable-sensors}. Aunque el tiempo total es el indicador más empleado en la práctica clínica, el análisis segmentado por subfases permite identificar en qué componentes del movimiento se concentra el desempeño del paciente, como transiciones posturales, marcha o giros \cite{Association-Between-Performance-on-TUG}.\\
 
-La Figura~\ref{subEtapasTug} ilustra esquemáticamente las diferentes subfases que componen la prueba \textit{TUG}, así como las principales variables biomecánicas y temporales asociadas a cada una de ellas. En esta figura, $\omega$ representa la velocidad angular del tronco alrededor del eje medio--lateral, mientras que $a$ corresponde a la aceleración en el eje antero--posterior. Ambas señales son registradas mediante sensores inerciales durante la ejecución de la prueba y permiten identificar eventos característicos del movimiento.\\
+La Figura~\ref{subEtapasTug} ilustra las subfases que componen la prueba \textit{TUG} y las principales variables temporales y cinemáticas asociadas. En esta figura, $\omega$ representa la velocidad angular del tronco alrededor del eje medio--lateral y $a$ la aceleración en el eje antero--posterior, señales que permiten identificar eventos característicos del movimiento durante la ejecución de la prueba.\\
 
-El tiempo $t$ se expresa en milisegundos (ms) y corresponde al eje temporal sobre el cual se analizan las señales. Los instantes marcados como $01$ y $02$ indican el punto de inicio de la prueba determinado por el observador 1 y el observador 2, respectivamente, utilizados para el análisis de concordancia interobservador.\\
-
-En cuanto a las variables temporales por subfase, $t_{stb}$ denota el tiempo de transición de sedente a bípedo (levantarse de la silla), $t_{bts}$ corresponde al tiempo de transición de bípedo a sedente (sentarse), $t_{marcha}$ representa el tiempo total del periodo de marcha, y $t_{giro}$ es el tiempo empleado durante el giro de 180°. Finalmente, $t_{TUG}$ o $t_{tug}$ corresponde al tiempo total de ejecución de la prueba \textit{Timed Up and Go}.\\
-
-La instrumentación del \textit{TUG} mediante sensores inerciales permite estimar de manera automática tanto el tiempo total de la prueba como los tiempos asociados a cada subfase, así como variables relacionadas con la aceleración y la rotación del tronco. Esta instrumentación incrementa la riqueza del análisis clínico y de investigación, al proporcionar información objetiva y reproducible sobre el desempeño funcional del paciente \cite{iTUG}.
+Las variables temporales incluyen el tiempo de transición de sedente a bípedo ($t_{stb}$), el tiempo de transición de bípedo a sedente ($t_{bts}$), los periodos de marcha y los giros, así como el tiempo total de ejecución ($t_{TUG}$). La instrumentación del \textit{TUG} mediante sensores inerciales permite estimar estas variables de manera automática y reproducible, incrementando la riqueza del análisis clínico y de investigación \cite{iTUG}.
 
 \begin{figure}[H]
     \centering
@@ -592,198 +572,105 @@ La instrumentación del \textit{TUG} mediante sensores inerciales permite estima
 
 \section{Sensores inerciales en teléfonos inteligentes}
 
-Los teléfonos inteligentes integran acelerómetros y giroscopios útiles para capturar señales de movimiento. En la literatura se resalta la importancia de la frecuencia de muestreo para representar adecuadamente la dinámica de la marcha; sin embargo, frecuencias excesivamente altas pueden incrementar el ruido y el costo computacional, por lo que suele recomendarse justificar experimentalmente el valor seleccionado \cite{reliabilty-smartphone-kinematic}. Estas consideraciones son relevantes para aplicaciones móviles orientadas a instrumentación clínica.\\
+Los teléfonos inteligentes integran acelerómetros y giroscopios que permiten capturar señales asociadas al movimiento humano. La literatura resalta la importancia de seleccionar adecuadamente la frecuencia de muestreo para representar la dinámica de la marcha sin introducir ruido innecesario ni incrementar el costo computacional \cite{reliabilty-smartphone-kinematic}. Estas consideraciones son especialmente relevantes en aplicaciones móviles orientadas a instrumentación clínica y monitoreo funcional.
 
 \section{Variables de interés en iTUG}
 
-La instrumentación del \textit{TUG} permite extraer variables temporales y cinemáticas que complementan el tiempo total. En este Trabajo de Grado, el procesamiento incluye: tiempo total, tiempos por subfase, aceleración en ejes antero--posterior, medio--lateral y vertical, variables de rotación (picos y promedios) y métricas asociadas a flexión--extensión durante transiciones posturales. La literatura respalda que la segmentación por subfases y la extracción de características pueden aumentar la capacidad descriptiva del \textit{TUG} instrumentado, especialmente para identificar componentes del movimiento que presentan mayor deterioro \cite{iTUG}.\\
-
-% Se eliminaron listas largas de variables cinéticas/cinemáticas sin fuente explícita.
-% Si deseas conservarlas, se recomienda citarlas directamente del trabajo previo o de un artículo específico.
+La instrumentación del \textit{TUG} permite extraer variables temporales y cinemáticas que complementan el tiempo total de la prueba. En este Trabajo de Grado se consideran, entre otras, los tiempos por subfase, aceleraciones en los ejes antero--posterior, medio--lateral y vertical, así como métricas de rotación del tronco y parámetros asociados a flexión--extensión durante transiciones posturales. La literatura respalda que la segmentación por subfases y la extracción de características incrementan la capacidad descriptiva del \textit{TUG} instrumentado, especialmente para identificar componentes del movimiento con mayor deterioro funcional \cite{iTUG}.
 
 \section{Niveles de madurez tecnológica (TRL)}
 
-Los niveles de madurez tecnológica (\textit{Technology Readiness Levels}, TRL) fueron propuestos inicialmente por la NASA y adoptados posteriormente por múltiples organizaciones como un marco para describir el avance de una tecnología desde su concepción hasta su despliegue \cite{TRL-EuroFunding}. En este trabajo se busca alcanzar TRL 6, entendido como la validación de un prototipo funcional en un entorno relevante, con pruebas en condiciones cercanas a la operación real \cite{TRL-ayming}.\\
-
-% Se recomienda resumir la descripción de TRL en lugar de listar los 9 niveles completos.
-% Si el comité exige la lista completa, mantenla en anexos.
+Los niveles de madurez tecnológica (\textit{Technology Readiness Levels}, TRL) constituyen un marco propuesto inicialmente por la NASA para describir el grado de desarrollo de una tecnología desde su concepción hasta su despliegue operativo \cite{TRL-EuroFunding}. En este trabajo se plantea alcanzar un nivel TRL~6, entendido como la validación de un prototipo funcional en un entorno relevante, con pruebas realizadas en condiciones cercanas a la operación real \cite{TRL-ayming}.
 
 \section{Plataforma, nube y consideraciones de seguridad}
 
-Dado que el alcance incluye envío de datos y almacenamiento centralizado, se consideran conceptos de telemetría (captura, transmisión y almacenamiento de señales) \cite{Telemetría}, así como prácticas básicas de seguridad para autenticación y protección de la información en servicios \textit{web} \cite{Cyber-security-protocols}. Además, se contemplan principios de arquitectura de software como soporte para escalabilidad, mantenibilidad y separación de responsabilidades (aplicación, servidor y microservicios) \cite{Enterprise_architecture-frameworks,Software-architecture}.\\
+Dado que el sistema desarrollado contempla el envío de datos y el almacenamiento centralizado de información, se consideran conceptos de telemetría, entendida como la captura, transmisión y almacenamiento de señales \cite{Telemetría}, así como prácticas básicas de seguridad para la autenticación y protección de la información en servicios \textit{web} \cite{Cyber-security-protocols}. Asimismo, se incorporan principios de arquitectura de software orientados a la separación de responsabilidades, escalabilidad y mantenibilidad, mediante la integración de una aplicación móvil, un servidor central y microservicios especializados \cite{Enterprise_architecture-frameworks,Software-architecture}.
 
 
 
-\section{Confiabilidad, validez y acuerdo en estudios de medición}
+\section{Confiabilidad, validez y acuerdo en estudios de medición} La \textbf{confiabilidad} describe el grado en que una medición es consistente y reproducible bajo condiciones comparables. En estudios de instrumentos y comparación entre métodos, una métrica ampliamente utilizada es el \textbf{coeficiente de correlación intraclase} (\textit{ICC}), que evalúa la proporción de variabilidad atribuible a diferencias reales frente al error de medición \cite{ShroutFleiss1979,McGrawWong1996}.\\ La \textbf{validez} en comparación entre métodos requiere cuantificar \textbf{acuerdo} y no únicamente asociación. Para ello, el método de \textbf{Bland--Altman} evalúa el sesgo promedio entre métodos y define límites de concordancia al 95\% que describen el rango esperado de discrepancia \cite{BlandAltman1986}.\\ \subsection{\textit{ICC}(2,1) y criterios de interpretación} El \textit{ICC}(2,1) corresponde a un modelo de dos vías con efectos aleatorios y medición única, apropiado cuando se desea \textbf{acuerdo absoluto} entre métodos y se asume que los evaluadores/métodos son representativos de una población mayor \cite{ShroutFleiss1979,McGrawWong1996}. Para interpretación práctica, se emplean guías de clasificación (baja, moderada, buena, excelente) \cite{KooLi2016}.\\ \subsection{Bland--Altman: sesgo y límites de concordancia} Sea $n$ el número total de observaciones. Para cada observación $i$, se define la diferencia entre los métodos de medición como: \[ d_i = M_{app,i} - M_{ref,i}, \] donde $M_{app,i}$ corresponde al valor medido por la aplicación desarrollada y $M_{ref,i}$ representa el valor medido por el sistema de referencia para la observación $i$. El \textbf{sesgo} entre los métodos se define como el promedio de las diferencias: \[ \overline{d} = \frac{1}{n}\sum_{i=1}^{n} d_i, \] mientras que la \textbf{desviación estándar de las diferencias} se calcula como: \[ SD_d = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (d_i - \overline{d})^2}. \] A partir de estos valores, los \textbf{límites de concordancia} al 95\% se definen como: \[ LoA_{low} = \overline{d} - 1.96 \cdot SD_d, \qquad LoA_{high} = \overline{d} + 1.96 \cdot SD_d, \] los cuales permiten evaluar la intercambiabilidad entre los métodos de medición en función de si el rango de variación observado es clínicamente aceptable \cite{BlandAltman1986}. \subsection{Métricas de error (MAE, RMSE, MAPE)} Para complementar el análisis de concordancia de Bland--Altman, se emplean métricas de error que cuantifican la magnitud de las diferencias entre los métodos. Sea $d_i$ la diferencia definida previamente y $n$ el número total de observaciones. El \textbf{error absoluto medio} (MAE) se define como: \[ MAE = \frac{1}{n}\sum_{i=1}^n |d_i|, \] y representa el error promedio en unidades de la variable medida. El \textbf{error cuadrático medio} (RMSE) se calcula como: \[ RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n d_i^2}, \] penalizando en mayor medida los errores de mayor magnitud. Por su parte, el \textbf{error porcentual absoluto medio} (MAPE) se define como: \[ MAPE = \frac{100}{n}\sum_{i=1}^n \left|\frac{d_i}{M_{ref,i}}\right|, \] donde $M_{ref,i}$ corresponde al valor de referencia de la observación $i$. Esta métrica expresa el error en términos porcentuales y debe interpretarse con precaución en subfases de corta duración, dado que valores pequeños del denominador pueden amplificar el porcentaje de error. \subsection{Planos Anatómicos} Los planos anatómicos son divisiones imaginarias que se utilizan para describir la ubicación y el movimiento de las estructuras del cuerpo humano. Los tres planos principales son el plano sagital, el plano coronal (o frontal) y el plano transversal (o axial), como se observa en la Figura \ref{fig:anatomical-planes}. Estos planos permiten una mejor comprensión de la anatomía y la función del cuerpo, facilitando la comunicación entre profesionales de la salud.\\ \begin{figure}[h!] \centering \includesvg[width=0.8 \textwidth, inkscapelatex=false]{Images/Anatomical_Planes} \caption{Planos anatómicos del cuerpo humano \cite{edoaradoAnatomicalPlanes}.} \label{fig:anatomical-planes} \end{figure} \subsection{Error de medición: \textit{SEM} y MDC} El \textbf{error estándar de medición} (\textit{SEM}) cuantifica la imprecisión típica asociada a una medición y se define como: \[ SEM = SD \cdot \sqrt{1 - \textit{ICC}}, \] donde $SD$ corresponde a la desviación estándar de las mediciones y $\textit{ICC}$ es el coeficiente de correlación intraclase obtenido para la variable analizada. A partir del \textit{SEM} se define el \textbf{cambio mínimo detectable} (MDC), el cual representa el umbral mínimo de cambio necesario para afirmar que una variación observada no se debe al error de medición. Para un nivel de confianza del 95\%, el MDC se calcula como: \[ MDC_{95} = 1.96 \cdot \sqrt{2} \cdot SEM. \] Estas métricas son ampliamente utilizadas en estudios de medición clínica y rehabilitación para evaluar la confiabilidad y sensibilidad al cambio de los instrumentos de medición \cite{Weir2005}. 
 
-La \textbf{confiabilidad} describe el grado en que una medición es consistente y reproducible bajo condiciones comparables. En estudios de instrumentos y comparación entre métodos, una métrica ampliamente utilizada es el \textbf{coeficiente de correlación intraclase} (\textit{ICC}), que evalúa la proporción de variabilidad atribuible a diferencias reales frente al error de medición \cite{ShroutFleiss1979,McGrawWong1996}.\\
+\clearpage 
 
-La \textbf{validez} en comparación entre métodos requiere cuantificar \textbf{acuerdo} y no únicamente asociación. Para ello, el método de \textbf{Bland--Altman} evalúa el sesgo promedio entre métodos y define límites de concordancia al 95\% que describen el rango esperado de discrepancia \cite{BlandAltman1986}.\\
-
-\subsection{\textit{ICC}(2,1) y criterios de interpretación}
-
-El \textit{ICC}(2,1) corresponde a un modelo de dos vías con efectos aleatorios y medición única, apropiado cuando se desea \textbf{acuerdo absoluto} entre métodos y se asume que los evaluadores/métodos son representativos de una población mayor \cite{ShroutFleiss1979,McGrawWong1996}. Para interpretación práctica, se emplean guías de clasificación (pobre, moderada, buena, excelente) \cite{KooLi2016}.\\
-
-\subsection{Bland--Altman: sesgo y límites de concordancia}
-
-Sea $n$ el número total de observaciones. Para cada observación $i$, se define la diferencia entre los métodos de medición como:
-\[
-d_i = M_{app,i} - M_{ref,i},
-\]
-donde $M_{app,i}$ corresponde al valor medido por la aplicación desarrollada y $M_{ref,i}$ representa el valor medido por el sistema de referencia para la observación $i$.
-
-El \textbf{sesgo} entre los métodos se define como el promedio de las diferencias:
-\[
-\overline{d} = \frac{1}{n}\sum_{i=1}^{n} d_i,
-\]
-mientras que la \textbf{desviación estándar de las diferencias} se calcula como:
-\[
-SD_d = \sqrt{\frac{1}{n-1}\sum_{i=1}^n (d_i - \overline{d})^2}.
-\]
-
-A partir de estos valores, los \textbf{límites de concordancia} al 95\% se definen como:
-\[
-LoA_{low} = \overline{d} - 1.96 \cdot SD_d, \qquad
-LoA_{high} = \overline{d} + 1.96 \cdot SD_d,
-\]
-los cuales permiten evaluar la intercambiabilidad entre los métodos de medición en función de si el rango de variación observado es clínicamente aceptable \cite{BlandAltman1986}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %% DESARROLLO DE LA APLICACIÓN %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-
-\subsection{Métricas de error (MAE, RMSE, MAPE)}
-
-Para complementar el análisis de concordancia de Bland--Altman, se emplean métricas de error que cuantifican la magnitud de las diferencias entre los métodos. Sea $d_i$ la diferencia definida previamente y $n$ el número total de observaciones.
-
-El \textbf{error absoluto medio} (MAE) se define como:
-\[
-MAE = \frac{1}{n}\sum_{i=1}^n |d_i|,
-\]
-y representa el error promedio en unidades de la variable medida.
-
-El \textbf{error cuadrático medio} (RMSE) se calcula como:
-\[
-RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^n d_i^2},
-\]
-penalizando en mayor medida los errores de mayor magnitud.
-
-Por su parte, el \textbf{error porcentual absoluto medio} (MAPE) se define como:
-\[
-MAPE = \frac{100}{n}\sum_{i=1}^n \left|\frac{d_i}{M_{ref,i}}\right|,
-\]
-donde $M_{ref,i}$ corresponde al valor de referencia de la observación $i$. Esta métrica expresa el error en términos porcentuales y debe interpretarse con precaución en subfases de corta duración, dado que valores pequeños del denominador pueden amplificar el porcentaje de error.
-
-
-\subsection{Planos Anatómicos}
-
-Los planos anatómicos son divisiones imaginarias que se utilizan para describir la ubicación y el movimiento de las estructuras del cuerpo humano. Los tres planos principales son el plano sagital, el plano coronal (o frontal) y el plano transversal (o axial), como se observa en la Figura \ref{fig:anatomical-planes}. Estos planos permiten una mejor comprensión de la anatomía y la función del cuerpo, facilitando la comunicación entre profesionales de la salud.\\
-
-\begin{figure}[h!]
-    \centering
-    \includesvg[width=0.8 \textwidth, inkscapelatex=false]{Images/Anatomical_Planes}
-    \caption{Planos anatómicos del cuerpo humano \cite{edoaradoAnatomicalPlanes}.}
-    \label{fig:anatomical-planes}
-\end{figure}
-
-
-\subsection{Error de medición: \textit{SEM} y MDC}
-
-El \textbf{error estándar de medición} (\textit{SEM}) cuantifica la imprecisión típica asociada a una medición y se define como:
-\[
-SEM = SD \cdot \sqrt{1 - \textit{ICC}},
-\]
-donde $SD$ corresponde a la desviación estándar de las mediciones y $\textit{ICC}$ es el coeficiente de correlación intraclase obtenido para la variable analizada.
-
-A partir del \textit{SEM} se define el \textbf{cambio mínimo detectable} (MDC), el cual representa el umbral mínimo de cambio necesario para afirmar que una variación observada no se debe al error de medición. Para un nivel de confianza del 95\%, el MDC se calcula como:
-\[
-MDC_{95} = 1.96 \cdot \sqrt{2} \cdot SEM.
-\]
-
-Estas métricas son ampliamente utilizadas en estudios de medición clínica y rehabilitación para evaluar la confiabilidad y sensibilidad al cambio de los instrumentos de medición \cite{Weir2005}.
-
-\clearpage
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% DESARROLLO DE LA APLICACIÓN
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{DISEÑO E IMPLEMENTACIÓN DEL SISTEMA}
 \label{ch:diseno-implementacion}
 
-Este capítulo describe el proceso de diseño e implementación del sistema desarrollado para la instrumentación de la prueba \textit{Timed Up and Go} (\textit{TUG}). Se presenta el levantamiento de requerimientos orientado al cumplimiento de un nivel de madurez tecnológica TRL 6, la definición de población objetivo y escenarios de uso, y el desarrollo de la aplicación móvil Android. Finalmente, se detalla el funcionamiento del sistema en modo \textit{offline} y \textit{online}, incluyendo el flujo de ejecución de la prueba, la gestión de usuarios, el almacenamiento local y el envío autenticado de datos al servidor.
+Este capítulo describe el diseño e implementación del sistema desarrollado para la instrumentación de la prueba \textit{Timed Up and Go} (\textit{TUG}). Se presenta el levantamiento de requerimientos orientado al cumplimiento de TRL 6, la población objetivo y escenarios de uso considerados, y el desarrollo de la aplicación móvil Android. Finalmente, se describe el funcionamiento en modos \textit{offline} y \textit{online}, incluyendo el flujo de ejecución de la prueba, la gestión de usuarios, el almacenamiento local y el envío autenticado de datos al servidor.
 
 \section{Levantamiento de requerimientos orientado a TRL 6}
 \label{sec:req-trl6}
 
-Una de las causas recurrentes de problemas en proyectos tecnológicos es la falta de planificación y de un proceso de ingeniería que permita especificar, controlar y validar requerimientos, lo que incrementa riesgos como sobrecostos, baja mantenibilidad y fallas durante el desarrollo \cite{desarrollo-RUP}. En este Trabajo de Grado se adoptó la metodología \textit{Rational Unified Process} (RUP) como guía para el levantamiento y refinamiento de requerimientos, priorizando aquellos que permiten escalar el prototipo hacia condiciones de operación relevantes.
+La falta de planificación y de un proceso de ingeniería para especificar, controlar y validar requerimientos incrementa riesgos como sobrecostos, baja mantenibilidad y fallas durante el desarrollo \cite{desarrollo-RUP}. En este Trabajo de Grado se adoptó la metodología \textit{Rational Unified Process} (RUP) como guía para el levantamiento y refinamiento de requerimientos, priorizando aquellos necesarios para escalar el prototipo hacia condiciones de operación relevantes.
 
-Los niveles de madurez tecnológica (\textit{Technology Readiness Levels}, TRL) se utilizan para describir el avance de una tecnología desde su concepción hasta su despliegue. En particular, TRL 6 establece que el sistema debe contar con un prototipo piloto capaz de ejecutar las funciones necesarias, y haber sido probado de manera satisfactoria en un entorno relevante, bajo condiciones cercanas a la operación real \cite{TRL-EuroFunding}. Para el presente trabajo, esta definición implica tres compromisos principales:
+Los niveles de madurez tecnológica (\textit{Technology Readiness Levels}, TRL) describen el avance de una tecnología desde su concepción hasta su despliegue. En particular, TRL 6 requiere un prototipo piloto funcional probado satisfactoriamente en un entorno relevante y bajo condiciones cercanas a la operación real \cite{TRL-EuroFunding}. En este trabajo, lo anterior se traduce en:
 
 \begin{enumerate}
-    \item \textbf{Prototipo funcional completo:} el sistema debe integrar adquisición de señales, gestión de pacientes y pruebas, almacenamiento y envío de información, y generación de resultados a partir de datos crudos.
-    \item \textbf{Pruebas de factibilidad en condiciones relevantes:} el sistema debe ser probado en un entorno de laboratorio con voluntarios, siguiendo un protocolo de uso reproducible y comparando resultados frente a un sensor de referencia (BTS GSensor) disponible en el laboratorio del Servicio de Rehabilitación Humana, en adelante, SERH.
-    \item \textbf{Operación en condiciones reales de uso:} la solución debe permitir ejecución en escenarios con conectividad limitada, por lo cual debe operar en modo \textit{offline} con almacenamiento local y sincronización posterior, y en modo \textit{online} con autenticación y persistencia centralizada.
+    \item \textbf{Prototipo funcional completo:} integración de adquisición de señales, gestión de pacientes y pruebas, almacenamiento, envío de información y generación de resultados a partir de datos crudos.
+    \item \textbf{Pruebas de factibilidad en condiciones relevantes:} pruebas en entorno de laboratorio con voluntarios, siguiendo un protocolo reproducible y comparando resultados frente a un sensor de referencia (BTS GSensor) disponible en el laboratorio del Servicio de Rehabilitación Humana (SERH).
+    \item \textbf{Operación en condiciones reales de uso:} soporte de escenarios con conectividad limitada mediante operación \textit{offline} (almacenamiento local y sincronización posterior) y \textit{online} (autenticación y persistencia centralizada).
 \end{enumerate}
 
-A partir de estos lineamientos, se definieron requerimientos funcionales y no funcionales del sistema, tomando como referencia (i) las necesidades del laboratorio SERH, (ii) la operación esperada en escenarios de campo (con o sin conectividad) y (iii) las variables reportadas por sistemas comerciales como el BTS GSensor, con el objetivo de facilitar el contraste y la validación posterior.
+A partir de estos lineamientos se definieron requerimientos funcionales y no funcionales considerando: (i) necesidades del SERH, (ii) escenarios de campo con o sin conectividad, y (iii) variables reportadas por sistemas comerciales como el BTS GSensor, con el objetivo de facilitar contraste y validación.
 
-\subsection{Definición de población objetivo y escenarios de prueba}
+\subsection{Población objetivo y escenarios de prueba}
 \label{subsec:poblacion-escenarios}
 
-Para contextualizar el diseño del sistema, se realizó una entrevista al personal de fisioterapia del laboratorio SERH de la Universidad del Valle. Las principales conclusiones para el diseño del sistema fueron:
+Para contextualizar el diseño, se realizó una entrevista al personal de fisioterapia del SERH. Las conclusiones relevantes fueron:
 
 \begin{itemize}
-    \item La prueba \textit{TUG} se aplica de forma frecuente en población mayor, en particular a partir de los 55 años, con predominio de pacientes mujeres, coherente con el contexto clínico de evaluación de movilidad.
-    \item En el SERH, las pruebas relacionadas con marcha se realizan en un ambiente controlado: superficie plana, silla estable sin reposabrazos y señalización del recorrido.
-    \item En general no se realizan salidas de campo como parte del servicio regular, aunque existen contextos institucionales donde la evaluación podría extenderse fuera del laboratorio, lo cual respalda el interés en soluciones portátiles.
+    \item La prueba \textit{TUG} se aplica con alta frecuencia en población mayor (comúnmente desde 55 años), con predominio de pacientes mujeres, coherente con el contexto clínico de evaluación de movilidad.
+    \item Las pruebas relacionadas con marcha se realizan en un ambiente controlado: superficie plana, silla estable sin reposabrazos y señalización del recorrido.
+    \item Aunque no se realizan salidas de campo de manera regular, existen contextos institucionales donde la evaluación podría extenderse fuera del laboratorio, lo cual respalda el interés en soluciones portátiles.
 \end{itemize}
 
-En este Trabajo de Grado, la validación técnica se realizó con adultos sanos mayores de edad, debido a que el objetivo principal no es el diagnóstico clínico, sino la verificación de funcionamiento y la evaluación de acuerdo de medición frente a un sensor de referencia. En consecuencia, el sistema desarrollado no pretende reemplazar al BTS GSensor, sino complementarlo como alternativa portátil para escenarios donde no se dispone de equipamiento especializado o donde se requiere captura descentralizada con posterior análisis centralizado.
+La validación técnica se realizó con adultos sanos mayores de edad, dado que el objetivo principal fue verificar el funcionamiento del sistema y evaluar el acuerdo de medición frente a un sensor de referencia, más que realizar diagnóstico clínico. En consecuencia, el sistema no pretende reemplazar al BTS GSensor, sino complementarlo como alternativa portátil para escenarios sin equipamiento especializado o con captura descentralizada y análisis centralizado.
 
-\subsection{Requerimientos funcionales del sistema}
+\subsection{Requerimientos funcionales}
 \label{subsec:req-funcionales}
 
-Los requerimientos funcionales se definieron para cubrir la operación completa del sistema (aplicación móvil + servidor), asegurando autonomía, trazabilidad y posibilidad de validación. Se resumen a continuación:
+Los requerimientos funcionales se definieron para cubrir la operación completa del sistema (aplicación móvil + servidor), asegurando autonomía, trazabilidad y posibilidad de validación:
 
 \begin{itemize}
-    \item \textbf{Gestión de pacientes y sesiones:} registrar pacientes en el dispositivo, iniciar y cerrar sesión por paciente, y asociar pruebas a un paciente específico.
-    \item \textbf{Ejecución guiada del \textit{TUG}:} ofrecer un flujo que incluya verificación de sensores, calibración, indicación de inicio y finalización automática de la prueba.
-    \item \textbf{Adquisición de datos crudos:} capturar señales de acelerómetro y giroscopio durante la prueba, almacenarlas en formato estructurado y asociarlas a metadatos del paciente.
-    \item \textbf{Almacenamiento local:} guardar pruebas por paciente en el dispositivo cuando no exista conexión, incluyendo historial y estado de sincronización.
-    \item \textbf{Modo online y autenticación:} permitir inicio de sesión con credenciales, obtención de \textit{token} y envío autenticado de pruebas al servidor.
-    \item \textbf{Confirmación de envío y manejo de errores:} reportar al usuario el estado de envío y conservar datos localmente ante fallos de red, \textit{timeout} o errores de procesamiento.
+    \item \textbf{Gestión de pacientes y sesiones:} registrar pacientes en el dispositivo, iniciar/cerrar sesión por paciente y asociar pruebas a un paciente específico.
+    \item \textbf{Ejecución guiada del \textit{TUG}:} flujo con verificación de sensores, calibración, indicación de inicio y finalización automática.
+    \item \textbf{Adquisición de datos crudos:} captura de acelerómetro y giroscopio durante la prueba, almacenamiento estructurado y asociación a metadatos.
+    \item \textbf{Almacenamiento local:} guardar pruebas por paciente en ausencia de conexión, incluyendo historial y estado de sincronización.
+    \item \textbf{Modo \textit{online} y autenticación:} inicio de sesión con credenciales, obtención de \textit{token} y envío autenticado al servidor.
+    \item \textbf{Manejo de errores y confirmación de envío:} notificar estado de transmisión y conservar datos localmente ante fallos de red, \textit{timeout} o errores de procesamiento.
 \end{itemize}
 
 \subsection{Requerimientos no funcionales}
 \label{subsec:req-no-funcionales}
 
-Los requerimientos no funcionales se orientaron a garantizar que el prototipo sea usable, mantenible y adecuado para TRL 6:
+Los requerimientos no funcionales se orientaron a garantizar usabilidad, mantenibilidad y adecuación a TRL 6:
 
 \begin{itemize}
-    \item \textbf{Usabilidad:} interfaz amigable e intuitiva, siguiendo buenas prácticas UX/UI (User Experience / User Interface) para minimizar errores operativos.
+    \item \textbf{Usabilidad:} interfaz intuitiva para minimizar errores operativos.
     \item \textbf{Operación sin conectividad:} funcionamiento \textit{offline} con almacenamiento local y sincronización posterior.
-    \item \textbf{Seguridad:} autenticación para el envío de datos al servidor y protección de información sensible.
-    \item \textbf{Compatibilidad:} ejecución en Android 10 o superior, asegurando soporte para sensores y librerías actuales.
-    \item \textbf{Escalabilidad y mantenibilidad:} diseño modular que permita evolucionar funcionalidades y facilitar mantenimiento.
+    \item \textbf{Seguridad:} autenticación para el envío de datos y protección de información sensible.
+    \item \textbf{Compatibilidad:} ejecución en Android 10 o superior.
+    \item \textbf{Escalabilidad y mantenibilidad:} diseño modular para facilitar evolución y mantenimiento.
 \end{itemize}
 
 \section{Desarrollo de la aplicación móvil}
 \label{sec:desarrollo-movil}
 
-A partir de los requerimientos definidos, se implementó una aplicación Android orientada a la captura de datos del \textit{TUG} y a la gestión de pacientes y pruebas. La aplicación se diseñó para operar en dos modalidades: (i) \textit{offline}, donde el registro y almacenamiento se realiza localmente; y (ii) \textit{online}, donde se habilita autenticación y sincronización con el servidor.
+A partir de los requerimientos se implementó una aplicación Android orientada a la captura de datos del \textit{TUG} y a la gestión de pacientes y pruebas. La aplicación opera en dos modalidades: (i) \textit{offline}, donde el registro y almacenamiento se realizan localmente; y (ii) \textit{online}, donde se habilita autenticación y sincronización con el servidor.
 
-\subsection{Requisitos de software y compatibilidad}
+\subsection{Compatibilidad y requerimientos de software}
 \label{subsec:requisitos-software}
 
-El prototipo previo \cite{Sistema-portable-TUG-AKuleshov} proponía compatibilidad desde Android 5.0, sin embargo, versiones antiguas son actualmente minoritarias y presentan limitaciones en seguridad y soporte. Reportes de distribución de versiones muestran una adopción mayoritaria en versiones modernas, lo cual respalda la selección de Android 10 como versión mínima para este desarrollo, buscando un equilibrio entre cobertura de dispositivos y compatibilidad con componentes actuales \cite{Android-versions-2023}.
+El prototipo previo \cite{Sistema-portable-TUG-AKuleshov} proponía compatibilidad desde Android 5.0; sin embargo, versiones antiguas son actualmente minoritarias y presentan limitaciones en seguridad y soporte. Por ello, se definió Android 10 como versión mínima, buscando un equilibrio entre cobertura de dispositivos y compatibilidad con componentes actuales \cite{Android-versions-2023}.
 
 \subsection{Diagrama funcional y navegación principal}
 \label{subsec:diagrama-funcional}
 
-Con el fin de formalizar el flujo de usuario y la operación interna, se elaboró un diagrama funcional de la aplicación móvil (Figura~\ref{fig:diagramaFuncionalMovil}). Este diagrama resume los módulos principales: inicio/registro de paciente, tutorial de uso, calibración, ejecución de prueba, almacenamiento local, historial y sincronización con servidor.
+Con el fin de formalizar el flujo de usuario y la operación interna, se elaboró un diagrama funcional de la aplicación móvil (Figura~\ref{fig:diagramaFuncionalMovil}). Este resume los módulos principales: registro/inicio por paciente, tutorial, calibración, ejecución de prueba, almacenamiento local, historial y sincronización con el servidor.
 
 \begin{figure}[h!]
     \centering
@@ -795,32 +682,32 @@ Con el fin de formalizar el flujo de usuario y la operación interna, se elabor�
 \section{Funcionamiento de la aplicación}
 \label{sec:funcionamiento-app}
 
-\subsection{Gestión de datos en local y persistencia por paciente}
+\subsection{Persistencia local y trazabilidad por paciente}
 \label{subsec:gestion-local}
 
-Un requerimiento esencial para operación en escenarios con conectividad limitada es la persistencia local de pruebas y el acceso a historial por paciente. Para ello, la aplicación implementa un mecanismo de identificación de paciente y almacenamiento local de pruebas, permitiendo que cada registro quede asociado al paciente correspondiente. Este diseño evita mezclar pruebas entre pacientes y facilita la posterior sincronización selectiva hacia el servidor.
+Para operación en escenarios con conectividad limitada, el sistema implementa persistencia local de pruebas e historial por paciente, asegurando que cada registro quede asociado al paciente correspondiente. Este diseño evita mezcla de información entre pacientes y permite sincronización selectiva hacia el servidor.
 
-Cuando el usuario se registra en modo \textit{offline}, se solicita información mínima para identificar al paciente y asociar las pruebas (p.\ ej., número de cédula y datos demográficos). Si el paciente ya existe en la base local, la aplicación evita duplicados y muestra directamente el historial y opciones disponibles para ese paciente.
+En modo \textit{offline} se solicita información mínima para identificación del paciente y asociación de pruebas (p.\ ej., número de cédula y datos demográficos). Si el paciente ya existe en la base local, la aplicación evita duplicados y presenta directamente el historial y las opciones disponibles.
 
-\subsection{Modo \textit{offline}: ejecución sin conexión}
+\subsection{Modo \textit{offline}}
 \label{subsec:offline}
 
-Al iniciar la aplicación se muestra una pantalla de presentación (Figura~\ref{fig:SplashAutoTug}). Luego, al presionar ``Comenzar'', el sistema verifica la disponibilidad de acelerómetro y giroscopio. Si los sensores no están disponibles o presentan fallas, se notifica al usuario y se impide continuar, dado que estos sensores son indispensables para la adquisición.\\
+Al iniciar, la aplicación muestra una pantalla de presentación (Figura~\ref{fig:SplashAutoTug}). Al presionar ``Comenzar'', se verifica la disponibilidad de acelerómetro y giroscopio. Si alguno no está disponible, se notifica al usuario y se impide continuar, dado que son indispensables para la adquisición.\\
 
-Posteriormente, la aplicación verifica conectividad. En ausencia de conexión, se activa el modo \textit{offline}, en el cual el paciente registra sus datos y accede a la pantalla principal (Figura~\ref{fig:HomeAutoTug}). Desde allí, puede: (i) ejecutar una nueva prueba, (ii) consultar el tutorial y (iii) gestionar pruebas pendientes de envío. Adicionalmente, el usuario puede acceder al historial y configuraciones (Figuras~\ref{fig:HistoryAutoTug} y~\ref{fig:SettingsAutoTug}).
+Posteriormente, la aplicación verifica conectividad. En ausencia de conexión se activa el modo \textit{offline}, en el cual el paciente registra sus datos y accede a la pantalla principal (Figura~\ref{fig:HomeAutoTug}). Desde allí se permite ejecutar una nueva prueba, consultar el tutorial y gestionar pruebas pendientes de envío, además de acceder al historial y configuraciones (Figuras~\ref{fig:HistoryAutoTug} y~\ref{fig:SettingsAutoTug}).
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{Images/SplashAutoTug.png}
+        \includegraphics[width=0.6\linewidth]{Images/SplashAutoTug.png}
         \caption{Pantalla de bienvenida.}
         \label{fig:SplashAutoTug}
     \end{subfigure}
     \hspace{1cm}
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{Images/HomeViewAutoTug.png}
+        \includegraphics[width=0.6\linewidth]{Images/HomeViewAutoTug.png}
         \caption{Pantalla principal.}
         \label{fig:HomeAutoTug}
     \end{subfigure}
@@ -828,18 +715,18 @@ Posteriormente, la aplicación verifica conectividad. En ausencia de conexión, 
     \label{fig:SplashHomeAutoTug}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{Images/HistorialPruebasAutoTug.png}
+        \includegraphics[width=0.6\linewidth]{Images/HistorialPruebasAutoTug.png}
         \caption{Historial de pruebas.}
         \label{fig:HistoryAutoTug}
     \end{subfigure}
     \hspace{1cm}
     \begin{subfigure}{0.45\textwidth}
         \centering
-        \includegraphics[width=0.5\linewidth]{Images/SettingsAutoTug.png}
+        \includegraphics[width=0.6\linewidth]{Images/SettingsAutoTug.png}
         \caption{Menú de configuración.}
         \label{fig:SettingsAutoTug}
     \end{subfigure}
@@ -848,16 +735,12 @@ Posteriormente, la aplicación verifica conectividad. En ausencia de conexión, 
 \end{figure}
 
 
-\clearpage
-
-\subsection{Modo \textit{online}: autenticación y sincronización con servidor}
+\subsection{Modo \textit{online}: autenticación y sincronización}
 \label{subsec:online}
 
-Cuando existe conectividad, la aplicación habilita el inicio de sesión \textit{online} (Figura~\ref{fig:LogInAutoTug}). Para enviar datos al servidor es obligatorio autenticarse mediante usuario y contraseña. Si las credenciales son válidas, el servidor retorna un código HTTP 200 y un \textit{token}, el cual se utiliza para autorizar el envío de pruebas.\\
+Cuando existe conectividad, la aplicación habilita el inicio de sesión \textit{online} (Figura~\ref{fig:LogInAutoTug}). Para enviar datos al servidor es obligatorio autenticarse mediante usuario y contraseña. Con credenciales válidas el servidor retorna un código HTTP 200 y un \textit{token}, utilizado para autorizar el envío de pruebas.\\
 
-Tras autenticación, si el paciente no existe en la base local, la aplicación solicita el diligenciamiento de información clínica/demográfica requerida para asociar adecuadamente las pruebas (Figura~\ref{fig:FormAutoTug}). Esta decisión se justifica porque la autenticación en la plataforma central puede contener únicamente credenciales y rol, mientras que el procesamiento clínico requiere metadatos adicionales del paciente.
-
-En caso de que el servidor no responda (p.\ ej., \textit{timeout}) o ocurra un error durante el procesamiento, la aplicación notifica al usuario y conserva los datos localmente para reintento posterior. Esta estrategia permite mantener la continuidad operativa sin pérdida de información.
+Tras la autenticación, si el paciente no existe en la base local, la aplicación solicita el diligenciamiento de información demográfica/clínica necesaria para asociar adecuadamente las pruebas (Figura~\ref{fig:FormAutoTug}). En caso de no respuesta del servidor (p.\ ej., \textit{timeout}) o error durante el procesamiento, la aplicación notifica al usuario y conserva los datos localmente para reintento posterior, evitando pérdida de información.
 
 \begin{figure}[h!]
     \centering
@@ -878,22 +761,16 @@ En caso de que el servidor no responda (p.\ ej., \textit{timeout}) o ocurra un e
     \label{fig:OnlineOfflineLogInAutoTug}
 \end{figure}
 
-% IMPORTANTE: Aquí debes incluir capturas de:
-% - Respuesta satisfactoria con resumen de prueba
-% - Error por timeout / servidor caído
-% - Error por procesamiento inválido
-% Recomendación: 1 figura con 3 subfigures.
-
 \section{Ejecución de la prueba \textit{TUG}}
 \label{sec:ejecucion-prueba}
 
-Con el fin de reducir errores operativos y facilitar el uso por primera vez, la aplicación incluye un tutorial accesible desde la pantalla principal. La ejecución de la prueba se estructura en tres etapas: ubicación del dispositivo, calibración e inicio/fin automáticos.
+Para reducir errores operativos y facilitar el uso, la aplicación incluye un tutorial accesible desde la pantalla principal. La ejecución de la prueba se estructura en: ubicación del dispositivo, calibración, e inicio/finalización automáticos.
 
 \subsection{Ubicación del dispositivo}
 
-El teléfono debe ubicarse en la región lumbar baja del paciente, aproximadamente a nivel de L2. Esta ubicación se seleccionó por su cercanía al centro de masa y por coherencia con la recomendación de posicionamiento del BTS GSensor, lo cual facilita el contraste posterior de mediciones.
+El teléfono se ubica en la región lumbar baja, aproximadamente a nivel de L2. Esta ubicación se seleccionó por su cercanía al centro de masa y por coherencia con el posicionamiento recomendado por el BTS GSensor, facilitando el contraste posterior de mediciones.
 
-Para asegurar fijación y reproducibilidad, se recomienda el uso de un sujetador horizontal (Figura~\ref{fig:SujetadorCelularComercial}). En este trabajo se confeccionó un sujetador alternativo a partir de un brazalete convencional, adaptado con correa para fijación lumbar (Figura~\ref{fig:SujetadorConfeccionado}).
+Para mejorar fijación y reproducibilidad se recomienda un sujetador horizontal (Figura~\ref{fig:SujetadorCelularComercial}). En este trabajo se confeccionó un sujetador alternativo a partir de un brazalete convencional, adaptado con correa para fijación lumbar (Figura~\ref{fig:SujetadorConfeccionado}).
 
 \begin{figure}[h!]
     \centering
@@ -916,23 +793,13 @@ Para asegurar fijación y reproducibilidad, se recomienda el uso de un sujetador
 
 \subsection{Calibración}
 
-Una vez ubicado el dispositivo, la supervisora encargada del laboratorio SERH, responsable de la ejecución y control del protocolo experimental, presiona el botón de calibración desde la computadora central. Se concede un intervalo inicial para que el paciente adopte una postura correcta (sentado con espalda recta y apoyada). Posteriormente, el paciente permanece inmóvil durante un periodo fijo, durante el cual se estiman referencias de señal y se valida la alineación del dispositivo. Si la orientación es inadecuada, la aplicación solicita la corrección correspondiente.
-
+Una vez ubicado el dispositivo, se ejecuta una fase de calibración destinada a establecer referencias de señal y validar la orientación del teléfono. Se concede un intervalo inicial para que el paciente adopte postura adecuada (sentado con espalda recta y apoyada) y posteriormente permanece inmóvil durante un periodo fijo. Si la orientación es inadecuada, la aplicación solicita la corrección.
 
 \subsection{Inicio y finalización automática}
 
-Finalizada la calibración, la aplicación emite una señal sonora que indica el inicio. El paciente ejecuta el protocolo estándar del \textit{TUG} (levantarse, caminar 3 m, girar, regresar y sentarse). El final de la prueba se detecta automáticamente mediante un criterio de inactividad: si las señales del giroscopio permanecen por debajo de un umbral durante un intervalo de 5 s, la aplicación finaliza el registro y emite una señal sonora de cierre. Este mecanismo reduce dependencia de intervención manual y mejora reproducibilidad.
-
-\section{Resumen del capítulo}
-
-En este capítulo se describió el proceso de levantamiento de requerimientos y diseño del sistema para alcanzar TRL 6, así como la implementación de la aplicación móvil orientada a la adquisición de datos del \textit{TUG}. Se detalló su funcionamiento en modo \textit{offline} y \textit{online}, la gestión de pacientes, el almacenamiento local y la sincronización con servidor mediante autenticación. Finalmente, se explicó el protocolo de ejecución de la prueba y los mecanismos de calibración y detección automática de finalización.
+Finalizada la calibración, la aplicación emite una señal sonora indicando el inicio. El paciente ejecuta el protocolo estándar del \textit{TUG} (levantarse, caminar 3 m, girar, regresar y sentarse). El final se detecta automáticamente mediante un criterio de inactividad: si las señales del giroscopio permanecen por debajo de un umbral durante 5 s, el sistema finaliza el registro y emite una señal sonora de cierre. Este mecanismo reduce intervención manual y mejora reproducibilidad.
 
 
-
-
-%%%
-%%END OF DEVELOPMENT
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{PROCESAMIENTO DE DATOS Y ARQUITECTURA DEL SERVIDOR}
 \label{ch:server-processing}
@@ -943,495 +810,520 @@ Este capítulo describe el procesamiento de datos realizado en el servidor, la a
 
 
 
+% \section{Lógica de segmentación temporal de la prueba \textit{TUG}}
+% \label{sec:segmentation-logic}
+
+% La segmentación temporal de la prueba \textit{Timed Up and Go} se basa en el análisis conjunto de señales de aceleración y velocidad angular obtenidas a partir de sensores inerciales ubicados en la región lumbar baja del sujeto. El algoritmo implementado identifica eventos cinemáticos característicos del movimiento humano y utiliza reglas determinísticas basadas en umbrales, cruces por cero y ventanas temporales de estabilidad.
+
+% Sea $a_{AP}(t)$ la aceleración en el eje antero--posterior, $\omega_{ML}(t)$ la velocidad angular del tronco alrededor del eje medio--lateral, y $d_{AP}(t)$ el desplazamiento antero--posterior obtenido por integración temporal de $a_{AP}(t)$. La segmentación se realiza sobre estas señales preprocesadas, expresadas en el marco anatómico clínico.
+
+
+
+% \section{Señales utilizadas y preprocesamiento}
+
+% Durante la ejecución de la prueba \textit{Timed Up and Go} (\textit{TUG}), el dispositivo móvil registra señales inerciales provenientes del acelerómetro, el giroscopio y el sensor de orientación. En particular, se adquieren las aceleraciones lineales $a_x$, $a_y$ y $a_z$ (en m/s$^2$), las velocidades angulares $g_x$, $g_y$ y $g_z$ (en rad/s), y los ángulos de orientación \textit{roll}, \textit{pitch} y \textit{yaw} (en grados).
+
+% Estas señales se utilizan con dos propósitos diferenciados. Por un lado, el conjunto completo de aceleraciones, velocidades angulares y ángulos de orientación se emplea para el cálculo de las variables biomecánicas reportadas en el informe final (aceleraciones por eje, métricas de rotación y parámetros de flexión--extensión del tronco). Por otro lado, para la detección temporal de las subfases del \textit{TUG} se utilizan exclusivamente las señales del giroscopio $g_x$ y $g_y$, dado que estas presentan mayor robustez para identificar eventos asociados a giros y transiciones posturales.
+
+% A partir de las señales $g_x(t)$ y $g_y(t)$ se calcula el desplazamiento angular integrado, definido como:
+% \[
+% \theta_x(t) = \int g_x(t)\,dt, \qquad \theta_y(t) = \int g_y(t)\,dt,
+% \]
+% donde $\theta_x$ y $\theta_y$ representan la posición angular acumulada alrededor de los ejes correspondientes.
+
+% El preprocesamiento inicial comprende las siguientes etapas. En primer lugar, al recibir un nuevo archivo de datos en el servidor, se separa explícitamente la información del paciente (identificación, metadatos clínicos) de las señales crudas provenientes de los sensores. Posteriormente, se verifica la orientación del dispositivo, comparando la magnitud del desplazamiento integrado en los ejes horizontal y antero--posterior. Si se detecta una inversión de ejes (por ejemplo, debido a una colocación invertida del teléfono), se realiza un intercambio automático de componentes antes de continuar con el procesamiento.
+
+% Finalmente, las señales del giroscopio se filtran mediante un filtro pasa--bajo de primer orden, aplicado hacia adelante y hacia atrás para evitar desfase, con el fin de reducir ruido de alta frecuencia sin afectar los eventos dinámicos relevantes para la segmentación temporal.
+
+
+% \subsection{Variables, parámetros y umbrales de detección}
+% \label{subsec:variables-umbrales-tug}
+
+% La segmentación temporal de las subfases del \textit{Timed Up and Go} se implementó mediante reglas determinísticas basadas en las señales de giroscopio y en desplazamientos angulares integrados. A continuación se definen formalmente las variables y umbrales usados por el algoritmo, con el fin de evitar ambigüedades en la lectura.
+
+% Sea $t_i$ el tiempo de muestreo del instante $i$ (en segundos) y sean $g_x(t_i)$ y $g_y(t_i)$ las velocidades angulares medidas por el giroscopio en los ejes $X$ y $Y$ del dispositivo, respectivamente, expresadas en $\text{rad/s}$.
+
+% A partir de estas señales se calculan los desplazamientos angulares integrados (posición angular acumulada) mediante integración numérica:
+
+% \[
+% \theta_x(t_i) = \theta_x(t_{i-1}) + g_x(t_i)\,\Delta t_i, \qquad
+% \theta_y(t_i) = \theta_y(t_{i-1}) + g_y(t_i)\,\Delta t_i,
+% \]
+% donde $\Delta t_i = t_i - t_{i-1}$. En la implementación, estas variables se almacenan como \textit{dispX} $\equiv \theta_x$ y \textit{dispY} $\equiv \theta_y$.
+
+% \subsubsection*{Regla de verificación de orientación (auto--swap)}
+% Antes de segmentar, el algoritmo compara la amplitud total de $\theta_x$ y $\theta_y$ a lo largo del registro:
+% \[
+% R_x = \max(\theta_x) - \min(\theta_x), \qquad R_y = \max(\theta_y) - \min(\theta_y).
+% \]
+% Si $R_y < 0.5\,R_x$, se interpreta que los ejes relevantes están invertidos (colocación rotada del teléfono) y se intercambian las señales $g_x \leftrightarrow g_y$ y se recalculan $\theta_x$ y $\theta_y$. Esta regla replica el comportamiento del algoritmo original en C\#.
+
+% \subsubsection*{Umbrales fijos usados por el algoritmo}
+% Los eventos se detectan al superar umbrales fijos. Estos valores fueron ajustados empíricamente en pruebas repetidas en laboratorio para asegurar que el evento corresponda a un movimiento sostenido del tronco (y no a ruido, micro--oscilaciones o desviaciones leves durante la marcha). En particular, un cambio acumulado en $\theta_y$ (o su tendencia) permite distinguir entre ``caminar con ligera deriva'' y un giro corporal real.
+
+% Los umbrales implementados son:
+
+% \begin{itemize}
+%     \item \textbf{Inicio sentado--parado:}
+%     \[
+%     g_x(t_i) > \gamma_{stb}, \quad \theta_x(t_i) > \Theta_{stb},
+%     \]
+%     con $\gamma_{stb}=0.1~\text{rad/s}$ y $\Theta_{stb}=0.1~\text{rad}$.
+
+%     \item \textbf{Criterios de cruce/estabilización para transición a marcha 1:}
+%     \[
+%     g_x(t_i) < -\gamma_{neg}, \;\text{seguido de}\; g_x(t_i)=0,
+%     \]
+%     con $\gamma_{neg}=0.1~\text{rad/s}$. (En la implementación se evalúa la condición exacta $g_x(t_i)=0.0$ como señal de estabilización.)
+
+%     \item \textbf{Inicio del giro 1 por desplazamiento lateral integrado:}
+%     \[
+%     |\theta_y(t_i)| > \Theta_{turn1}^{out}, \quad \text{y se retrobusca el primer instante con}\quad |\theta_y|>\Theta_{turn1}^{in},
+%     \]
+%     con $\Theta_{turn1}^{out}=0.9~\text{rad}$ y $\Theta_{turn1}^{in}=0.6~\text{rad}$.
+
+%     \item \textbf{Detección de final del giro 1 e inicio de marcha 2:} se usa la condición $g_y(t_i)=0.0$ junto con $|\theta_y(t_i)|\ge 0.9~\text{rad}$ y una ventana de estabilización de $N_{est}=10$ muestras consecutivas con $g_y=0$.
+
+%     \item \textbf{Inicio del giro 2:} se evalúa el sentido del giro previo y se utiliza una detección mixta:
+%     (i) condición de ``entrada'' basada en $\theta_y$ (por ejemplo $>5.5$ o $<1.5$ en giros a derecha), y
+%     (ii) detección del inicio de movimiento usando la derivada discreta
+%     \[
+%     \dot{\theta}_y(t_i)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i}
+%     \]
+%     con umbral $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$.
+
+%     \item \textbf{Umbrales internos para fijar el instante de inicio del giro 2 (según sentido):}
+%     \[
+%     \theta_y(t_i) > 3.3,\;\; \theta_y(t_i) > -2.5,\;\; \theta_y(t_i) < 2.5,\;\; \theta_y(t_i) < -3.3
+%     \]
+%     (valores exactos según la rama lógica del algoritmo).
+
+%     \item \textbf{Inicio parado--sentado:} $g_x(t_i)> \gamma_{bts}$ con $\gamma_{bts}=0.01~\text{rad/s}$.
+
+%     \item \textbf{Fin del giro 2:} $|g_y(t_i)|<\gamma_{endturn2}$ con $\gamma_{endturn2}=0.05~\text{rad/s}$.
+
+%     \item \textbf{Fin de prueba (fin de parado--sentado):} detección por cruce y retorno en $g_x$:
+%     \[
+%     g_x(t_i)< -0.05\;\text{y luego}\; g_x(t_i)>-0.05.
+%     \]
+% \end{itemize}
+
+% En conjunto, estos umbrales se escogieron para exigir: (i) un cambio de signo o tendencia consistente, y (ii) un desplazamiento acumulado suficiente, de modo que la detección se asocie a eventos reales (levantamiento, giros, sentarse) y no a pequeñas desviaciones del sujeto durante la marcha.
+
+
+
+% \section{Detección de subfases del \textit{TUG}}
+% \label{sec:deteccion-subfases-tug}
+
+% La segmentación temporal del \textit{TUG} se realiza mediante reglas determinísticas sobre las señales $g_x(t)$ y $g_y(t)$, y sobre sus desplazamientos integrados $\theta_x(t)$ y $\theta_y(t)$. La motivación de utilizar desplazamientos integrados es que un giro corporal real produce un crecimiento/decrecimiento acumulado claro en $\theta_y$, mientras que desviaciones leves al caminar o ruido de medición tienden a no acumularse de forma suficiente o sostenida.
+
+% Las Figuras~\ref{fig:signals-example-1} y~\ref{fig:signals-example-2} ilustran dos ejecuciones representativas. En una ejecución con giro ``marcado'' alrededor del cono, el sujeto puede realizar un ajuste previo (leve giro inicial) antes del giro principal, lo cual en versiones anteriores generaba errores al depender de picos positivos/negativos aislados. En contraste, el algoritmo actual prioriza patrones de cruce, estabilización y umbrales acumulados, buscando robustez ante variaciones de trayectoria.
+
+% \subsection{Sentado--parado}
+% \label{subsec:stb}
+
+% El inicio de la transición sentado--parado ($t_{stb}^{ini}$) se detecta cuando coexisten dos condiciones: (i) una velocidad angular positiva en el eje $x$, y (ii) un desplazamiento integrado positivo suficiente en el mismo eje:
+
+% \[
+% g_x(t_i) > 0.1~\text{rad/s} \quad \wedge \quad \theta_x(t_i) > 0.1~\text{rad}.
+% \]
+
+% Este doble criterio reduce falsos positivos: la condición sobre $g_x$ captura el inicio dinámico, mientras que $\theta_x$ exige que el movimiento tenga acumulación suficiente para corresponder a un levantamiento real y no a oscilaciones pequeñas del tronco.
+
+% Posteriormente, para marcar el fin de esta transición (y habilitar el paso a marcha 1), se exige un patrón de cruce y estabilización en $g_x$: primero se detecta un cruce negativo
+% \[
+% g_x(t_i) < -0.1~\text{rad/s},
+% \]
+% y luego una estabilización estricta cuando $g_x(t_i)=0.0$. Al cumplirse ambas condiciones, se define el inicio de marcha 1 $t_{g1}^{ini}$.
+
+% \subsection{Marcha inicial}
+% \label{subsec:gait1}
+
+% La marcha inicial comienza en el instante $t_{g1}^{ini}$, definido al finalizar el patrón de transición sentado--parado descrito en la subsección anterior. En el algoritmo implementado, no se impone un criterio adicional basado en aceleración vertical; se considera suficiente que la transición de levantamiento se haya completado y que el tronco haya estabilizado su dinámica de flexión/extensión reflejada en $g_x$.
+
+% \subsection{Primer giro}
+% \label{subsec:turn1}
+
+% El inicio del primer giro ($t_{turn1}^{ini}$) se detecta usando el desplazamiento integrado lateral $\theta_y(t)$ (en el código: \textit{dispY}). El algoritmo evalúa si el desplazamiento acumulado supera un umbral externo:
+
+% \[
+% \theta_y(t_i) < -0.9~\text{rad} \quad \text{o} \quad \theta_y(t_i) > 0.9~\text{rad}.
+% \]
+
+% Una vez se supera este umbral, se realiza una búsqueda retrospectiva desde el inicio de marcha 1 hasta el instante actual para encontrar el primer instante donde el desplazamiento ya excedía un umbral interno:
+
+% \[
+% |\theta_y(t_k)| > 0.6~\text{rad}, \quad k \in [\,i_{g1},\, i\,].
+% \]
+
+% Se define entonces $t_{turn1}^{ini}=t_k$. Esta estrategia (doble umbral) evita declarar el giro ante desviaciones leves al caminar: se exige un crecimiento acumulado suficiente (0.9 rad) y luego se fija el inicio cuando el giro ya es consistente (0.6 rad).
+
+% \subsection{Marcha de retorno}
+% \label{subsec:gait2}
+
+% El inicio de la marcha de retorno ($t_{g2}^{ini}$) se define al finalizar el primer giro mediante un patrón de estabilización en $g_y(t)$, el cual evita depender de un único pico. Primero se detecta que existe un evento de giro consistente verificando:
+
+% \[
+% g_y(t_i)=0.0 \quad \wedge \quad |\theta_y(t_i)| \ge 0.9~\text{rad}.
+% \]
+
+% Luego se exige una estabilización de $N_{est}=10$ muestras consecutivas con $g_y=0.0$. Tras cumplir esta condición, se fija el inicio de marcha 2 en el instante:
+
+% \[
+% t_{g2}^{ini} = t_{i - N_{est}}.
+% \]
+
+% Además, se define el sentido del giro asociado a la trayectoria según la rama detectada:
+
+% \begin{itemize}
+%     \item Si el evento se detecta con $\theta_y(t_i)\ge 0.9$, se marca \textit{giro a la derecha}.
+%     \item Si el evento se detecta con $\theta_y(t_i)\le -0.9$, se marca \textit{giro a la izquierda}.
+% \end{itemize}
+
+% Esta inferencia de sentido se utiliza explícitamente para condicionar la detección del segundo giro y mantener coherencia cinemática entre giros.
+
+% \subsection{Segundo giro}
+% \label{subsec:turn2}
+
+% El segundo giro se detecta usando (i) el sentido inferido en la fase anterior y (ii) umbrales de desplazamiento integrado $\theta_y$ combinados con un criterio de ``inicio de movimiento'' basado en la derivada discreta $\dot{\theta}_y$.
+
+% En primer lugar, se monitorea $\theta_y$ desde el inicio de marcha 2. Dependiendo del sentido previo, se activan condiciones de entrada:
+
+% \begin{itemize}
+%     \item Si se detectó \textit{giro a la derecha} (en el primer giro), se evalúa:
+%     \[
+%     \theta_y(t_i) > 5.5 \quad \text{o} \quad \theta_y(t_i) < 1.5.
+%     \]
+%     \item Si se detectó \textit{giro a la izquierda}, se evalúa:
+%     \[
+%     \theta_y(t_i) > -1.5 \quad \text{o} \quad \theta_y(t_i) < -5.5.
+%     \]
+% \end{itemize}
+
+% Al cumplirse una condición de entrada, se calcula la derivada discreta de $\theta_y$:
+
+% \[
+% \dot{\theta}_y(t_i)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i},
+% \]
+% y se detecta el inicio de movimiento cuando cruza $\pm 0.5~\text{rad/s}$ (según el sentido), lo cual evita declarar giro ante una tendencia lenta no consistente.
+
+% Finalmente, el instante de inicio del giro 2 ($t_{turn2}^{ini}$) se fija cuando $\theta_y$ supera umbrales internos dependientes de la rama lógica y del sentido del primer giro. En la implementación, estos umbrales internos son:
+
+% \[
+% \theta_y(t_i) > 3.3,\;\; \theta_y(t_i) > -2.5,\;\; \theta_y(t_i) < 2.5,\;\; \theta_y(t_i) < -3.3,
+% \]
+% seleccionados para confirmar que el desplazamiento acumulado ya es suficientemente grande como para asegurar que el paciente está efectivamente girando (y no únicamente corrigiendo la trayectoria).
+
+% \subsection{Parado--sentado y finalización}
+% \label{subsec:bts-end}
+
+% Una vez detectado el inicio del giro 2, el algoritmo busca el inicio del movimiento de sentado (parado--sentado) mediante:
+
+% \[
+% g_x(t_i) > 0.01~\text{rad/s}.
+% \]
+
+% En paralelo, el fin del giro 2 se marca cuando la velocidad angular lateral se aproxima a cero:
+
+% \[
+% |g_y(t_i)| < 0.05~\text{rad/s}.
+% \]
+
+% Finalmente, el fin de la prueba ($t_{end}$) se detecta por un patrón de cruce y retorno en $g_x$ posterior al inicio de parado--sentado:
+
+% \[
+% g_x(t_i) < -0.05 \quad \text{y posteriormente} \quad g_x(t_i) > -0.05.
+% \]
+
+% Este patrón busca capturar la desaceleración y estabilización final del tronco una vez el sujeto completa el sentado. Con los instantes detectados se construyen ventanas temporales para cada subfase y se calculan duraciones por diferencia de tiempos.
+
+
+
+
+% \section{Comparación con el algoritmo previo}
+% \label{sec:comparacion-algoritmo-previo}
+
+% El algoritmo previo (aplicativo de escritorio en C\#) y la versión actual (microservicio en PHP) comparten la idea base de segmentar el \textit{TUG} a partir de (i) velocidades angulares del giroscopio y (ii) desplazamientos angulares integrados. No obstante, la implementación actual introduce cambios relevantes en los criterios de detección, especialmente en el giro 1, la transición giro 1$\rightarrow$marcha 2, el giro 2 y el inicio de sentado final. A continuación se resumen las diferencias \textbf{únicamente} para la detección de fases.
+
+% \subsection*{Sentado--parado y transición a marcha 1}
+% En el algoritmo previo, el inicio de sentado--parado se determinaba cuando $g_x(t)>0.05~\text{rad/s}$. Posteriormente, la detección del inicio de marcha 1 dependía de un patrón de cruce que requería $g_x(t)<-0.05$ y luego $g_x(t)>0.05$, y finalmente una condición adicional $g_x(t)>0$ para fijar $t_{g1}^{ini}$.
+
+% En el microservicio, el inicio de sentado--parado se hace más restrictivo al exigir simultáneamente:
+% \[
+% g_x(t)>0.1~\text{rad/s} \quad \wedge \quad \theta_x(t)>0.1~\text{rad},
+% \]
+% lo cual reduce falsos positivos por oscilaciones breves (por ejemplo, ajustes posturales en la silla). Además, la transición a marcha 1 se determina mediante un patrón de banderas similar, pero la condición de estabilización se implementa como una verificación estricta en cero ($g_x(t)=0.0$) antes de declarar el inicio de marcha 1. En la práctica, este criterio busca marcar el instante donde el gesto de levantamiento ya terminó y la señal se estabiliza.
+
+% \subsection*{Inicio del giro 1}
+% En el algoritmo previo, el giro 1 se activaba cuando el desplazamiento integrado lateral superaba un umbral amplio:
+% \[
+% \theta_y(t)<-2.5 \quad \text{o} \quad \theta_y(t)>2.5,
+% \]
+% y luego se estimaba el instante de inicio recorriendo la señal invertida (\textit{DesplazamientoY\_inv}) para detectar un ``paso'' por una banda interna $\pm 0.5$, usando banderas distintas para giro a izquierda o derecha. Es decir, el método dependía de un patrón previo en el desplazamiento (cruce de una banda) antes de llegar al umbral final, lo cual podía fallar si el sujeto realizaba una trayectoria que no generaba el patrón esperado (por ejemplo, sin un ajuste inicial alrededor del cono).
+
+% En el microservicio, el giro 1 se redefine con un esquema de doble umbral más cercano temporalmente al evento:
+% \[
+% |\theta_y(t)|>0.9~\text{rad} \;\; \Rightarrow \;\; \text{retro-búsqueda del primer } |\theta_y(t)|>0.6~\text{rad}.
+% \]
+% Este cambio reduce la dependencia de la forma exacta de la trayectoria (p.\,ej., un ``microgiro'' previo) y hace que la detección del inicio del giro se base en la acumulación local y sostenida del desplazamiento.
+
+% \subsection*{Inicio de marcha 2 (fin del giro 1)}
+% Una diferencia crítica es cómo se marca el final del giro 1 y el inicio de la marcha 2.
+
+% En el algoritmo previo, una vez definido el sentido del giro 1, el inicio de marcha 2 se detectaba por un cruce alrededor de un umbral fijo cercano a la zona final del giro:
+% \[
+% \text{si giro a izquierda: } \theta_y(t)<-3.2 \Rightarrow \theta_y(t)>-3.2;
+% \qquad
+% \text{si giro a derecha: } \theta_y(t)>3.2 \Rightarrow \theta_y(t)<3.2.
+% \]
+% Este criterio dependía principalmente del desplazamiento integrado y de una sola condición de cruce.
+
+% En el microservicio, el inicio de marcha 2 se fija de forma diferente: se exige que exista evidencia de giro (desplazamiento acumulado $|\theta_y|\ge 0.9$) y, además, se utiliza una regla de estabilización temporal basada en $g_y(t)=0.0$ durante $N_{est}=10$ muestras consecutivas. Al cumplirse esa estabilidad, se define el inicio de marcha 2 como $t_{i-N_{est}}$. Esta modificación busca mitigar que el instante de cambio giro$\rightarrow$marcha varíe con el estilo de giro, imponiendo una condición de ``fin de giro'' basada en estabilización de la velocidad angular.
+
+% \subsection*{Inicio del giro 2}
+% En el algoritmo previo, el giro 2 se iniciaba por una lógica de banderas con ventanas de valores del desplazamiento:
+% \[
+% \theta_y(t)\in(3,6)\Rightarrow\text{bandera arriba},\;
+% \theta_y(t)\in(-1,1)\Rightarrow\text{bandera medio},\;\\
+% \theta_y(t)\in(-6,-3)\Rightarrow\text{bandera abajo},
+% \]
+% y luego se declaraba inicio del giro al cruzar umbrales como $\theta_y(t)>6$, $\theta_y(t)>0.25$ o $\theta_y(t)<-6$. Esta estrategia mezclaba varias condiciones redundantes (por ejemplo, dos reglas muy cercanas para la banda media) y no incorporaba explícitamente coherencia con el sentido del giro 1.
+
+% En el microservicio, la detección del giro 2 se condiciona explícitamente por el sentido inferido al finalizar el giro 1 (giro a derecha vs. giro a izquierda). Según esa condición, se activan umbrales de entrada diferentes sobre $\theta_y(t)$ (por ejemplo $>5.5$ o $<1.5$ en una rama, y $>-1.5$ o $<-5.5$ en la otra). Luego, para evitar declarar un giro por pequeñas derivas, se identifica un inicio de movimiento mediante la derivada discreta:
+% \[
+% \dot{\theta}_y(t)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i},
+% \]
+% usando un umbral fijo $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$. Finalmente, el instante de inicio del giro 2 se confirma con umbrales internos dependientes de la rama (\(\pm 3.3\), \(\pm 2.5\)). En conjunto, el giro 2 en la versión actual combina (i) coherencia de sentido, (ii) acumulación suficiente y (iii) cambio sostenido de tendencia, lo cual mejora la robustez ante variabilidad intersujeto.
+
+% \subsection*{Inicio de parado--sentado y fin de prueba}
+% En el algoritmo previo, el inicio de parado--sentado se activaba con un umbral alto en $g_x(t)$ (por ejemplo, $g_x(t)>1$) y luego se buscaba hacia atrás en la señal invertida ($\textit{Lista\_Gx\_inv}$) el primer instante donde $g_x(t)<0$ para fijar el inicio del sentado. Este procedimiento dependía de un pico pronunciado y de una búsqueda retrospectiva.
+
+% En el microservicio, el inicio de parado--sentado se hace más sensible al reducir el umbral a $g_x(t)>0.01~\text{rad/s}$ (una vez ya se detectó el inicio del giro 2). Esto permite capturar el inicio del gesto de sentarse sin exigir un pico grande. Adicionalmente, la versión actual separa explícitamente el \textit{fin del giro 2} usando:
+% \[
+% |g_y(t)|<0.05~\text{rad/s},
+% \]
+% lo cual no existía como evento independiente en el algoritmo previo.
+
+% Por último, en ambos algoritmos el fin de prueba se determina con un patrón de cruce y retorno en $g_x(t)$ alrededor de $-0.05$, aunque en el microservicio la implementación está encapsulada en banderas equivalentes para marcar la estabilización final del tronco.
+
+% \subsection*{Resumen de cambios}
+% En síntesis, la versión actual reemplaza varias dependencias del algoritmo previo (bandas amplias en $\theta_y$, búsquedas retrospectivas extensas y picos grandes) por criterios más robustos basados en: doble umbral local para giro 1, estabilización en $g_y$ para iniciar marcha 2, coherencia de sentido y derivada de $\theta_y$ para giro 2, y un criterio más sensible para inicio de sentado final. Estos cambios apuntan a mejorar la detección en ejecuciones reales donde el sujeto puede bordear el cono con trayectorias distintas (con o sin giro preliminar), reduciendo fallos por variabilidad de estilo de marcha y giro.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Lógica de segmentación temporal de la prueba \textit{TUG}}
 \label{sec:segmentation-logic}
 
-La segmentación temporal de la prueba \textit{Timed Up and Go} se basa en el análisis conjunto de señales de aceleración y velocidad angular obtenidas a partir de sensores inerciales ubicados en la región lumbar baja del sujeto. El algoritmo implementado identifica eventos cinemáticos característicos del movimiento humano y utiliza reglas determinísticas basadas en umbrales, cruces por cero y ventanas temporales de estabilidad.
-
-Sea $a_{AP}(t)$ la aceleración en el eje antero--posterior, $\omega_{ML}(t)$ la velocidad angular del tronco alrededor del eje medio--lateral, y $d_{AP}(t)$ el desplazamiento antero--posterior obtenido por integración temporal de $a_{AP}(t)$. La segmentación se realiza sobre estas señales preprocesadas, expresadas en el marco anatómico clínico.
-
-
+La segmentación temporal del \textit{Timed Up and Go} se realiza mediante reglas determinísticas aplicadas a las señales del giroscopio $g_x(t)$ y $g_y(t)$ (en rad/s) y a sus desplazamientos angulares integrados $\theta_x(t)$ y $\theta_y(t)$ (en rad). La idea central es que una transición postural o un giro producen cambios sostenidos en la velocidad angular y, sobre todo, una acumulación clara en el desplazamiento integrado, mientras que el ruido o pequeñas desviaciones durante la marcha no alcanzan un desplazamiento suficiente.
 
 \section{Señales utilizadas y preprocesamiento}
+\label{sec:signals-preproc}
 
-Durante la ejecución de la prueba \textit{Timed Up and Go} (\textit{TUG}), el dispositivo móvil registra señales inerciales provenientes del acelerómetro, el giroscopio y el sensor de orientación. En particular, se adquieren las aceleraciones lineales $a_x$, $a_y$ y $a_z$ (en m/s$^2$), las velocidades angulares $g_x$, $g_y$ y $g_z$ (en rad/s), y los ángulos de orientación \textit{roll}, \textit{pitch} y \textit{yaw} (en grados).
+Durante la prueba se registran aceleraciones lineales $a_x,a_y,a_z$ (m/s$^2$), velocidades angulares $g_x,g_y,g_z$ (rad/s) y orientación \textit{roll}, \textit{pitch}, \textit{yaw} (°). El conjunto completo se emplea para calcular variables biomecánicas reportadas (aceleraciones en marco clínico, métricas de rotación y flexión--extensión). Sin embargo, la detección de subfases se basa únicamente en $g_x$ y $g_y$, por su mayor sensibilidad a transiciones (sentado--parado/parado--sentado) y giros.
 
-Estas señales se utilizan con dos propósitos diferenciados. Por un lado, el conjunto completo de aceleraciones, velocidades angulares y ángulos de orientación se emplea para el cálculo de las variables biomecánicas reportadas en el informe final (aceleraciones por eje, métricas de rotación y parámetros de flexión--extensión del tronco). Por otro lado, para la detección temporal de las subfases del \textit{TUG} se utilizan exclusivamente las señales del giroscopio $g_x$ y $g_y$, dado que estas presentan mayor robustez para identificar eventos asociados a giros y transiciones posturales.
-
-A partir de las señales $g_x(t)$ y $g_y(t)$ se calcula el desplazamiento angular integrado, definido como:
+A partir de $g_x(t)$ y $g_y(t)$ se calculan desplazamientos angulares integrados:
 \[
-\theta_x(t) = \int g_x(t)\,dt, \qquad \theta_y(t) = \int g_y(t)\,dt,
+\theta_x(t_i)=\theta_x(t_{i-1})+g_x(t_i)\Delta t_i,\qquad
+\theta_y(t_i)=\theta_y(t_{i-1})+g_y(t_i)\Delta t_i,
 \]
-donde $\theta_x$ y $\theta_y$ representan la posición angular acumulada alrededor de los ejes correspondientes.
+donde $\Delta t_i=t_i-t_{i-1}$. En la implementación, $\theta_x$ y $\theta_y$ se almacenan como \textit{dispX} y \textit{dispY}.
 
-El preprocesamiento inicial comprende las siguientes etapas. En primer lugar, al recibir un nuevo archivo de datos en el servidor, se separa explícitamente la información del paciente (identificación, metadatos clínicos) de las señales crudas provenientes de los sensores. Posteriormente, se verifica la orientación del dispositivo, comparando la magnitud del desplazamiento integrado en los ejes horizontal y antero--posterior. Si se detecta una inversión de ejes (por ejemplo, debido a una colocación invertida del teléfono), se realiza un intercambio automático de componentes antes de continuar con el procesamiento.
-
-Finalmente, las señales del giroscopio se filtran mediante un filtro pasa--bajo de primer orden, aplicado hacia adelante y hacia atrás para evitar desfase, con el fin de reducir ruido de alta frecuencia sin afectar los eventos dinámicos relevantes para la segmentación temporal.
-
+El preprocesamiento incluye: (i) separación de metadatos del paciente respecto a las muestras del sensor; (ii) verificación de orientación del teléfono mediante un criterio de amplitud integrada,
+\[
+R_x=\max(\theta_x)-\min(\theta_x),\qquad R_y=\max(\theta_y)-\min(\theta_y),
+\]
+y, si $R_y<0.5R_x$, se intercambian $g_x\leftrightarrow g_y$ y se recalculan $\theta_x,\theta_y$; y (iii) (opcional para segmentación) filtrado pasa--bajo de primer orden \textit{forward/backward} aplicado a aceleraciones en marco clínico para cálculo de variables de interés (no requerido para la detección temporal de fases en la lógica actual).
 
 \subsection{Variables, parámetros y umbrales de detección}
 \label{subsec:variables-umbrales-tug}
 
-La segmentación temporal de las subfases del \textit{Timed Up and Go} se implementó mediante reglas determinísticas basadas en las señales de giroscopio y en desplazamientos angulares integrados. A continuación se definen formalmente las variables y umbrales usados por el algoritmo, con el fin de evitar ambigüedades en la lectura.
-
-Sea $t_i$ el tiempo de muestreo del instante $i$ (en segundos) y sean $g_x(t_i)$ y $g_y(t_i)$ las velocidades angulares medidas por el giroscopio en los ejes $X$ y $Y$ del dispositivo, respectivamente, expresadas en $\text{rad/s}$.
-
-A partir de estas señales se calculan los desplazamientos angulares integrados (posición angular acumulada) mediante integración numérica:
-
-\[
-\theta_x(t_i) = \theta_x(t_{i-1}) + g_x(t_i)\,\Delta t_i, \qquad
-\theta_y(t_i) = \theta_y(t_{i-1}) + g_y(t_i)\,\Delta t_i,
-\]
-donde $\Delta t_i = t_i - t_{i-1}$. En la implementación, estas variables se almacenan como \textit{dispX} $\equiv \theta_x$ y \textit{dispY} $\equiv \theta_y$.
-
-\subsubsection*{Regla de verificación de orientación (auto--swap)}
-Antes de segmentar, el algoritmo compara la amplitud total de $\theta_x$ y $\theta_y$ a lo largo del registro:
-\[
-R_x = \max(\theta_x) - \min(\theta_x), \qquad R_y = \max(\theta_y) - \min(\theta_y).
-\]
-Si $R_y < 0.5\,R_x$, se interpreta que los ejes relevantes están invertidos (colocación rotada del teléfono) y se intercambian las señales $g_x \leftrightarrow g_y$ y se recalculan $\theta_x$ y $\theta_y$. Esta regla replica el comportamiento del algoritmo original en C\#.
-
-\subsubsection*{Umbrales fijos usados por el algoritmo}
-Los eventos se detectan al superar umbrales fijos. Estos valores fueron ajustados empíricamente en pruebas repetidas en laboratorio para asegurar que el evento corresponda a un movimiento sostenido del tronco (y no a ruido, micro--oscilaciones o desviaciones leves durante la marcha). En particular, un cambio acumulado en $\theta_y$ (o su tendencia) permite distinguir entre ``caminar con ligera deriva'' y un giro corporal real.
-
-Los umbrales implementados son:
+Sea $t_i$ el tiempo (s). La segmentación usa las señales $g_x(t_i),g_y(t_i)$ (rad/s) y los desplazamientos $\theta_x(t_i),\theta_y(t_i)$ (rad). Se emplean umbrales fijos para exigir que el movimiento sea \textit{sostenido} (desplazamiento acumulado suficiente) y así evitar detecciones por micro-oscilaciones del tronco o desviaciones leves de trayectoria. Los umbrales implementados son:
 
 \begin{itemize}
-    \item \textbf{Inicio sentado--parado:}
+    \item \textbf{Sentado--parado (inicio):} $\gamma_{stb}=0.1~\text{rad/s}$ y $\Theta_{stb}=0.1~\text{rad}$.
+    \item \textbf{Transición a marcha 1 (patrón en $g_x$):} $\gamma_{neg}=0.1~\text{rad/s}$, con verificación de estabilización mediante $g_x=0.0$.
+    \item \textbf{Giro 1 (doble umbral en $\theta_y$):} $\Theta_{turn1}^{out}=0.9~\text{rad}$ y $\Theta_{turn1}^{in}=0.6~\text{rad}$.
+    \item \textbf{Inicio marcha 2 (estabilidad post-giro):} $N_{est}=10$ muestras consecutivas con $g_y=0.0$, activadas cuando $|\theta_y|\ge 0.9~\text{rad}$.
+    \item \textbf{Inicio giro 2:} detección de tendencia con $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$ sobre $\dot{\theta}_y$ y umbrales de confirmación dependientes del sentido:
     \[
-    g_x(t_i) > \gamma_{stb}, \quad \theta_x(t_i) > \Theta_{stb},
+    \Theta_{g2}^{in}=\{5.5,\,1.5,\,-1.5,\,-5.5\}\;\text{rad},\qquad
+    \Theta_{g2}^{conf}=\{3.3,\,2.5\}\;\text{rad}.
     \]
-    con $\gamma_{stb}=0.1~\text{rad/s}$ y $\Theta_{stb}=0.1~\text{rad}$.
-
-    \item \textbf{Criterios de cruce/estabilización para transición a marcha 1:}
-    \[
-    g_x(t_i) < -\gamma_{neg}, \;\text{seguido de}\; g_x(t_i)=0,
-    \]
-    con $\gamma_{neg}=0.1~\text{rad/s}$. (En la implementación se evalúa la condición exacta $g_x(t_i)=0.0$ como señal de estabilización.)
-
-    \item \textbf{Inicio del giro 1 por desplazamiento lateral integrado:}
-    \[
-    |\theta_y(t_i)| > \Theta_{turn1}^{out}, \quad \text{y se retrobusca el primer instante con}\quad |\theta_y|>\Theta_{turn1}^{in},
-    \]
-    con $\Theta_{turn1}^{out}=0.9~\text{rad}$ y $\Theta_{turn1}^{in}=0.6~\text{rad}$.
-
-    \item \textbf{Detección de final del giro 1 e inicio de marcha 2:} se usa la condición $g_y(t_i)=0.0$ junto con $|\theta_y(t_i)|\ge 0.9~\text{rad}$ y una ventana de estabilización de $N_{est}=10$ muestras consecutivas con $g_y=0$.
-
-    \item \textbf{Inicio del giro 2:} se evalúa el sentido del giro previo y se utiliza una detección mixta:
-    (i) condición de ``entrada'' basada en $\theta_y$ (por ejemplo $>5.5$ o $<1.5$ en giros a derecha), y
-    (ii) detección del inicio de movimiento usando la derivada discreta
-    \[
-    \dot{\theta}_y(t_i)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i}
-    \]
-    con umbral $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$.
-
-    \item \textbf{Umbrales internos para fijar el instante de inicio del giro 2 (según sentido):}
-    \[
-    \theta_y(t_i) > 3.3,\;\; \theta_y(t_i) > -2.5,\;\; \theta_y(t_i) < 2.5,\;\; \theta_y(t_i) < -3.3
-    \]
-    (valores exactos según la rama lógica del algoritmo).
-
-    \item \textbf{Inicio parado--sentado:} $g_x(t_i)> \gamma_{bts}$ con $\gamma_{bts}=0.01~\text{rad/s}$.
-
-    \item \textbf{Fin del giro 2:} $|g_y(t_i)|<\gamma_{endturn2}$ con $\gamma_{endturn2}=0.05~\text{rad/s}$.
-
-    \item \textbf{Fin de prueba (fin de parado--sentado):} detección por cruce y retorno en $g_x$:
-    \[
-    g_x(t_i)< -0.05\;\text{y luego}\; g_x(t_i)>-0.05.
-    \]
+    \item \textbf{Parado--sentado (inicio):} $\gamma_{bts}=0.01~\text{rad/s}$.
+    \item \textbf{Fin giro 2:} $\gamma_{endturn2}=0.05~\text{rad/s}$ sobre $|g_y|$.
+    \item \textbf{Fin de prueba:} cruce y retorno en $g_x$ respecto a $-0.05~\text{rad/s}$.
 \end{itemize}
 
-En conjunto, estos umbrales se escogieron para exigir: (i) un cambio de signo o tendencia consistente, y (ii) un desplazamiento acumulado suficiente, de modo que la detección se asocie a eventos reales (levantamiento, giros, sentarse) y no a pequeñas desviaciones del sujeto durante la marcha.
+Para mayor claridad, el Cuadro~\ref{tab:umbrales-segmentacion-tug} resume los parámetros y umbrales usados en la segmentación temporal del \textit{TUG}, junto con su descripción y propósito.
+
+\begin{longtable}{|c|c|c|p{7.2cm}|}
+\caption{Parámetros y umbrales utilizados para la segmentación temporal de la prueba \textit{Timed Up and Go}.}
+\label{tab:umbrales-segmentacion-tug} \\
+
+\hline
+\textbf{Parámetro} & \textbf{Valor} & \textbf{Señal} & \textbf{Descripción y propósito} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Parámetro} & \textbf{Valor} & \textbf{Señal} & \textbf{Descripción y propósito} \\
+\hline
+\endhead
+
+\hline
+\multicolumn{4}{r}{\textit{Continúa en la siguiente página}} \\
+\endfoot
+
+\hline
+\endlastfoot
+
+$\gamma_{stb}$ & $0.1~\text{rad/s}$ & $g_x(t)$ &
+Umbral positivo de velocidad angular usado para detectar el inicio dinámico de la transición sentado--parado. Evita detectar movimientos posturales menores. \\ \hline
+
+$\Theta_{stb}$ & $0.1~\text{rad}$ & $\theta_x(t)$ &
+Umbral mínimo de desplazamiento angular integrado que confirma que el levantamiento es sostenido y no una oscilación breve. \\ \hline
+
+$\gamma_{neg}$ & $0.1~\text{rad/s}$ & $g_x(t)$ &
+Umbral negativo de velocidad angular que identifica el cruce hacia la fase de extensión y estabilización del tronco al finalizar el levantamiento. \\ \hline
+
+$\Theta_{turn1}^{out}$ & $0.9~\text{rad}$ & $\theta_y(t)$ &
+Umbral externo de desplazamiento angular lateral que confirma que el sujeto está realizando un giro corporal real y no una desviación leve durante la marcha. \\ \hline
+
+$\Theta_{turn1}^{in}$ & $0.6~\text{rad}$ & $\theta_y(t)$ &
+Umbral interno usado para fijar retrospectivamente el instante de inicio del primer giro una vez superado $\Theta_{turn1}^{out}$. \\ \hline
+
+$N_{est}$ & $10$ muestras & $g_y(t)$ &
+Ventana de estabilización exigida para declarar el fin del primer giro e inicio de la marcha de retorno. Reduce dependencia de picos aislados. \\ \hline
+
+$\varepsilon_{\dot{\theta}}$ & $0.5~\text{rad/s}$ & $\dot{\theta}_y(t)$ &
+Umbral de la derivada discreta del desplazamiento angular usado para detectar el inicio efectivo del segundo giro y descartar tendencias lentas. \\ \hline
+
+$\Theta_{turn2}^{in}$ & $\{3.3,\,2.5\}~\text{rad}$ & $\theta_y(t)$ &
+Umbrales internos dependientes del sentido del giro, usados para confirmar que el segundo giro presenta acumulación angular suficiente. \\ \hline
+
+$\Theta_{turn2}^{out}$ & $\{5.5,\,1.5\}~\text{rad}$ & $\theta_y(t)$ &
+Umbrales externos de entrada para activar la lógica de detección del segundo giro según el sentido del giro previo. \\ \hline
+
+$\gamma_{bts}$ & $0.01~\text{rad/s}$ & $g_x(t)$ &
+Umbral sensible para detectar el inicio del gesto parado--sentado una vez completado el segundo giro. \\ \hline
+
+$\gamma_{endturn2}$ & $0.05~\text{rad/s}$ & $g_y(t)$ &
+Umbral cercano a cero que marca la finalización del segundo giro por estabilización de la velocidad angular lateral. \\ \hline
+
+$\gamma_{end}$ & $0.05~\text{rad/s}$ & $g_x(t)$ &
+Umbral usado en el patrón de cruce y retorno para detectar la estabilización final del tronco y el fin de la prueba. \\
+
+\end{longtable}
+
+%Ignore the longtable warning, LaTeX is aware of it.
 
 
 
 \section{Detección de subfases del \textit{TUG}}
 \label{sec:deteccion-subfases-tug}
 
-La segmentación temporal del \textit{TUG} se realiza mediante reglas determinísticas sobre las señales $g_x(t)$ y $g_y(t)$, y sobre sus desplazamientos integrados $\theta_x(t)$ y $\theta_y(t)$. La motivación de utilizar desplazamientos integrados es que un giro corporal real produce un crecimiento/decrecimiento acumulado claro en $\theta_y$, mientras que desviaciones leves al caminar o ruido de medición tienden a no acumularse de forma suficiente o sostenida.
+La detección de eventos usa $g_x,g_y$ y los desplazamientos integrados $\theta_x,\theta_y$. En particular, los giros se identifican por acumulación en $\theta_y$, lo cual reduce sensibilidad a variaciones de trayectoria alrededor del cono (p.\,ej., giros ``marcados'' con ajuste previo vs. giros directos). La Figura~\ref{fig:TestSinCono} muestra cómo al rededor del segundo seis el paciente comienza abruptamente el giro sobre su propio eje, mientras que la Figura~\ref{fig:TestConCono} muestra cómo se da primero un pequeño pico negativo en $g_y$ antes de iniciar el giro, esto debido a que el paciente ajusta su trayectoria para rodear el cono.
 
-Las Figuras~\ref{fig:signals-example-1} y~\ref{fig:signals-example-2} ilustran dos ejecuciones representativas. En una ejecución con giro ``marcado'' alrededor del cono, el sujeto puede realizar un ajuste previo (leve giro inicial) antes del giro principal, lo cual en versiones anteriores generaba errores al depender de picos positivos/negativos aislados. En contraste, el algoritmo actual prioriza patrones de cruce, estabilización y umbrales acumulados, buscando robustez ante variaciones de trayectoria.
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.8\textwidth]{Images/Velocity_Angular_Position_Signals_1.svg}
+    \caption{Señales de aceleración y desplazamiento durante una prueba sin cono.}
+    \label{fig:TestSinCono}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.8\linewidth]{Images/Velocity_Angular_Position_Signals_2.svg}
+    \caption{Señales de aceleración y desplazamiento durante una prueba con giro marcado.}
+    \label{fig:TestConCono}
+\end{figure}
+
+
+
+
 
 \subsection{Sentado--parado}
 \label{subsec:stb}
 
-El inicio de la transición sentado--parado ($t_{stb}^{ini}$) se detecta cuando coexisten dos condiciones: (i) una velocidad angular positiva en el eje $x$, y (ii) un desplazamiento integrado positivo suficiente en el mismo eje:
-
+El inicio del levantamiento ($t_{stb}^{ini}$) se declara cuando:
 \[
-g_x(t_i) > 0.1~\text{rad/s} \quad \wedge \quad \theta_x(t_i) > 0.1~\text{rad}.
+g_x(t_i)>\gamma_{stb}\;\;\wedge\;\;\theta_x(t_i)>\Theta_{stb},
 \]
+con $\gamma_{stb}=0.1~\text{rad/s}$ y $\Theta_{stb}=0.1~\text{rad}$. La condición en $\theta_x$ exige desplazamiento acumulado suficiente para descartar oscilaciones pequeñas en sedestación.
 
-Este doble criterio reduce falsos positivos: la condición sobre $g_x$ captura el inicio dinámico, mientras que $\theta_x$ exige que el movimiento tenga acumulación suficiente para corresponder a un levantamiento real y no a oscilaciones pequeñas del tronco.
-
-Posteriormente, para marcar el fin de esta transición (y habilitar el paso a marcha 1), se exige un patrón de cruce y estabilización en $g_x$: primero se detecta un cruce negativo
-\[
-g_x(t_i) < -0.1~\text{rad/s},
-\]
-y luego una estabilización estricta cuando $g_x(t_i)=0.0$. Al cumplirse ambas condiciones, se define el inicio de marcha 1 $t_{g1}^{ini}$.
+El final del levantamiento y el inicio de marcha 1 ($t_{g1}^{ini}$) se fijan mediante un patrón de cruce y estabilización en $g_x$: se detecta $g_x(t_i)<-\gamma_{neg}$ y luego una estabilización cuando $g_x(t_i)=0.0$, con $\gamma_{neg}=0.1~\text{rad/s}$.
 
 \subsection{Marcha inicial}
 \label{subsec:gait1}
 
-La marcha inicial comienza en el instante $t_{g1}^{ini}$, definido al finalizar el patrón de transición sentado--parado descrito en la subsección anterior. En el algoritmo implementado, no se impone un criterio adicional basado en aceleración vertical; se considera suficiente que la transición de levantamiento se haya completado y que el tronco haya estabilizado su dinámica de flexión/extensión reflejada en $g_x$.
+La marcha inicial inicia en $t_{g1}^{ini}$ y se extiende hasta el inicio del primer giro. En la implementación actual no se impone un umbral adicional sobre aceleración; el cambio de fase se gobierna por la dinámica rotacional acumulada en $\theta_y$.
 
 \subsection{Primer giro}
 \label{subsec:turn1}
 
-El inicio del primer giro ($t_{turn1}^{ini}$) se detecta usando el desplazamiento integrado lateral $\theta_y(t)$ (en el código: \textit{dispY}). El algoritmo evalúa si el desplazamiento acumulado supera un umbral externo:
-
+El inicio del giro 1 ($t_{turn1}^{ini}$) se detecta cuando el desplazamiento lateral integrado supera un umbral externo:
 \[
-\theta_y(t_i) < -0.9~\text{rad} \quad \text{o} \quad \theta_y(t_i) > 0.9~\text{rad}.
+|\theta_y(t_i)|>\Theta_{turn1}^{out}\quad (\Theta_{turn1}^{out}=0.9~\text{rad}).
 \]
 
-Una vez se supera este umbral, se realiza una búsqueda retrospectiva desde el inicio de marcha 1 hasta el instante actual para encontrar el primer instante donde el desplazamiento ya excedía un umbral interno:
+Esto significa que el paciente ha acumulado un desplazamiento suficiente para que el algoritmo garantice que el paciente está realmente haciendo un giro y no se trate de un falso positivo. Dependiendo de la rama lógica (giro a derecha o izquierda), esto es $\theta_y(t_i) > 0.9$ (giro derecha) o $\theta_y(t_i) < -0.9$ (giro izquierda); se realiza una búsqueda retrospectiva desde $t_{g1}^{ini}$ hasta $t_i$ para encontrar el primer instante $t_k$ donde ya se superaba un umbral interno más bajo:
 
 \[
-|\theta_y(t_k)| > 0.6~\text{rad}, \quad k \in [\,i_{g1},\, i\,].
+|\theta_y(t_k)|>\Theta_{turn1}^{in}\quad (\Theta_{turn1}^{in}=0.6~\text{rad}).
 \]
-
-Se define entonces $t_{turn1}^{ini}=t_k$. Esta estrategia (doble umbral) evita declarar el giro ante desviaciones leves al caminar: se exige un crecimiento acumulado suficiente (0.9 rad) y luego se fija el inicio cuando el giro ya es consistente (0.6 rad).
+El esquema de doble umbral permite discriminar giros reales de derivas leves durante la marcha, una vez que el algoritmo garantiza que el paciente está realmente haciendo un giro y no se trate de un falso positivo, hace la búsqueda retrospectiva con un umbral más bajo para acercarce lo más posible al inicio real del giro.
 
 \subsection{Marcha de retorno}
 \label{subsec:gait2}
 
-El inicio de la marcha de retorno ($t_{g2}^{ini}$) se define al finalizar el primer giro mediante un patrón de estabilización en $g_y(t)$, el cual evita depender de un único pico. Primero se detecta que existe un evento de giro consistente verificando:
-
+El inicio de marcha 2 ($t_{g2}^{ini}$) se estima como el fin del giro 1 mediante una condición de estabilidad: se requiere que exista evidencia de giro ($|\theta_y|\ge 0.9$) y, posteriormente, una ventana de $N_{est}=10$ muestras consecutivas con $g_y=0.0$, esto con el ánimo de asegurar que el paciente ha terminado el giro y está listo para comenzar la marcha de retorno. Cumplida la ventana, se fija:
 \[
-g_y(t_i)=0.0 \quad \wedge \quad |\theta_y(t_i)| \ge 0.9~\text{rad}.
+t_{g2}^{ini}=t_{i-N_{est}}.
 \]
-
-Luego se exige una estabilización de $N_{est}=10$ muestras consecutivas con $g_y=0.0$. Tras cumplir esta condición, se fija el inicio de marcha 2 en el instante:
-
-\[
-t_{g2}^{ini} = t_{i - N_{est}}.
-\]
-
-Además, se define el sentido del giro asociado a la trayectoria según la rama detectada:
-
-\begin{itemize}
-    \item Si el evento se detecta con $\theta_y(t_i)\ge 0.9$, se marca \textit{giro a la derecha}.
-    \item Si el evento se detecta con $\theta_y(t_i)\le -0.9$, se marca \textit{giro a la izquierda}.
-\end{itemize}
-
-Esta inferencia de sentido se utiliza explícitamente para condicionar la detección del segundo giro y mantener coherencia cinemática entre giros.
+Adicionalmente, se registra el sentido del giro 1 (bandera \textit{giro a derecha} si $\theta_y\ge 0.9$ o \textit{giro a izquierda} si $\theta_y\le -0.9$), el cual condiciona la detección del giro 2.
 
 \subsection{Segundo giro}
 \label{subsec:turn2}
 
-El segundo giro se detecta usando (i) el sentido inferido en la fase anterior y (ii) umbrales de desplazamiento integrado $\theta_y$ combinados con un criterio de ``inicio de movimiento'' basado en la derivada discreta $\dot{\theta}_y$.
+El inicio del giro 2 ($t_{turn2}^{ini}$) se detecta en dos pasos: (i) \textit{entrada} por magnitud de $\theta_y$ según el sentido previo y (ii) confirmación por tendencia usando la derivada discreta de $\theta_y$.
 
-En primer lugar, se monitorea $\theta_y$ desde el inicio de marcha 2. Dependiendo del sentido previo, se activan condiciones de entrada:
-
-\begin{itemize}
-    \item Si se detectó \textit{giro a la derecha} (en el primer giro), se evalúa:
-    \[
-    \theta_y(t_i) > 5.5 \quad \text{o} \quad \theta_y(t_i) < 1.5.
-    \]
-    \item Si se detectó \textit{giro a la izquierda}, se evalúa:
-    \[
-    \theta_y(t_i) > -1.5 \quad \text{o} \quad \theta_y(t_i) < -5.5.
-    \]
-\end{itemize}
-
-Al cumplirse una condición de entrada, se calcula la derivada discreta de $\theta_y$:
-
+Primero, se activan condiciones de entrada (en rad):
 \[
-\dot{\theta}_y(t_i)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i},
+\text{si giro 1 a derecha: }\theta_y>5.5\;\;\text{o}\;\;\theta_y<1.5;\qquad
+\text{si giro 1 a izquierda: }\theta_y>-1.5\;\;\text{o}\;\;\theta_y<-5.5.
 \]
-y se detecta el inicio de movimiento cuando cruza $\pm 0.5~\text{rad/s}$ (según el sentido), lo cual evita declarar giro ante una tendencia lenta no consistente.
-
-Finalmente, el instante de inicio del giro 2 ($t_{turn2}^{ini}$) se fija cuando $\theta_y$ supera umbrales internos dependientes de la rama lógica y del sentido del primer giro. En la implementación, estos umbrales internos son:
-
+Luego, se estima $\dot{\theta}_y(t_i)\approx(\theta_y(t_i)-\theta_y(t_{i-1}))/\Delta t_i$ y se detecta el inicio del movimiento cuando cruza un umbral de tendencia $|\dot{\theta}_y|>\varepsilon_{\dot{\theta}}$ con $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$. Finalmente, el inicio se confirma cuando $\theta_y$ supera un umbral interno que asegura acumulación suficiente (según rama):
 \[
-\theta_y(t_i) > 3.3,\;\; \theta_y(t_i) > -2.5,\;\; \theta_y(t_i) < 2.5,\;\; \theta_y(t_i) < -3.3,
+\theta_y>3.3,\;\;\theta_y<-3.3,\;\;\theta_y> -2.5,\;\;\theta_y<2.5.
 \]
-seleccionados para confirmar que el desplazamiento acumulado ya es suficientemente grande como para asegurar que el paciente está efectivamente girando (y no únicamente corrigiendo la trayectoria).
+Este esquema evita declarar giro por variaciones lentas o correcciones pequeñas de trayectoria.
 
 \subsection{Parado--sentado y finalización}
 \label{subsec:bts-end}
 
-Una vez detectado el inicio del giro 2, el algoritmo busca el inicio del movimiento de sentado (parado--sentado) mediante:
-
-\[
-g_x(t_i) > 0.01~\text{rad/s}.
-\]
-
-En paralelo, el fin del giro 2 se marca cuando la velocidad angular lateral se aproxima a cero:
-
-\[
-|g_y(t_i)| < 0.05~\text{rad/s}.
-\]
-
-Finalmente, el fin de la prueba ($t_{end}$) se detecta por un patrón de cruce y retorno en $g_x$ posterior al inicio de parado--sentado:
-
-\[
-g_x(t_i) < -0.05 \quad \text{y posteriormente} \quad g_x(t_i) > -0.05.
-\]
-
-Este patrón busca capturar la desaceleración y estabilización final del tronco una vez el sujeto completa el sentado. Con los instantes detectados se construyen ventanas temporales para cada subfase y se calculan duraciones por diferencia de tiempos.
-
-
-
+Tras detectar el giro 2, el inicio del sentado ($t_{bts}^{ini}$) se declara cuando $g_x(t_i)>\gamma_{bts}$ con $\gamma_{bts}=0.01~\text{rad/s}$. El fin del giro 2 se marca cuando $|g_y(t_i)|<\gamma_{endturn2}$ con $\gamma_{endturn2}=0.05~\text{rad/s}$, nótese que el fin del giro 2 puede darse después del inicio de la fase Parado-sentado, debido a la naturalidad de ir girando mientras se va sentando. El fin de la prueba ($t_{end}$) se detecta por cruce y retorno en $g_x$ alrededor de $-0.05~\text{rad/s}$ posterior al inicio del sentado. Con estos instantes se construyen las ventanas temporales por subfase y sus duraciones por diferencia.
 
 \section{Comparación con el algoritmo previo}
 \label{sec:comparacion-algoritmo-previo}
 
-El algoritmo previo (aplicativo de escritorio en C\#) y la versión actual (microservicio en PHP) comparten la idea base de segmentar el \textit{TUG} a partir de (i) velocidades angulares del giroscopio y (ii) desplazamientos angulares integrados. No obstante, la implementación actual introduce cambios relevantes en los criterios de detección, especialmente en el giro 1, la transición giro 1$\rightarrow$marcha 2, el giro 2 y el inicio de sentado final. A continuación se resumen las diferencias \textbf{únicamente} para la detección de fases.
+El algoritmo previo (C\#) y el actual (PHP) segmentan usando $g_x,g_y$ y desplazamientos integrados. La versión actual prioriza umbrales más locales y condiciones de estabilidad, reduciendo dependencia de patrones específicos de trayectoria alrededor del cono.
 
-\subsection*{Sentado--parado y transición a marcha 1}
-En el algoritmo previo, el inicio de sentado--parado se determinaba cuando $g_x(t)>0.05~\text{rad/s}$. Posteriormente, la detección del inicio de marcha 1 dependía de un patrón de cruce que requería $g_x(t)<-0.05$ y luego $g_x(t)>0.05$, y finalmente una condición adicional $g_x(t)>0$ para fijar $t_{g1}^{ini}$.
+\textbf{(i) Sentado--parado y marcha 1.} El previo iniciaba sentado--parado con $g_x>0.05$; el actual exige $g_x>0.1$ y $\theta_x>0.1$, disminuyendo falsos positivos. La transición a marcha 1 pasa de un cruce simple a un patrón con estabilización en $g_x=0.0$.
 
-En el microservicio, el inicio de sentado--parado se hace más restrictivo al exigir simultáneamente:
-\[
-g_x(t)>0.1~\text{rad/s} \quad \wedge \quad \theta_x(t)>0.1~\text{rad},
-\]
-lo cual reduce falsos positivos por oscilaciones breves (por ejemplo, ajustes posturales en la silla). Además, la transición a marcha 1 se determina mediante un patrón de banderas similar, pero la condición de estabilización se implementa como una verificación estricta en cero ($g_x(t)=0.0$) antes de declarar el inicio de marcha 1. En la práctica, este criterio busca marcar el instante donde el gesto de levantamiento ya terminó y la señal se estabiliza.
+\textbf{(ii) Giro 1.} El previo activaba con $|\theta_y|>2.5$ y una búsqueda retrospectiva usando señal invertida y banda $\pm 0.5$; el actual emplea doble umbral $0.9/0.6$ para fijar el inicio del giro por acumulación sostenida, con menor sensibilidad a ``giros preliminares''.
 
-\subsection*{Inicio del giro 1}
-En el algoritmo previo, el giro 1 se activaba cuando el desplazamiento integrado lateral superaba un umbral amplio:
-\[
-\theta_y(t)<-2.5 \quad \text{o} \quad \theta_y(t)>2.5,
-\]
-y luego se estimaba el instante de inicio recorriendo la señal invertida (\textit{DesplazamientoY\_inv}) para detectar un ``paso'' por una banda interna $\pm 0.5$, usando banderas distintas para giro a izquierda o derecha. Es decir, el método dependía de un patrón previo en el desplazamiento (cruce de una banda) antes de llegar al umbral final, lo cual podía fallar si el sujeto realizaba una trayectoria que no generaba el patrón esperado (por ejemplo, sin un ajuste inicial alrededor del cono).
+\textbf{(iii) Marcha 2.} El previo definía marcha 2 por cruce de $\theta_y$ en $\pm 3.2$ según sentido; el actual fija $t_{g2}^{ini}$ por ventana de estabilidad ($N_{est}=10$ muestras con $g_y=0.0$) una vez se confirma giro ($|\theta_y|\ge 0.9$).
 
-En el microservicio, el giro 1 se redefine con un esquema de doble umbral más cercano temporalmente al evento:
-\[
-|\theta_y(t)|>0.9~\text{rad} \;\; \Rightarrow \;\; \text{retro-búsqueda del primer } |\theta_y(t)|>0.6~\text{rad}.
-\]
-Este cambio reduce la dependencia de la forma exacta de la trayectoria (p.\,ej., un ``microgiro'' previo) y hace que la detección del inicio del giro se base en la acumulación local y sostenida del desplazamiento.
+\textbf{(iv) Giro 2.} El previo usaba banderas por rangos de $\theta_y$ y umbrales poco consistentes; el actual condiciona por sentido del giro 1, exige tendencia ($|\dot{\theta}_y|>0.5$) y confirma con umbrales internos ($\pm 3.3$, $\pm 2.5$).
 
-\subsection*{Inicio de marcha 2 (fin del giro 1)}
-Una diferencia crítica es cómo se marca el final del giro 1 y el inicio de la marcha 2.
+\textbf{(v) Sentado final.} El previo dependía de un umbral alto ($g_x>1$) y búsqueda hacia atrás; el actual usa $g_x>0.01$ tras iniciar giro 2, más sensible al inicio del gesto, y además separa explícitamente el fin del giro 2 con $|g_y|<0.05$.
 
-En el algoritmo previo, una vez definido el sentido del giro 1, el inicio de marcha 2 se detectaba por un cruce alrededor de un umbral fijo cercano a la zona final del giro:
-\[
-\text{si giro a izquierda: } \theta_y(t)<-3.2 \Rightarrow \theta_y(t)>-3.2;
-\qquad
-\text{si giro a derecha: } \theta_y(t)>3.2 \Rightarrow \theta_y(t)<3.2.
-\]
-Este criterio dependía principalmente del desplazamiento integrado y de una sola condición de cruce.
 
-En el microservicio, el inicio de marcha 2 se fija de forma diferente: se exige que exista evidencia de giro (desplazamiento acumulado $|\theta_y|\ge 0.9$) y, además, se utiliza una regla de estabilización temporal basada en $g_y(t)=0.0$ durante $N_{est}=10$ muestras consecutivas. Al cumplirse esa estabilidad, se define el inicio de marcha 2 como $t_{i-N_{est}}$. Esta modificación busca mitigar que el instante de cambio giro$\rightarrow$marcha varíe con el estilo de giro, imponiendo una condición de ``fin de giro'' basada en estabilización de la velocidad angular.
 
-\subsection*{Inicio del giro 2}
-En el algoritmo previo, el giro 2 se iniciaba por una lógica de banderas con ventanas de valores del desplazamiento:
-\[
-\theta_y(t)\in(3,6)\Rightarrow\text{bandera arriba},\;
-\theta_y(t)\in(-1,1)\Rightarrow\text{bandera medio},\;\\
-\theta_y(t)\in(-6,-3)\Rightarrow\text{bandera abajo},
-\]
-y luego se declaraba inicio del giro al cruzar umbrales como $\theta_y(t)>6$, $\theta_y(t)>0.25$ o $\theta_y(t)<-6$. Esta estrategia mezclaba varias condiciones redundantes (por ejemplo, dos reglas muy cercanas para la banda media) y no incorporaba explícitamente coherencia con el sentido del giro 1.
-
-En el microservicio, la detección del giro 2 se condiciona explícitamente por el sentido inferido al finalizar el giro 1 (giro a derecha vs. giro a izquierda). Según esa condición, se activan umbrales de entrada diferentes sobre $\theta_y(t)$ (por ejemplo $>5.5$ o $<1.5$ en una rama, y $>-1.5$ o $<-5.5$ en la otra). Luego, para evitar declarar un giro por pequeñas derivas, se identifica un inicio de movimiento mediante la derivada discreta:
-\[
-\dot{\theta}_y(t)\approx \frac{\theta_y(t_i)-\theta_y(t_{i-1})}{\Delta t_i},
-\]
-usando un umbral fijo $\varepsilon_{\dot{\theta}}=0.5~\text{rad/s}$. Finalmente, el instante de inicio del giro 2 se confirma con umbrales internos dependientes de la rama (\(\pm 3.3\), \(\pm 2.5\)). En conjunto, el giro 2 en la versión actual combina (i) coherencia de sentido, (ii) acumulación suficiente y (iii) cambio sostenido de tendencia, lo cual mejora la robustez ante variabilidad intersujeto.
-
-\subsection*{Inicio de parado--sentado y fin de prueba}
-En el algoritmo previo, el inicio de parado--sentado se activaba con un umbral alto en $g_x(t)$ (por ejemplo, $g_x(t)>1$) y luego se buscaba hacia atrás en la señal invertida ($\textit{Lista\_Gx\_inv}$) el primer instante donde $g_x(t)<0$ para fijar el inicio del sentado. Este procedimiento dependía de un pico pronunciado y de una búsqueda retrospectiva.
-
-En el microservicio, el inicio de parado--sentado se hace más sensible al reducir el umbral a $g_x(t)>0.01~\text{rad/s}$ (una vez ya se detectó el inicio del giro 2). Esto permite capturar el inicio del gesto de sentarse sin exigir un pico grande. Adicionalmente, la versión actual separa explícitamente el \textit{fin del giro 2} usando:
-\[
-|g_y(t)|<0.05~\text{rad/s},
-\]
-lo cual no existía como evento independiente en el algoritmo previo.
-
-Por último, en ambos algoritmos el fin de prueba se determina con un patrón de cruce y retorno en $g_x(t)$ alrededor de $-0.05$, aunque en el microservicio la implementación está encapsulada en banderas equivalentes para marcar la estabilización final del tronco.
-
-\subsection*{Resumen de cambios}
-En síntesis, la versión actual reemplaza varias dependencias del algoritmo previo (bandas amplias en $\theta_y$, búsquedas retrospectivas extensas y picos grandes) por criterios más robustos basados en: doble umbral local para giro 1, estabilización en $g_y$ para iniciar marcha 2, coherencia de sentido y derivada de $\theta_y$ para giro 2, y un criterio más sensible para inicio de sentado final. Estos cambios apuntan a mejorar la detección en ejecuciones reales donde el sujeto puede bordear el cono con trayectorias distintas (con o sin giro preliminar), reduciendo fallos por variabilidad de estilo de marcha y giro.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\section{Detección de subfases del \textit{TUG}}
-
-La detección automática de las subfases de la prueba \textit{TUG} se realiza a partir del análisis conjunto de las señales $g_x(t)$ y $g_y(t)$ y de sus desplazamientos angulares integrados $\theta_x(t)$ y $\theta_y(t)$. El algoritmo se basa en la identificación de eventos característicos del movimiento humano, tales como cruces por umbral, picos de velocidad angular, cambios de signo y periodos de estabilización.
-
-Las Figuras~\ref{fig:TestConCono} y~\ref{fig:TestSinCono} muestran dos ejemplos representativos de señales utilizadas para evaluar el comportamiento del algoritmo. En la Figura~\ref{fig:TestConCono}, el sujeto realiza un giro marcado alrededor del cono: durante la marcha se observa un pequeño giro inicial hacia un lado y posteriormente un giro más pronunciado en sentido contrario para bordear el cono. En contraste, en la Figura~\ref{fig:TestSinCono}, el sujeto camina directamente hacia un lado del cono, realizando únicamente un giro principal para rodearlo.
-
-Esta diferencia en la estrategia de ejecución resulta crítica, ya que algoritmos previos dependían de la presencia de un giro inicial pequeño para detectar el inicio del primer giro. La lógica implementada en este trabajo elimina dicha dependencia, permitiendo una detección más robusta frente a variabilidad en el patrón de marcha.
-
-
-\subsection{Sentado--parado}
-
-La transición desde la posición sentada hasta la bipedestación se detecta a partir de la señal de velocidad angular $g_x(t)$, asociada principalmente a la flexión anterior del tronco durante el levantamiento. El inicio de la fase sentado--parado se define en el instante $t_{stb}^{ini}$ cuando $g_x(t)$ supera un umbral fijo positivo $\gamma_{stb} = 0.5~\text{rad/s}$ de manera sostenida, y simultáneamente el desplazamiento angular integrado $\theta_x(t)$ supera un valor mínimo $\Theta_{stb} = 0.1~\text{rad}$.
-
-Formalmente, el evento de inicio se detecta cuando se cumplen las siguientes condiciones:
-\[
-g_x(t) > 0.5~\text{rad/s}, \qquad \theta_x(t) - \theta_x(t_0) > 0.1~\text{rad},
-\]
-donde $t_0$ corresponde a un instante previo al inicio del movimiento.
-
-La combinación de ambos criterios permite descartar falsas detecciones debidas a pequeñas oscilaciones del tronco o ruido de alta frecuencia, ya que exige no solo un pico instantáneo de velocidad angular, sino un desplazamiento angular acumulado coherente con un movimiento real de levantamiento.
-
-El final de la fase sentado--parado se identifica cuando $g_x(t)$ retorna a valores cercanos a cero y permanece dentro del intervalo $|g_x(t)| < 0.1~\text{rad/s}$ durante un tiempo mínimo de estabilización $\Delta t_{est} = 0.5~\text{s}$, indicando que el tronco ha alcanzado una postura erguida y estable.
-
-
-\subsection{Marcha inicial}
-
-La fase de marcha inicial comienza inmediatamente después de completarse la transición sentado--parado. En esta implementación, la detección de la marcha no depende de la presencia de un pico pronunciado en aceleración vertical, sino de la finalización estable de la fase anterior.
-
-Se considera que la marcha inicia en el instante $t_{m1}^{ini}$ correspondiente al final del periodo de estabilización de $g_x(t)$ descrito previamente. Durante esta fase, las señales $g_x(t)$ y $g_y(t)$ permanecen cercanas a cero en promedio, reflejando un desplazamiento predominantemente traslacional sin rotaciones significativas del tronco.
-
-El final de la marcha inicial se detecta cuando la magnitud de la velocidad angular $|g_y(t)|$ supera un umbral fijo $\gamma_{giro} = 0.4~\text{rad/s}$ de forma sostenida, indicando el inicio de una rotación axial del tronco asociada al primer giro.
-
-
-
-\subsection{Primer giro}
-
-El primer giro se detecta a partir de la señal $g_y(t)$, asociada a la rotación del tronco alrededor del eje vertical. El inicio del giro ocurre cuando $|g_y(t)|$ supera el umbral fijo $\gamma_{giro} = 0.4~\text{rad/s}$ y el desplazamiento angular integrado $\theta_y(t)$ comienza a aumentar o disminuir de forma monótona.
-
-El sentido del giro se determina directamente a partir del signo del desplazamiento angular acumulado:
-\begin{itemize}
-    \item $\theta_y(t)$ creciente: giro en sentido antihorario.
-    \item $\theta_y(t)$ decreciente: giro en sentido horario.
-\end{itemize}
-
-Adicionalmente, se exige que el valor absoluto del desplazamiento angular alcance un umbral mínimo $\Theta_{giro} = 0.5~\text{rad}$ para confirmar que la rotación corresponde a un giro real y no a una desviación leve durante la marcha.
-
-El final del primer giro se define cuando $|g_y(t)|$ retorna al intervalo $|g_y(t)| < 0.1~\text{rad/s}$ y se mantiene estable durante al menos $\Delta t_{est} = 0.5~\text{s}$.
-
-
-
-\subsection{Marcha de retorno}
-
-La marcha de retorno se inicia inmediatamente después del final del primer giro. Durante esta fase, la señal $g_y(t)$ permanece cercana a cero en promedio, lo que indica ausencia de rotación significativa del tronco mientras el sujeto se desplaza nuevamente hacia la silla.
-
-Formalmente, esta fase se caracteriza por el cumplimiento de:
-\[
-|g_y(t)| < 0.1~\text{rad/s},
-\]
-durante un intervalo continuo, lo cual permite distinguir la marcha de retorno de eventos de giro o ajustes posturales transitorios.
-
-El final de la marcha de retorno se detecta cuando se observa un nuevo incremento sostenido en $|g_y(t)|$ que supera el umbral $\gamma_{giro}$, indicando el inicio del segundo giro.
-
-
-
-\subsection{Segundo giro}
-
-La detección del segundo giro incorpora un criterio adicional respecto al primer giro, basado en la coherencia del sentido de rotación. En primer lugar, se identifica el sentido del primer giro a partir del signo del desplazamiento angular $\theta_y(t)$. A partir de esta información, se espera que el segundo giro ocurra en el sentido opuesto, de acuerdo con la cinemática natural de la prueba \textit{TUG}.
-
-El inicio del segundo giro se detecta cuando la derivada temporal del desplazamiento angular,
-\[
-\frac{d\theta_y(t)}{dt},
-\]
-supera un umbral fijo $\Gamma_{giro} = 0.3~\text{rad/s}$ con signo opuesto al observado en el primer giro. Este criterio permite identificar el giro de retorno de manera temprana y evita falsas detecciones asociadas a oscilaciones residuales tras la marcha.
-
-Adicionalmente, se exige que el desplazamiento angular acumulado alcance nuevamente el umbral $|\Theta_{giro}| = 0.5~\text{rad}$ para confirmar que el evento corresponde a un giro efectivo y no a un ajuste postural menor.
-
-El final del segundo giro se define cuando $|g_y(t)|$ retorna a valores inferiores a $0.1~\text{rad/s}$ y se mantiene estable durante un intervalo mínimo de $\Delta t_{est}$.
-
-
-
-\subsection{Parado--sentado y finalización}
-
-La transición final desde la posición de pie hasta sentado se detecta nuevamente a partir de la señal $g_x(t)$, asociada a la flexión anterior del tronco. El inicio de esta fase se define cuando $g_x(t)$ supera un umbral positivo moderado $\gamma_{bts} = 0.4~\text{rad/s}$ y el desplazamiento angular integrado $\theta_x(t)$ presenta un incremento coherente con el movimiento de descenso.
-
-El final de la prueba se determina cuando todas las señales del giroscopio cumplen:
-\[
-|g_x(t)| < 0.1~\text{rad/s}, \qquad |g_y(t)| < 0.1~\text{rad/s},
-\]
-durante un intervalo continuo de al menos $5~\text{s}$. Este criterio garantiza que el paciente se encuentra completamente inmóvil y evita finalizar la prueba debido a pausas breves o movimientos residuales.
-
-
-
-\section{Comparación con el algoritmo previo}
-
-La lógica de segmentación implementada en este trabajo introduce cambios sustanciales respecto al algoritmo desarrollado en el trabajo previo. En primer lugar, se elimina la dependencia de giros iniciales pequeños para detectar el inicio del primer giro, lo cual generaba errores cuando el sujeto realizaba trayectorias asimétricas alrededor del cono.
-
-Adicionalmente, se reduce el uso de múltiples banderas lógicas intermedias, reemplazándolas por criterios directos basados en umbrales, estabilidad temporal y análisis del desplazamiento angular y su derivada. Esto simplifica la estructura del algoritmo y mejora su interpretabilidad.
-
-Finalmente, la separación explícita entre giros y fases de marcha, así como la redefinición del inicio y fin de la transición parado--sentado, permiten una segmentación temporal más precisa y consistente en condiciones reales de uso, incrementando la robustez del sistema frente a variabilidad intersujeto y diferencias en la ejecución motora.
-
-
-
-
-
-\section{Adaptación de la lógica de segmentación temporal}
-\label{sec:segmentation-changes}
-
-El trabajo previo desarrollado por Pérez Kuleshova \cite{Sistema-portable-TUG-AKuleshov} estableció una base funcional para la detección de las subfases del \textit{TUG}. No obstante, durante las pruebas preliminares realizadas en este Trabajo de Grado se identificaron limitaciones asociadas a la sensibilidad a la orientación del dispositivo, dependencia excesiva de umbrales fijos y uso intensivo de banderas lógicas intermedias.
-
-Con el objetivo de alcanzar un nivel de madurez tecnológica TRL 6, fue necesario reformular la lógica de segmentación, manteniendo la estructura general del algoritmo pero introduciendo cambios sustanciales en los criterios de detección, en los umbrales numéricos y en el uso combinado de aceleración, desplazamiento integrado y velocidad angular.
-
-Las Figuras~\ref{fig:TestConCono} y~\ref{fig:TestSinCono} ilustran ejemplos representativos de señales utilizadas para evaluar el comportamiento del algoritmo durante pruebas con y sin giro marcado.
-
-\begin{figure}[h!]
-    \centering
-    \includesvg[width=1\textwidth]{Images/Velocity_Angular_Position_Signals_1.svg}
-    \caption{Señales de aceleración y desplazamiento durante una prueba sin cono.}
-    \label{fig:TestConCono}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includesvg[width=1\linewidth]{Images/Velocity_Angular_Position_Signals_2.svg}
-    \caption{Señales de aceleración y desplazamiento durante una prueba con giro marcado.}
-    \label{fig:TestSinCono}
-\end{figure}
-
-\subsection{Cambios generales de preprocesamiento}
-
-Un primer cambio relevante fue la incorporación de una verificación automática de la orientación del dispositivo. En la versión original se asumía una colocación correcta del teléfono, lo cual generaba errores cuando el dispositivo era invertido o rotado. En la versión actual se compara la magnitud del desplazamiento integrado en los ejes horizontales; si el desplazamiento lateral resulta significativamente menor que el antero–posterior, se interpreta una inversión de ejes y se realiza un intercambio automático de componentes antes del procesamiento posterior.\\
-
-Adicionalmente, se introdujo una separación explícita entre el final del segundo giro y el inicio de la fase parado–sentado. En la versión anterior ambas transiciones se encontraban fusionadas, lo que provocaba una sobreestimación de la duración del segundo giro. La nueva lógica define el final del giro a partir de la velocidad angular, permitiendo una segmentación temporal más precisa y clínicamente interpretable.
-
-\subsection{Detección de la transición sentado--parado}
-
-En la versión original, el inicio de la fase sentado--parado se detectaba mediante un umbral fijo aplicado sobre la señal de aceleración. En la versión actual, este criterio se refuerza exigiendo simultáneamente:
-
-\begin{itemize}
-    \item Una aceleración antero--posterior superior a un umbral aumentado.
-    \item Un desplazamiento integrado positivo mayor que un valor mínimo.
-\end{itemize}
-
-Este enfoque permite reducir la detección de falsos positivos asociados a oscilaciones de alta frecuencia y garantiza que el evento identificado corresponda a un movimiento real del cuerpo y no a ruido de la señal.
-
-Asimismo, la detección de la transición hacia la marcha inicial se redefine empleando un patrón más simple basado en un cruce negativo de la aceleración antero--posterior, seguido de una fase de estabilización de dicha señal, eliminando la dependencia de picos positivos aislados que resultan poco robustos ante variabilidad intersujeto.
-
-
-\subsection{Detección de la marcha inicial}
-
-La detección de la primera fase de marcha deja de depender de un ascenso posterior de la aceleración vertical. Se considera suficiente que el patrón completo de transición desde sentado–parado se haya completado, incluso si la señal no presenta un pico vertical pronunciado. Esta modificación mejora la robustez ante diferentes estilos de levantamiento.
-
-\subsection{Detección del primer giro}
-
-La lógica de detección del primer giro fue reformulada para reducir latencia y complejidad. Los umbrales de desplazamiento lateral se redujeron significativamente, permitiendo identificar el giro en una etapa más temprana. Además, se reemplazó la búsqueda retrospectiva extensa por un análisis limitado al intervalo comprendido entre el inicio de la marcha y el instante actual.
-
-La dirección del giro se infiere directamente a partir del signo del desplazamiento lateral, eliminando la necesidad de banderas explícitas para giro izquierdo o derecho.
-
-\subsection{Detección de la marcha de retorno}
-
-A diferencia de la versión original, la transición entre giro y marcha de retorno no depende únicamente del desplazamiento lateral. La nueva versión exige que la velocidad angular se mantenga cercana a cero durante un intervalo continuo, representando de manera más fiel el fin real de la rotación corporal.
-
-\subsection{Detección del segundo giro}
-
-La detección del segundo giro incorpora uno de los cambios más significativos. Se abandona el uso de múltiples bandas de desplazamiento y se introduce el análisis de la derivada del desplazamiento lateral. El inicio del giro se reconoce cuando dicha derivada supera un umbral fijo, condicionado por el sentido del primer giro, lo que garantiza coherencia cinemática entre ambos giros.
-
-\subsection{Transición final parado--sentado y fin de la prueba}
-
-El inicio de la fase parado–sentado se detecta mediante un umbral positivo moderado en la aceleración antero–posterior, sin necesidad de búsquedas retrospectivas. El final de la prueba se define a partir de un patrón de desaceleración y retorno a valores cercanos a cero, empleando banderas dedicadas exclusivamente a esta fase.
-
-\subsection{Resumen conceptual de la adaptación}
-
-En conjunto, la versión actual del algoritmo deja de depender exclusivamente de desplazamientos integrados y cruces por umbrales altos, y pasa a apoyarse en una combinación de aceleración, desplazamiento, derivadas y velocidad angular. Esta reformulación reduce la sensibilidad al ruido, elimina estados intermedios innecesarios y mejora la fiabilidad de la segmentación temporal en condiciones reales de uso.
 
 \section{Plataforma de la marcha humana}
 \label{sec:gait-platform}
@@ -1440,7 +1332,7 @@ Como parte de este Trabajo de Grado se colaboró con el grupo de investigación 
 
 \subsection{Arquitectura de la plataforma}
 
-La plataforma adopta una arquitectura cliente–servidor basada en servicios \textit{web} RESTful. Los usuarios autorizados acceden mediante un navegador \textit{web}, mientras que los subsistemas envían datos al servidor de manera unidireccional. La autenticación se realiza mediante \textit{tokens} JWT (JSON Web Tokens), garantizando la seguridad de la información transmitida.
+La plataforma adopta una arquitectura cliente–servidor basada en servicios \textit{web} RESTful, como se aprecia en la Figura~\ref{fig:software-architecture-data-automation}. Los usuarios autorizados acceden mediante un navegador \textit{web}, mientras que los subsistemas envían datos al servidor de manera unidireccional. La autenticación se realiza mediante \textit{tokens} JWT (JSON Web Tokens), garantizando la seguridad de la información transmitida.
 
 \begin{figure}[H]
 	\centering
@@ -1449,18 +1341,22 @@ La plataforma adopta una arquitectura cliente–servidor basada en servicios \te
     \label{fig:software-architecture-data-automation}
 \end{figure}
 
-Cada subsistema envía un archivo CSV que contiene tanto los datos del paciente como las señales crudas de los sensores. Una vez recibido, el servidor separa esta información y la procesa mediante microservicios específicos, permitiendo escalabilidad y modularidad.
+Cada subsistema envía un archivo CSV que contiene tanto los datos del paciente como las señales crudas de los sensores. Una vez recibido, el servidor separa esta información y la procesa mediante microservicios específicos, permitiendo escalabilidad y modularidad.\\
+
+Como parte del desarrollo de este Trabajo de Grado, se implementó un microservicio dedicado al procesamiento y análisis de los datos provenientes de la prueba \textit{Timed Up and Go} (\textit{TUG}). Este microservicio se encarga de segmentar la prueba en sus subfases y calcular las variables biomecánicas relevantes, integrándose con el resto de la plataforma para ofrecer un informe completo a los profesionales de la salud. De igual manera, se desarrolló el mecanismo para la captura del archivo CSV desde cada subsistema y la separación del mismo en dos partes: datos del paciente y señales de los sensores, éste último se procesa mediante el microservicio dedicado al análisis de la prueba \textit{TUG}, donde se enviaba al microservicio y éste lo devolvió con las variables biomecánicas y los tiempos de las subfases calculadas, acto seguido, se almacenaban los archivos resultantes en la base de datos de la plataforma.\\
+
+Finalmente, se diseñó una interfaz de usuario intuitiva y funcional que permite a los profesionales de la salud acceder a los informes de análisis generados por el microservicio \textit{TUG}, facilitando la interpretación de los resultados y apoyando la toma de decisiones clínicas.
 
 \subsection{Informe de análisis y cálculo de variables}
 \label{sec:informe-analisis}
 
-Cuando el servidor recibe un nuevo registro de la prueba \textit{Timed Up and Go} (\textit{TUG}), inicia de manera automática el procesamiento de los datos. En primer lugar, se separa la información del paciente de las señales adquiridas por los sensores. Posteriormente, se realiza el cálculo de las variables biomecánicas de interés a partir de dichas señales.
+Cuando el servidor recibe un nuevo registro de la prueba \textit{Timed Up and Go} (\textit{TUG}), inicia de manera automática el procesamiento de los datos. En primer lugar, se separa la información del paciente de las señales adquiridas por los sensores. Posteriormente, se realiza el cálculo de las variables biomecánicas de interés a partir de dichas señales.\\
 
-Los resultados del análisis pueden ser consultados a través de la interfaz de la plataforma de la marcha humana. El informe de análisis está compuesto por tres secciones principales. La primera sección corresponde al resumen general de la prueba (Figura~\ref{fig:analysis-report-gait-platform}), donde se presentan los datos del paciente junto con los resultados obtenidos del cálculo de las variables biomecánicas relevantes.
+Los resultados del análisis pueden ser consultados a través de la interfaz de la plataforma de la marcha humana. El informe de análisis está compuesto por tres secciones principales. La primera sección corresponde al resumen general de la prueba (Figura~\ref{fig:analysis-report-gait-platform}), donde se presentan los datos del paciente junto con los resultados obtenidos del cálculo de las variables biomecánicas relevantes.\\
 
-En la segunda sección del informe (Figura~\ref{fig:analysis-report-gait-platform-subphases}) se muestran los tiempos correspondientes a cada una de las subfases de la prueba. Esta sección incluye una imagen de referencia asociada a cada subfase, con el objetivo de facilitar la interpretación de los resultados y mejorar la experiencia del usuario.
+En la segunda sección del informe (Figura~\ref{fig:analysis-report-gait-platform-subphases}) se muestran los tiempos correspondientes a cada una de las subfases de la prueba. Esta sección incluye una imagen de referencia asociada a cada subfase, con el objetivo de facilitar la interpretación de los resultados y mejorar la experiencia del usuario.\\
 
-Finalmente, la tercera sección del informe (Figura~\ref{fig:analysis-report-gait-platform-trunk-extensions}) presenta el análisis de las flexiones y extensiones del tronco del paciente durante los movimientos de levantarse y sentarse. En esta sección se reportan los valores de los picos de flexión y extensión, así como el rango total de movimiento del tronco, acompañados de una gráfica que ilustra dichos eventos biomecánicos.
+Finalmente, la tercera sección del informe (Figura~\ref{fig:analysis-report-gait-platform-trunk-extensions}) presenta el análisis de las flexiones y extensiones del tronco del paciente durante los movimientos de levantarse y sentarse. En esta sección se reportan los valores de los picos de flexión y extensión, así como el rango total de movimiento del tronco, acompañados de una gráfica que ilustra dichos eventos biomecánicos.\\
 
 En conjunto, este informe proporciona a los profesionales de la salud una herramienta visual y cuantitativa que facilita la interpretación de los resultados de la prueba y apoya el análisis clínico del desempeño funcional del paciente.
 
@@ -1477,7 +1373,7 @@ En conjunto, este informe proporciona a los profesionales de la salud una herram
 \begin{figure}[H]
 	\centering
     \includegraphics[width=1.0\textwidth]{Images/Analysis_report_2.png}
-    \caption{Reporte de análisis de los tiempos de las sub fases de la prueba \textit{Timed Up and Go.}}
+    \caption{Reporte de análisis de los tiempos de las subfases de la prueba \textit{Timed Up and Go.}}
     \label{fig:analysis-report-gait-platform-subphases}
 \end{figure}
 
@@ -1518,34 +1414,54 @@ La velocidad de rotación se obtuvo a partir del giroscopio en el eje Y. Para ca
 
 Los parámetros de flexión y extensión se calcularon a partir del ángulo de pitch, corregido por un offset inicial. Para cada fase se obtuvo el pico de flexión (máximo), el pico de extensión (mínimo posterior) y los rangos correspondientes, proporcionando una medida del control postural durante las transiciones.
 
-\section{Resumen del capítulo}
-
-Este capítulo presentó la arquitectura del servidor y la reformulación del procesamiento de datos del \textit{TUG} instrumentado. La adaptación de los algoritmos permitió mejorar la robustez de la segmentación temporal y habilitó el cálculo de variables biomecánicas adicionales, consolidando el sistema como una herramienta funcional y validable en condiciones reales.
  
 
 
 \chapter{RESULTADOS Y VALIDACIÓN}
 \label{ch:resultados-validacion}
 
-En este capítulo se presentan las pruebas de validación realizadas para evaluar la validez por acuerdo y la confiabilidad inter-método de la aplicación móvil Android desarrollada para la prueba \textit{Timed Up and Go} (\textit{TUG}), utilizando como referencia un sensor inercial comercial BTS GSensor.\\
+En este capítulo se presentan los resultados de la comparación entre la aplicación móvil desarrollada y el sistema inercial comercial BTS GSensor durante la prueba \textit{Timed Up and Go} (\textit{TUG}). La comparación se realizó bajo condiciones experimentales controladas para evaluar el acuerdo inter-método y la coherencia temporal de las mediciones. 
 
-Se analizaron $n=14$ mediciones correspondientes a 7 sujetos, cada uno con 2 ensayos. Adicionalmente, uno de los sujetos realizó una ejecución con marcha lenta simulando patología, con el objetivo de incrementar la variabilidad funcional de la muestra y observar el comportamiento del sistema ante una ejecución no estándar.\\
+El BTS GSensor se emplea como \textbf{referencia clínica práctica} disponible en el laboratorio y no como \textit{gold standard} biomecánico; por tanto, las diferencias entre sistemas se interpretan considerando que cada plataforma puede implementar criterios propios para delimitar subfases del \textit{TUG}.
+
+
+\section{Consideración sobre el sistema BTS como referencia de medición}
+
+En este estudio, el BTS GSensor se utilizó como referencia para la comparación inter-método. Aunque el \textit{gold standard} biomecánico suele corresponder a sistemas optoelectrónicos multicámara con marcadores, el BTS es una IMU clínica validada y ampliamente utilizada en evaluación funcional de marcha y movilidad.\\
+
+La literatura reporta que sensores inerciales ubicados en región lumbar permiten segmentar el \textit{TUG} y cuantificar el tiempo total y eventos funcionales como transiciones posturales y giros \cite{Salarian2010_TUG_IMU,Mancini2012_TUG_IMU,Bugane2012_GaitPosture}. Por su viabilidad en contextos clínicos, los sistemas IMU comerciales se emplean con frecuencia como referencia práctica en estudios aplicados \cite{DelDin2016_IMU_Review}.\\
+
+El BTS GSensor ofrece calibración orientada a análisis funcional, frecuencia de muestreo estable y detección automática de eventos; sin embargo, el fabricante no documenta públicamente los criterios matemáticos exactos usados para delimitar subfases del \textit{TUG}. En consecuencia, los tiempos reportados por el BTS corresponden a un algoritmo propietario cuya lógica interna no es accesible para una comparación directa a nivel de reglas de decisión. En contraste, la aplicación móvil implementa reglas explícitas basadas en umbrales y condiciones de estabilidad aplicadas a señales del giroscopio (Capítulo~\ref{ch:metodologia}).\\
+
+Por tanto, el BTS se adopta como \textbf{referencia clínica práctica} para contrastar el desempeño temporal del sistema desarrollado, sin pretender sustituir sistemas optoelectrónicos de laboratorio.
+
+
+\section{Aspectos éticos de la investigación}
+
+El desarrollo y validación del sistema se realizó conforme a principios éticos aplicables a investigaciones con seres humanos, de acuerdo con normativa nacional e indicaciones institucionales para estudios de bajo riesgo.\\
+
+La prueba \textit{TUG} se aplicó a adultos sanos, sin antecedentes que comprometieran equilibrio o movilidad. Al tratarse de una prueba funcional no invasiva, el estudio se clasificó como investigación de bajo riesgo.\\
+
+El protocolo fue presentado al Comité de Ética de la Universidad del Valle, el cual evaluó objetivos, metodología, riesgos y medidas de protección, otorgando el aval correspondiente.\\
+
+Todos los participantes firmaron consentimiento informado y confidencialidad antes de la ejecución. La información recolectada fue tratada de manera confidencial conforme a la Ley 1581 de 2012 sobre protección de datos personales y se utilizó exclusivamente con fines académicos y de investigación.
+
 
 \section{Pruebas de validación en laboratorio}
 \label{sec:pruebas-validacion}
 
-Las pruebas se realizaron en el laboratorio del Servicio de Rehabilitación Humana (SERH) de la Universidad del Valle. Cada sujeto ejecutó el protocolo estándar del \textit{TUG} utilizando simultáneamente el BTS GSensor y la aplicación móvil, ubicando el teléfono sobre el sensor comercial, fijado mediante el portacelular adaptado. Este montaje permitió adquirir señales bajo un mismo movimiento, reduciendo diferencias asociadas a variabilidad intra-sujeto entre repeticiones no simultáneas.\\
+Las pruebas se realizaron en el laboratorio del Servicio de Rehabilitación Humana (SERH) de la Universidad del Valle. Cada sujeto ejecutó el protocolo estándar del \textit{TUG} utilizando simultáneamente el BTS GSensor y la aplicación móvil, ubicando el teléfono sobre el sensor comercial y fijándolo mediante el portacelular adaptado. Este montaje permitió adquirir señales bajo un mismo movimiento y reducir diferencias por variabilidad intra-sujeto.\\
 
 \subsection{Protocolo para la toma de datos}
 \label{subsec:protocolo-validacion}
 
-Debido a que tanto el BTS GSensor como la aplicación móvil requieren calibración previa, se modificó temporalmente el código fuente de la aplicación para permitir una sincronización operativa con el flujo de calibración del BTS.\\
+Dado que ambos sistemas requieren calibración previa, se modificó temporalmente el código fuente de la aplicación para sincronizar su flujo con la calibración del BTS.\\
 
-El protocolo aplicado fue el siguiente. Primero se colocaron ambos dispositivos en la región lumbar baja (aprox. L2), asegurando una fijación estable. Luego, el investigador presionó el botón de calibración en la aplicación; tras ello, la aplicación otorgó 6 segundos para que el paciente se acomodara en la silla y, posteriormente, ejecutó la calibración. Una vez finalizada, la aplicación emitió una señal sonora, que indicó al encargado del SERH que podía iniciar la calibración del BTS desde el computador.\\
+Primero se colocaron ambos dispositivos en la región lumbar baja (aprox. L2), asegurando fijación estable. Luego, el investigador presionó el botón de calibración en la aplicación; esta otorgó 6 s para acomodación en la silla y posteriormente ejecutó la calibración. Al finalizar, la aplicación emitió una señal sonora que indicó al encargado del SERH que podía iniciar la calibración del BTS desde el computador.\\
 
-Cuando el BTS finalizaba su calibración, el encargado daba la instrucción al paciente para iniciar la prueba. Al finalizar la ejecución, el encargado detenía la prueba desde el software del BTS. Por su parte, la aplicación se configuró para finalizar automáticamente la captura al detectar 5 segundos de inactividad \textit{después de haber detectado el primer movimiento característico de inicio} (levantarse de la silla). Por ello, el paciente permaneció inmóvil aproximadamente 5 segundos adicionales tras finalizar la prueba, hasta que la aplicación emitió una segunda señal sonora, confirmando el fin del registro.\\
+Cuando el BTS finalizaba su calibración, el encargado instruía al participante para iniciar la prueba. Al finalizar, el encargado detenía el registro desde el software del BTS. La aplicación finaliza automáticamente la captura al detectar 5 s de inactividad \textit{después de detectar el primer movimiento característico de inicio} (levantarse). Por ello, el participante permaneció inmóvil aproximadamente 5 s al final, hasta escuchar la señal sonora de cierre.\\
 
-Este procedimiento prolonga el tiempo total almacenado por la aplicación al inicio (por espera de calibración del BTS), pero dicho segmento adicional no afecta el cálculo final, ya que el algoritmo de segmentación identifica el inicio real del \textit{TUG} cuando se cumplen condiciones dinámicas características del levantamiento. En particular, se considera inicio de la prueba cuando el giroscopio en el eje correspondiente supera un umbral (p.\ ej., $>0.5$ rad/s) junto con un desplazamiento integrado absoluto mayor que un valor mínimo (p.\ ej., $>0.1$), garantizando que el análisis temporal posterior corresponda al evento real de inicio y no al periodo de espera.\\
+Este procedimiento incrementa el tiempo almacenado al inicio (espera asociada a calibración del BTS), pero no afecta el cálculo final, ya que el algoritmo identifica el inicio real del \textit{TUG} cuando $g_x$ supera $\gamma_{stb}=0.1~\text{rad/s}$ y el desplazamiento angular integrado supera $\Theta_{stb}=0.1~\text{rad}$, evitando confundir espera o ajustes posturales con el inicio.\\
 
 \begin{figure}[H]
     \centering
@@ -1554,19 +1470,22 @@ Este procedimiento prolonga el tiempo total almacenado por la aplicación al ini
     \label{fig:Phone_position_autoTug}
 \end{figure}
 
-La Figura~\ref{fig:Phone_position_autoTug} muestra la colocación simultánea del celular y del BTS GSensor en la región lumbar baja (aprox. L2). Si bien este montaje permite simultaneidad, introduce un desplazamiento espacial (offset) entre sensores que puede afectar principalmente magnitudes derivadas de aceleración y velocidad angular, aspecto que se considera en la discusión de resultados.\\
+La Figura~\ref{fig:Phone_position_autoTug} muestra la colocación simultánea del celular y del BTS GSensor en la región lumbar baja. Aunque este montaje asegura simultaneidad, introduce un \textit{offset} espacial entre sensores que puede afectar magnitudes derivadas de aceleración y velocidad angular, aspecto considerado en la discusión.\\
+
 
 \subsection{Preparación de datos y fuentes de referencia}
 \label{subsec:preparacion-datos}
 
-Una vez realizadas las pruebas, los datos del BTS se exportaron en formato CSV y se obtuvo el reporte generado por el software del fabricante. Para la aplicación móvil, se exportaron los registros en formato CSV y se descargó el reporte generado por el servidor tras el envío de datos.\\
+Los datos del BTS se exportaron en CSV junto con el reporte del fabricante. Para la aplicación, se exportaron registros en CSV y se descargó el reporte generado por el servidor tras el envío.\\
 
-El análisis comparó directamente los tiempos de las subfases reportadas por ambos métodos: \textit{sit\_to\_stand}, \textit{gait1}, \textit{turn1}, \textit{gait2}, \textit{turn2} y \textit{stand\_to\_sit}, además del tiempo total. A partir de esta comparación se calcularon diferencias por fase y por ensayo, y se obtuvieron métricas de acuerdo y confiabilidad.\\
+Se compararon los tiempos de subfases reportadas por ambos métodos: \textit{sit\_to\_stand}, \textit{gait1}, \textit{turn1}, \textit{gait2}, \textit{turn2} y \textit{stand\_to\_sit}, además del tiempo total. A partir de ello se calcularon diferencias por fase y ensayo, y métricas de acuerdo y confiabilidad.\\
+
+
 
 \section{Análisis de acuerdo entre métodos}
 \label{sec:acuerdo}
 
-El acuerdo entre la aplicación y el BTS GSensor se evaluó mediante el enfoque de Bland--Altman (sesgo y límites de concordancia al 95\%), complementado con métricas de error absoluto y relativo (MAE, RMSE y MAPE). Los resultados por fase se presentan en la Tabla~\ref{tab:agreement_metrics}.\\
+El acuerdo entre la aplicación y el BTS GSensor se evaluó mediante Bland--Altman (sesgo y límites de concordancia al 95\%), complementado con MAE, RMSE y MAPE. Estas métricas cuantifican discrepancias inter-método; sin embargo, su interpretación debe considerar que el BTS estima subtiempos mediante un algoritmo propietario no documentado públicamente, mientras que la aplicación usa reglas explícitas (umbrales, doble umbral y estabilidad) descritas en el Capítulo~\ref{ch:metodologia}. Por ello, las diferencias pueden reflejar \textbf{criterios de segmentación distintos} además de factores instrumentales y de muestreo. Los resultados por fase se presentan en la Tabla~\ref{tab:agreement_metrics}.\\
 
 \begin{table}[H]
 \centering
@@ -1589,14 +1508,16 @@ Stand-to-Sit   & 14 & 0.410 & 0.331 & 0.441 & 0.519 & -0.239 & 1.059 & 25.01 \\
 }
 \end{table}
 
-Para el \textbf{tiempo total} se observó un sesgo de $+0.186$ s (ligera sobreestimación de la aplicación). Los límites de concordancia al 95\% fueron estrechos $[-0.192,\ 0.565]$ s, y los errores MAE y RMSE se mantuvieron por debajo de $0.3$ s. El MAPE fue bajo ($2.02\%$), lo cual sugiere un comportamiento estable al comparar ambos métodos para el desenlace clínico más utilizado del TUG.\\
+Para el \textbf{tiempo total} se observó un sesgo de $+0.186$ s y límites de concordancia estrechos $[-0.192,\ 0.565]$ s; MAE y RMSE fueron menores a $0.3$ s y el MAPE fue bajo ($2.02\%$), lo que indica alta consistencia para el desenlace clínico más utilizado del \textit{TUG}.\\
 
-En contraste, las \textbf{subfases} presentaron mayor dispersión relativa, con límites de concordancia más amplios, particularmente en \textit{turn2} y \textit{stand-to-sit}, donde se alcanzaron rangos cercanos a $\pm 1$ s o superiores. En subfases de corta duración, errores absolutos de décimas de segundo se traducen en errores porcentuales elevados, lo cual explica los valores altos de MAPE en fases como \textit{turn2}.\\
+En las \textbf{subfases} se observó mayor dispersión, especialmente en \textit{turn2} y \textit{stand-to-sit}. En fases cortas, diferencias absolutas pequeñas pueden generar MAPE altos. Además, la delimitación temporal depende del criterio algorítmico de inicio/fin; al no conocerse la lógica interna del BTS, discrepancias en subtiempos no implican necesariamente error del sistema desarrollado, sino posibles \textbf{diferencias metodológicas en la segmentación}.\\
+
+
 
 \section{Confiabilidad inter-método mediante \textit{ICC}}
 \label{sec:icc}
 
-La confiabilidad inter-método se evaluó con el coeficiente de correlación intraclase bajo un modelo de dos vías con acuerdo absoluto \textit{ICC}(2,1). Se reportan dos análisis: (i) considerando cada ensayo como una unidad independiente (paciente--ensayo) y (ii) usando el promedio de ensayos por paciente, con el fin de observar la estabilidad de la medición al reducir variabilidad intra-sujeto.\\
+La confiabilidad inter-método se evaluó con \textit{ICC}(2,1) (dos vías, acuerdo absoluto). Se reportan dos análisis: (i) cada ensayo como unidad independiente y (ii) promedio de ensayos por paciente.\\
 
 \begin{table}[H]
 \centering
@@ -1606,12 +1527,12 @@ La confiabilidad inter-método se evaluó con el coeficiente de correlación int
 \hline
 \textbf{Fase} & \textbf{\textit{ICC}(2,1)} & \textbf{IC 95\%} & \textbf{Interpretación} \\
 \hline
-Sit-to-Stand & 0.373 & [-0.12,\;0.75] & Pobre \\
+Sit-to-Stand & 0.373 & [-0.12,\;0.75] & Baja \\
 Gait 1       & 0.925 & [0.76,\;0.98]  & Excelente \\
 Turn 1       & 0.604 & [0.15,\;0.85]  & Moderada \\
 Gait 2       & 0.767 & [0.31,\;0.92]  & Buena \\
-Turn 2       & 0.393 & [-0.08,\;0.74] & Pobre \\
-Stand-to-Sit & 0.455 & [-0.11,\;0.80] & Pobre \\
+Turn 2       & 0.393 & [-0.08,\;0.74] & Baja \\
+Stand-to-Sit & 0.455 & [-0.11,\;0.80] & Baja \\
 \textbf{Total} & \textbf{0.994} & \textbf{[0.94,\;1.00]} & \textbf{Excelente} \\
 \hline
 \end{tabular}
@@ -1625,67 +1546,71 @@ Stand-to-Sit & 0.455 & [-0.11,\;0.80] & Pobre \\
 \hline
 \textbf{Fase} & \textbf{\textit{ICC}(2,1)} & \textbf{IC 95\%} & \textbf{Interpretación} \\
 \hline
-Sit-to-Stand & 0.341 & [-0.10,\;0.81] & Pobre \\
+Sit-to-Stand & 0.341 & [-0.10,\;0.81] & Baja \\
 Gait 1       & 0.900 & [0.52,\;0.98]  & Buena--Excelente \\
 Turn 1       & 0.572 & [-0.09,\;0.91] & Moderada \\
 Gait 2       & 0.757 & [0.08,\;0.95]  & Buena \\
-Turn 2       & 0.410 & [-0.23,\;0.85] & Pobre \\
-Stand-to-Sit & 0.276 & [-0.16,\;0.77] & Pobre \\
+Turn 2       & 0.410 & [-0.23,\;0.85] & Baja \\
+Stand-to-Sit & 0.276 & [-0.16,\;0.77] & Baja \\
 \textbf{Total} & \textbf{0.993} & \textbf{[0.77,\;1.00]} & \textbf{Excelente} \\
 \hline
 \end{tabular}
 \end{table}
 
-Los resultados muestran \textbf{confiabilidad excelente} para el \textbf{tiempo total} del TUG (\textit{ICC}(2,1)$\approx 0.99$ en ambos enfoques), lo cual indica que la aplicación reproduce de manera consistente la medición del desenlace global respecto al sensor de referencia.\\
+Se observó \textbf{confiabilidad excelente} para el \textbf{tiempo total} (\textit{ICC}$\approx 0.99$), indicando consistencia del desenlace global bajo el protocolo evaluado.\\
 
-Para las subfases, se observaron valores que varían entre pobres y buenos. Este comportamiento es coherente con la naturaleza del problema: las subfases dependen de la detección precisa de eventos temporales (inicio/fin de cada fase), de modo que pequeños desplazamientos en la segmentación producen variaciones relevantes en fases de corta duración. En muestras pequeñas, además, los intervalos de confianza del \textit{ICC} tienden a ser amplios, por lo que la interpretación debe realizarse con cautela y preferiblemente acompañada de análisis de acuerdo.\\
+En subfases, los valores variaron entre bajos y buenos, lo cual es esperable por la sensibilidad a la segmentación temporal y por la corta duración de algunos eventos. Además, al tratarse de una comparación con un método de segmentación propietario, las discrepancias por subfase pueden reflejar diferencias en criterios de decisión y no inconsistencias del sistema desarrollado.\\
+
+
 
 \section{Interpretación clínica y discusión de aceptabilidad de LoA}
 \label{sec:discusion-aceptabilidad}
 
-Desde una perspectiva clínica, el desenlace más utilizado del TUG es el \textbf{tiempo total}, debido a su asociación con desempeño funcional y riesgo de caídas. En este trabajo, los límites de concordancia obtenidos para el tiempo total del TUG
-($[-0.192,\;0.565]$ s) se encuentran muy por debajo de los valores de cambio mínimo detectable (MDC) reportados en la literatura para poblaciones clínicas, los cuales suelen situarse entre 2 y 3 segundos dependiendo de la patología y el contexto de evaluación \cite{Steffen2008_MDC_TUG_parkinsonism,Huang2011_MDC_TUG_PD,Ries2009_MDC_TUG_Alzheimer}.\\
+El desenlace clínico más utilizado del \textit{TUG} es el \textbf{tiempo total}. En este trabajo, los LoA del tiempo total ($[-0.192,\;0.565]$ s) son inferiores a valores de MDC reportados en poblaciones clínicas (típicamente 2--3 s) \cite{Steffen2008_MDC_TUG_parkinsonism,Huang2011_MDC_TUG_PD,Ries2009_MDC_TUG_Alzheimer}. En consecuencia, el desacuerdo observado puede considerarse \textbf{clínicamente aceptable} para la medición del tiempo total.\\
 
-Este rango es pequeño frente a cambios clínicamente relevantes reportados comúnmente para el TUG en la literatura (por ejemplo, cambios mínimos detectables suelen ser del orden de segundos en múltiples poblaciones), por lo que, para fines prácticos, el desacuerdo observado puede considerarse \textbf{clínicamente aceptable} para la medición del tiempo total.\\
+En subfases como \textit{turn2} y \textit{stand-to-sit} los LoA alcanzan valores cercanos o superiores a 1 s, lo que limita su utilidad si se busca interpretación fina. Por ello, el análisis por subfases debe asumirse como \textbf{exploratorio} hasta optimizar la segmentación y validar con muestras más amplias y heterogéneas.\\
 
-En contraste, los LoA de subfases como \textit{turn2} y \textit{stand-to-sit} alcanzan valores superiores a 1 s, lo que puede ser clínicamente problemático si el objetivo es interpretar componentes específicos del movimiento. En consecuencia, el uso de la aplicación para análisis detallado por subfases debe considerarse \textbf{exploratorio} hasta mejorar la segmentación temporal y validar con una muestra más amplia y heterogénea.\\
+
 
 \section{Consideraciones metodológicas y limitaciones}
 \label{sec:consideraciones}
 
-Existen factores que pueden influir en las diferencias observadas entre métodos. Primero, el periodo de muestreo difiere: el BTS GSensor opera a 100 Hz y el teléfono a 50 Hz. Considerando que la mayoría de movimientos relevantes del cuerpo humano se encuentran por debajo de 10 Hz, este muestreo es teóricamente suficiente; sin embargo, una menor frecuencia puede suavizar transiciones rápidas y afectar la detección de eventos de corta duración.\\
+Las diferencias observadas entre la aplicación y el BTS pueden explicarse por factores metodológicos e instrumentales, especialmente en subfases. Primero, no es posible verificar ni replicar los criterios exactos del BTS para delimitar subfases, ya que su algoritmo es propietario. En el análisis exploratorio de señales exportadas no se identificó un patrón único y consistente (por ejemplo, un cruce fijo en una señal específica) que explicara la determinación de subtiempos en todos los ensayos; por ello, las discrepancias pueden reflejar \textbf{criterios de segmentación distintos}.\\
 
-Segundo, la colocación simultánea introduce un \textit{offset} espacial, ya que el celular se ubicó sobre el BTS. Esto puede afectar aceleraciones y velocidades angulares y, por ende, las reglas de segmentación basadas en umbrales. Además, los dispositivos pueden no estar perfectamente alineados en el plano frontal, lo que también introduce diferencias en señales por eje.\\
+Segundo, existe diferencia de muestreo (BTS a 100 Hz y teléfono a 50 Hz). Aunque 50 Hz es suficiente para capturar la dinámica principal de marcha, aumenta la discretización temporal y puede suavizar transiciones rápidas, afectando eventos cortos como giros y transiciones.\\
 
-Tercero, el tamaño muestral es reducido y la muestra es relativamente homogénea (adultos sanos). Esto limita la estabilidad estadística del \textit{ICC} en subfases y sugiere que futuros estudios deben incorporar participantes con alteraciones reales de marcha y un mayor número de ensayos.\\
+Tercero, la colocación simultánea introduce un \textit{offset} espacial (celular sobre el BTS), lo cual puede modificar aceleraciones y velocidades angulares medidas, además de posibles diferencias de alineación entre dispositivos que alteran la distribución por ejes y el cruce de umbrales.\\
 
-Finalmente, debido a medidas repetidas por sujeto, futuros trabajos pueden complementar Bland--Altman con aproximaciones para datos repetidos (considerando correlación intra-sujeto) y reportar intervalos de confianza de sesgo y LoA, fortaleciendo la inferencia estadística.\\
+Cuarto, el tamaño muestral fue reducido ($n=14$, 7 sujetos) y la muestra homogénea (adultos sanos), lo que limita la estabilidad estadística en subfases y genera intervalos de confianza amplios.\\
+
+Finalmente, al existir medidas repetidas por sujeto, futuros análisis pueden usar aproximaciones de Bland--Altman para datos repetidos y reportar intervalos de confianza de sesgo y LoA, fortaleciendo la inferencia y permitiendo estudios experimentales orientados a aproximar criterios de segmentación comparables a IMUs comerciales cuando sea necesario.\\
+
 
 
 \section{Conclusiones de la validación}
 \label{sec:conclusiones-validacion}
 
-Los resultados sustentan que la aplicación Android desarrollada presenta un \textbf{alto acuerdo} y \textbf{confiabilidad excelente} frente al BTS GSensor para la medición del \textbf{tiempo total} del TUG. El sesgo fue bajo ($+0.186$ s), los límites de concordancia fueron estrechos y el \textit{ICC}(2,1) se aproximó a 1, lo que respalda su uso como alternativa portátil para la medición del desenlace global.\\
+Los resultados muestran que la aplicación Android desarrollada presenta \textbf{alto acuerdo} y \textbf{confiabilidad excelente} frente al BTS GSensor para la medición del \textbf{tiempo total} del \textit{TUG}. El sesgo fue bajo, los límites de concordancia fueron estrechos y el \textit{ICC}(2,1) se aproximó a 1, lo que respalda su uso como alternativa portátil para el desenlace global bajo condiciones comparables de colocación y ejecución.\\
 
-Para el análisis por subfases, se observaron mayores discrepancias y confiabilidad limitada en algunas fases, lo cual sugiere que la segmentación temporal automática requiere optimización adicional antes de emplearse como herramienta clínica para interpretación fina del movimiento. En consecuencia, se recomienda reportar subfases como métricas complementarias en escenarios exploratorios y continuar el ajuste de umbrales, reglas de decisión y validación en muestras más diversas.\\
+En subfases se observaron discrepancias mayores; sin embargo, estas deben interpretarse con cautela debido a (i) la alta sensibilidad de eventos cortos al instante exacto de inicio/fin y (ii) el uso, por parte del BTS, de un algoritmo propietario no observable. En consecuencia, la falta de coincidencia exacta en subtiempos no implica necesariamente que el sistema desarrollado sea incorrecto, sino que puede corresponder a \textbf{métodos de segmentación distintos} aplicados al mismo fenómeno biomecánico.\\
+
+Por lo anterior, el tiempo total se considera el desenlace más robusto para el uso clínico habitual del \textit{TUG}, mientras que el reporte por subfases debe asumirse como información complementaria y \textbf{exploratoria} hasta realizar validaciones adicionales con muestras más amplias, poblaciones clínicas y/o sistemas con criterios de segmentación observables.
 
 
 
 \chapter{CONCLUSIONES Y TRABAJOS FUTUROS}
 \label{ch:conclusiones-futuros}
 
-Los resultados obtenidos permiten concluir que la aplicación móvil desarrollada es una herramienta \textbf{válida por acuerdo} y \textbf{confiable} para la medición del \textbf{tiempo total} de la prueba Timed Up and Go (TUG), al mostrar un alto grado de concordancia con el sensor de referencia BTS GSensor y una confiabilidad excelente según el coeficiente de correlación intraclase (\textit{ICC}).\\
+Los resultados obtenidos permiten concluir que la aplicación móvil desarrollada es una herramienta \textbf{válida por acuerdo} y \textbf{confiable} para la medición del \textbf{tiempo total} de la prueba Timed Up and Go (TUG), al mostrar un alto grado de concordancia con el BTS GSensor como referencia clínica práctica y una confiabilidad excelente según el coeficiente de correlación intraclase (\textit{ICC}).\\
 
-En particular, el análisis de Bland--Altman para el tiempo total evidenció un sesgo pequeño y límites de concordancia estrechos, del orden de décimas de segundo. Al contrastar la magnitud de este desacuerdo con los valores de \textit{minimal detectable change} (MDC) reportados en la literatura para el TUG en diferentes poblaciones clínicas —típicamente superiores a 2 s—, se sustenta que las diferencias observadas entre la aplicación y el BTS GSensor se encuentran \textbf{por debajo del umbral de cambio clínicamente detectable} \cite{Steffen2008_MDC_TUG_parkinsonism,Huang2011_MDC_TUG_PD,Ries2009_MDC_TUG_Alzheimer}. En consecuencia, bajo el protocolo experimental empleado, dichas diferencias pueden considerarse \textbf{clínicamente poco relevantes} para escenarios habituales de uso del TUG, como la evaluación funcional transversal o el seguimiento longitudinal del desempeño global, siempre que el desenlace de interés sea el tiempo total y se mantengan condiciones comparables de colocación y ejecución.\\
+En particular, el análisis de Bland--Altman para el tiempo total evidenció un sesgo pequeño y límites de concordancia estrechos, del orden de décimas de segundo. Al contrastar la magnitud de este desacuerdo con valores de \textit{minimal detectable change} (MDC) reportados en la literatura para el TUG en diferentes poblaciones clínicas —típicamente superiores a 2 s—, se sustenta que las diferencias observadas entre la aplicación y el BTS GSensor se encuentran \textbf{por debajo del umbral de cambio clínicamente detectable} \cite{Steffen2008_MDC_TUG_parkinsonism,Huang2011_MDC_TUG_PD,Ries2009_MDC_TUG_Alzheimer}. En consecuencia, bajo el protocolo experimental empleado, dichas diferencias pueden considerarse \textbf{clínicamente poco relevantes} cuando el desenlace de interés es el tiempo total y se mantienen condiciones comparables de colocación y ejecución.\\
 
-No obstante, el análisis por \textbf{subfases} (sentado--parado, marchas, giros y parado--sentado) mostró una confiabilidad más limitada y un acuerdo menos estrecho, con errores relativos mayores. Este comportamiento es coherente con dos factores principales: (i) las subfases presentan duraciones más cortas, por lo que errores absolutos pequeños se traducen en errores porcentuales elevados; y (ii) la segmentación temporal automática depende de la detección precisa de eventos de inicio y fin en señales inerciales, las cuales son sensibles a variaciones intersujeto, diferencias en la ejecución motora y discrepancias entre dispositivos. En este contexto, y dado que no existen valores de MDC ampliamente establecidos para las subfases individuales del TUG, la evidencia obtenida no permite aún afirmar equivalencia clínica a nivel de componentes. Por tanto, el uso de la aplicación para interpretación clínica fina por subfases debe considerarse \textbf{exploratorio}, condicionado a mejoras adicionales en los algoritmos de segmentación y a su validación en muestras más amplias, diversas y clínicamente representativas.\\
+No obstante, el análisis por \textbf{subfases} (sentado--parado, marchas, giros y parado--sentado) mostró un acuerdo menos estrecho y una confiabilidad más limitada en algunas fases. Este resultado es coherente con (i) la corta duración de estas subfases, donde pequeñas diferencias absolutas se amplifican en términos relativos, y (ii) la alta sensibilidad de la segmentación temporal a los criterios algorítmicos que definen los instantes de inicio y fin. En este trabajo, dichos instantes se obtienen mediante reglas explícitas basadas en señales angulares, desplazamiento integrado y ventanas de estabilidad; en contraste, el BTS reporta subtiempos mediante un algoritmo propietario cuyos parámetros de decisión no son públicos. Por ello, discrepancias en subtiempos no deben interpretarse como evidencia concluyente de error del sistema desarrollado, sino como posible resultado de \textbf{criterios de segmentación distintos} entre plataformas.\\
 
-Respecto a las variables adicionales de interés (aceleraciones por ejes, métricas de rotación y parámetros de flexión/extensión), este trabajo logró su cálculo sistemático a partir de las señales crudas y su integración dentro del microservicio del subsistema TUG, así como su almacenamiento estructurado en la plataforma. Sin embargo, dado que el BTS GSensor es un sistema propietario y no se dispone de una descripción pública de sus algoritmos de procesamiento, no es metodológicamente apropiado exigir coincidencia numérica directa variable-a-variable entre ambos sistemas sin establecer previamente equivalencias claras en cuanto a definición de ejes, filtrado, compensación de gravedad, convenciones de signo y criterios de segmentación temporal. Por esta razón, la validación realizada se centró de forma adecuada en el desenlace primario del \textit{TUG} (tiempo total), utilizando el análisis por subfases y variables adicionales como información complementaria y exploratoria.\\
+Respecto a las variables adicionales de interés (aceleraciones por ejes, métricas de rotación y parámetros de flexión/extensión), este trabajo logró su cálculo sistemático a partir de señales crudas y su integración en el microservicio del subsistema TUG, además de su persistencia estructurada en la plataforma. Sin embargo, dado que no se dispone de una descripción pública del procesamiento interno del BTS (definiciones exactas de ejes, filtrado, compensación de gravedad y ventanas temporales), no es metodológicamente apropiado exigir coincidencia directa variable-a-variable sin establecer previamente equivalencias de procesamiento. Por esta razón, la validación se enfocó principalmente en el desenlace primario del \textit{TUG} (tiempo total), utilizando el análisis por subfases y variables adicionales como información complementaria y exploratoria.\\
 
-Finalmente, este trabajo demuestra que es factible alcanzar un nivel de madurez tecnológica cercano a TRL 6 para un sistema móvil de instrumentación del \textit{TUG}, al integrar de manera coherente: (i) una aplicación Android operativa en condiciones cercanas al uso real, (ii) un backend con mecanismos de autenticación, persistencia y control de errores, y (iii) un microservicio capaz de procesar señales inerciales crudas, segmentar la prueba, calcular variables de interés clínico y devolver respuestas estructuradas. En conjunto, estos elementos sientan bases técnicas y metodológicas sólidas para escalar el sistema hacia estudios clínicos con población real y para ampliar el ecosistema de subsistemas dentro de la plataforma de análisis de la marcha humana.\\
+Finalmente, se alcanzó un nivel de madurez tecnológica TRL~6 para el sistema propuesto, dado que se cuenta con un prototipo integrado (aplicación Android + \textit{backend} + microservicio de procesamiento) y se realizaron pruebas en un entorno relevante (laboratorio SERH) bajo un protocolo controlado con adquisición simultánea frente a una referencia clínica comercial. En conjunto, el desempeño obtenido para el desenlace global respalda que la solución es funcional y validable en condiciones cercanas al uso real, consistente con la definición de TRL~6.
 
-
-\clearpage
 \section{Trabajos futuros}
 
 El presente Trabajo de Grado desarrolló integralmente la aplicación móvil, el flujo de autenticación, el almacenamiento local y el envío de pruebas al servidor, además del microservicio del subsistema \textit{TUG} para procesar datos crudos y extraer variables de interés. A partir de los resultados y de las limitaciones identificadas, se proponen las siguientes líneas de trabajo futuro.\\
@@ -1705,6 +1630,7 @@ La plataforma ya permite persistencia y consulta; como evolución natural se pro
 \textbf{(5) Escalabilidad e interoperabilidad.}
 A nivel de despliegue, se recomienda migrar hacia infraestructura escalable (contenedores, balanceo, colas de procesamiento y almacenamiento elástico), además de considerar interoperabilidad con estándares de salud digital cuando el contexto institucional lo permita. Estas mejoras facilitarían transitar hacia TRL 7--8 con pilotos institucionales controlados y operación sostenida.\\
 \clearpage
+
 
 
 
@@ -1751,11 +1677,7 @@ López, M. \& García, F. (2021). \textit{Sistemas portátiles para la evaluaci�
 
 \section{Arquitectura general del sistema}
 
-Este anexo presenta la arquitectura general del sistema desarrollado en el presente trabajo de grado, el cual integra una aplicación móvil Android, un backend servidor y un microservicio especializado para el procesamiento de la prueba Timed Up and Go (\textit{TUG}).
-
-El sistema sigue una arquitectura cliente--servidor con enfoque modular, donde cada componente cumple una función específica y se comunica mediante interfaces bien definidas. La aplicación móvil actúa como cliente, encargándose de la adquisición de señales inerciales y del envío de datos al servidor. El backend gestiona la autenticación, el almacenamiento y la orquestación de los microservicios, mientras que el microservicio \textit{TUG} se encarga del procesamiento de señales crudas y del cálculo de variables clínicas.
-
-Esta separación de responsabilidades permite mejorar la mantenibilidad, escalabilidad y trazabilidad del sistema, además de facilitar la incorporación futura de nuevos subsistemas de análisis de la marcha humana.
+El sistema integra tres componentes: (i) una aplicación móvil Android para adquisición de señales inerciales y envío de datos, (ii) un backend servidor para autenticación, almacenamiento y orquestación, y (iii) un microservicio dedicado al procesamiento del \textit{TUG}. La arquitectura sigue un esquema cliente--servidor modular, con separación de responsabilidades para facilitar mantenimiento, escalabilidad y evolución del procesamiento de señales.
 
 % \begin{figure}[H]
 %   \centering
@@ -1764,103 +1686,67 @@ Esta separación de responsabilidades permite mejorar la mantenibilidad, escalab
 %     \label{fig:overall-system-architecture}
 % \end{figure}
 
-\section{Arquitectura del microservicio \textit{TUG}}
+% \section{Arquitectura del microservicio \textit{TUG}}
 
-El microservicio del subsistema Timed Up and Go (\textit{TUG}) fue diseñado como un servicio independiente encargado exclusivamente del procesamiento de datos inerciales y del cálculo de variables de interés clínico.
+% El microservicio \textit{TUG} se implementó como un servicio independiente encargado del procesamiento de señales crudas y del cálculo de variables temporales y cinemáticas. Su flujo operativo se resume en:
 
-El flujo de funcionamiento del microservicio se puede resumir en las siguientes etapas:
+% \begin{itemize}
+%     \item Validación de autenticación (JWT) y recepción de datos de la prueba.
+%     \item Preprocesamiento de señales: rotaciones, compensación de gravedad y filtrado.
+%     \item Segmentación automática de subfases del \textit{TUG}.
+%     \item Cálculo de variables por subfase y del tiempo total.
+%     \item Control de consistencia y manejo de errores; almacenamiento si es válido.
+%     \item Respuesta estructurada a la aplicación (éxito o error).
+% \end{itemize}
 
-\begin{itemize}
-    \item Autenticación del usuario mediante \textit{token} JWT validado por el backend.
-    \item Recepción de los datos enviados por la aplicación móvil.
-    \item Separación de los datos recibidos en archivos CSV independientes:
-    \begin{itemize}
-        \item Señales crudas de sensores (acelerómetro, giroscopio y orientación).
-        \item Ventanas temporales correspondientes a las fases del \textit{TUG}.
-    \end{itemize}
-    \item Preprocesamiento de señales (rotaciones, compensación de gravedad y filtrado).
-    \item Segmentación temporal automática de las fases del \textit{TUG}.
-    \item Cálculo de variables clínicas y biomecánicas.
-    \item Validación de resultados y control de errores.
-    \item Almacenamiento en la base de datos si los cálculos son consistentes.
-    \item Envío de respuesta estructurada a la aplicación móvil, indicando éxito o error.
-\end{itemize}
-
-Este diseño permite aislar la lógica de procesamiento del resto de la plataforma y facilita su validación, depuración y evolución independiente.
-
+% Este diseño aísla la lógica de procesamiento del resto del sistema y facilita pruebas, depuración y actualización independiente.
 
 \section{Marcos de referencia y ejes anatómicos}
 
-Durante la adquisición de datos, las señales medidas por los sensores inerciales del teléfono móvil se encuentran expresadas inicialmente en el marco de referencia del dispositivo. Sin embargo, para un análisis biomecánico coherente con la literatura clínica, es necesario transformar dichas señales a un marco de referencia alineado con los ejes anatómicos del cuerpo humano.
+Las señales del acelerómetro y giroscopio se registran inicialmente en el marco del dispositivo. Para análisis biomecánico y comparabilidad entre sesiones, se transforman a un marco alineado con ejes anatómicos.
 
 \subsection{Marco del dispositivo}
+Eje X: lateral del dispositivo, eje Y: longitudinal del dispositivo, eje Z: perpendicular a la pantalla.
 
-El marco del dispositivo está definido por los ejes físicos del teléfono móvil:
-\begin{itemize}
-    \item Eje X: eje lateral del dispositivo.
-    \item Eje Y: eje longitudinal del dispositivo.
-    \item Eje Z: eje perpendicular a la pantalla.
-\end{itemize}
+% \begin{itemize}
+%     \item Eje X: lateral del dispositivo.
+%     \item Eje Y: longitudinal del dispositivo.
+%     \item Eje Z: perpendicular a la pantalla.
+% \end{itemize}
 
-Este marco depende directamente de la orientación en la que el dispositivo sea colocado sobre el cuerpo del sujeto.
+\subsection{Transformación a marco mundo}
 
-\subsection{Marco mundo}
-
-Para eliminar la dependencia de la orientación del dispositivo, las aceleraciones medidas se transformaron al marco mundo mediante una rotación basada en ángulos de Euler (yaw--pitch--roll). Posteriormente, se compensó la gravedad restando $9.81~\text{m/s}^2$ del eje vertical del marco mundo.
+Para reducir dependencia de la orientación del teléfono, se aplica una rotación usando orientación estimada (yaw--pitch--roll). Luego se compensa gravedad restando $9.81~\text{m/s}^2$ del eje vertical del marco mundo.
 
 \subsection{Ejes anatómicos clínicos}
 
-Una vez expresadas en el marco mundo, las señales se proyectaron sobre ejes clínicos de interés, comúnmente utilizados en el análisis de la marcha humana:
+Las señales se proyectan sobre ejes clínicos:
 
 \begin{itemize}
-    \item \textbf{Antero--posterior (AP):} asociado al avance y retroceso del cuerpo durante la marcha.
-    \item \textbf{Medio--lateral (ML):} asociado a oscilaciones laterales y control del equilibrio.
-    \item \textbf{Vertical (VT):} asociado a movimientos de elevación y descenso del centro de masa.
+    \item \textbf{Antero--posterior (AP):} avance/retroceso durante marcha.
+    \item \textbf{Medio--lateral (ML):} oscilaciones laterales y equilibrio.
+    \item \textbf{Vertical (VT):} elevación/descenso del centro de masa.
 \end{itemize}
 
+La alineación de AP y ML se ajusta estimando un offset inicial de yaw durante un periodo estático al inicio, para hacer los resultados comparables entre sujetos y ensayos.
 
+% \section{Variables calculadas por el microservicio \textit{TUG}}
 
-La alineación de los ejes AP y ML se realizó mediante la estimación de un offset inicial de yaw calculado a partir de los primeros segundos de la señal, asumiendo que el sujeto se encontraba en posición estática. Esta transformación garantiza que las variables calculadas sean independientes de la orientación inicial del teléfono y comparables entre sujetos y sesiones.
+% A partir de las señales inerciales y de la segmentación, el microservicio calcula:
 
-\section{Variables calculadas por el microservicio \textit{TUG}}
+% \begin{itemize}
+%     \item Tiempo total de la prueba \textit{TUG}.
+%     \item Duración de subfases: \textit{sit-to-stand}, \textit{gait1}, \textit{turn1}, \textit{gait2}, \textit{turn2}, \textit{stand-to-sit}.
+%     \item Aceleración pico--a--pico en AP, ML y VT por subfase.
+%     \item Velocidad angular máxima y promedio durante giros.
+%     \item Métricas de flexión/extensión del tronco derivadas del ángulo \textit{pitch}.
+% \end{itemize}
 
-El microservicio \textit{TUG} calcula automáticamente un conjunto de variables clínicas y biomecánicas a partir de las señales inerciales y de la segmentación temporal de la prueba.
-
-Las principales variables calculadas incluyen:
-
-\begin{itemize}
-    \item Tiempo total de la prueba \textit{TUG}.
-    \item Duración de cada subfase:
-    \begin{itemize}
-        \item Sentado--parado.
-        \item Marcha 1.
-        \item Giro 1.
-        \item Marcha 2.
-        \item Giro 2.
-        \item Parado--sentado.
-    \end{itemize}
-    \item Rangos de aceleración pico--a--pico en los ejes AP, ML y VT por fase.
-    \item Velocidad angular máxima y promedio durante los giros.
-    \item Métricas de flexión y extensión del tronco obtenidas a partir del ángulo Pitch.
-\end{itemize}
-
-Todas las variables se calculan únicamente dentro de las ventanas temporales correspondientes a cada fase del \textit{TUG}, garantizando consistencia temporal y evitando contaminación entre eventos.
-
-
-\section{Protocolo experimental resumido}
-
-Las pruebas de validación se realizaron en el laboratorio del Servicio de Rehabilitación Humana (SERH) de la Universidad del Valle, siguiendo un protocolo controlado que permitió la adquisición simultánea de datos con el sensor BTS GSensor y la aplicación móvil Android.
-
-Los dispositivos se colocaron en la región lumbar baja (aproximadamente a la altura de la vértebra L2), asegurando una fijación estable para minimizar artefactos por movimiento relativo. Ambos sistemas fueron calibrados antes del inicio de la prueba y la ejecución siguió el protocolo estándar del Timed Up and Go.
-
-Este procedimiento permitió comparar directamente los tiempos obtenidos por ambos sistemas bajo condiciones equivalentes.
-
+% Las variables se calculan dentro de ventanas temporales por fase, evitando contaminación entre eventos.
 
 \section{Código fuente del sistema}
 
-El código fuente correspondiente a la aplicación móvil Android, al backend servidor y al microservicio del subsistema Timed Up and Go (\textit{TUG}) desarrollado en este trabajo de grado no se incluye de forma íntegra en este documento debido a su extensión.
-
-El código se encuentra alojado en un repositorio remoto privado en la plataforma GitHub. El acceso a dicho repositorio puede ser otorgado, previa autorización del autor y del grupo de investigación GICI, para fines académicos, de investigación o para la continuidad de futuros trabajos de grado relacionados con este proyecto.
+El código fuente (aplicación Android, backend y microservicio \textit{TUG}) no se incluye en este documento por su extensión. El proyecto se mantiene en un repositorio remoto privado (GitHub). El acceso puede otorgarse con autorización del autor y del grupo de investigación GICI para fines académicos, de investigación o continuidad del desarrollo.
 
 
 
