@@ -1,0 +1,288 @@
+%% ============================================================
+%%  GUIÓN DE SUSTENTACIÓN — autoTUG / TRL 6
+%%  John Sebastian Chamorro Narváez
+%%  Tiempo objetivo: 20–25 minutos
+%%
+%%  USO: Este documento NO es para proyectar; es para leer
+%%  antes de la sustentación y practicar el discurso en voz alta.
+%%  El texto entre corchetes [así] son instrucciones al expositor.
+%% ============================================================
+\documentclass[12pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper, top=2.5cm, bottom=2.5cm,
+            left=3cm, right=3cm]{geometry}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{mdframed}
+
+\onehalfspacing
+
+\definecolor{slateblue}{RGB}{0,73,144}
+\definecolor{notecolor}{RGB}{150,80,0}
+\definecolor{timebox}{RGB}{0,100,0}
+
+\titleformat{\section}{\large\bfseries\color{slateblue}}
+            {\thesection.}{0.8em}{}
+\titleformat{\subsection}{\normalsize\bfseries}
+            {}{0em}{}
+
+\newmdenv[linecolor=slateblue, linewidth=1.2pt,
+          backgroundcolor=blue!5, leftmargin=0pt,
+          rightmargin=0pt, innerleftmargin=8pt,
+          innerrightmargin=8pt]{slidebox}
+
+\newcommand{\diap}[2]{%
+  \begin{slidebox}
+    \textbf{\color{slateblue}Diapositiva #1 — #2}
+  \end{slidebox}%
+}
+
+\newcommand{\tiempo}[1]{\hfill{\small\color{timebox}[\,\textit{~#1}\,]}}
+\newcommand{\nota}[1]{{\color{notecolor}\small\textit{$\triangleright$ #1}}}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries Guión de Sustentación Pública}\\[0.4em]
+  {\large John Sebastian Chamorro Narváez}\\[0.3em]
+  {\normalsize Ingeniería Electrónica — Universidad del Valle, 2025}\\[0.3em]
+  {\small\color{slateblue}Tiempo objetivo: 20–25 minutos | 21 diapositivas}
+\end{center}
+
+\vspace{0.5em}\hrule\vspace{1em}
+
+{\small\textbf{Cómo usar este guión:} Lee el texto en voz alta al menos tres veces antes de la sustentación. No memorices palabra por palabra; interioriza las ideas. Habla de frente al jurado, no a la pantalla. Las instrucciones entre corchetes son recordatorios de ritmo y postura, no texto para leer.}
+
+\vspace{1em}\hrule\vspace{1em}
+
+% ============================================================
+\section*{Antes de empezar (en silencio, ya con la presentación abierta)}
+
+Respira. Organiza el puntero y el agua. Cuando el presidente del jurado te dé la palabra, di:
+
+\begin{quote}
+``Buenos días [o buenas tardes]. Muchas gracias al jurado, a los directores y a los asistentes por su presencia. Voy a presentarles el trabajo de grado titulado \emph{Aplicación para la monitorización de la prueba Timed Up and Go con un teléfono inteligente, gestión de información en la nube y nivel de madurez tecnológica 6.}''
+\end{quote}
+
+% ============================================================
+\section{Contexto y Motivación}
+
+\diap{1}{Portada}
+[Avanza a la siguiente diapositiva inmediatamente. No leas el título completo en voz alta; el jurado puede leerlo.]\tiempo{0:20}
+
+% ---
+\diap{2}{Contenido}
+
+``Voy a organizar esta exposición en cinco partes: el contexto clínico y la motivación; el sistema que desarrollé; el procesamiento de señales; la validación experimental; y finalmente las conclusiones y los trabajos futuros.''
+
+[Avanza. No seas exhaustivo en el índice, solo enuncia las partes.]\tiempo{0:30}
+
+% ---
+\diap{3}{La prueba Timed Up and Go}
+
+``La prueba Timed Up and Go, o TUG, es un estándar clínico ampliamente utilizado para evaluar la movilidad funcional de los pacientes, especialmente en adultos mayores. La prueba consiste en levantarse de una silla, caminar tres metros, girar ciento ochenta grados, regresar y sentarse. En la versión clásica, el único dato que se reporta es el tiempo total.
+
+Sin embargo, la versión instrumentada del TUG —que llamamos iTUG— va mucho más allá: permite extraer variables temporales y cinemáticas de cada subfase. Por ejemplo, ¿cuánto tiempo tarda el paciente en levantarse? ¿Cuál es la velocidad angular del giro? ¿Cómo se mueve el tronco durante la transición de sentado a parado?
+
+[Señala la figura de la derecha.] Esta figura muestra las señales del giroscopio y del acelerómetro en el sensor lumbar durante la prueba. Pueden ver que cada subfase deja una huella característica en la señal, y esa huella es la que mi sistema aprende a identificar.''\tiempo{1:30}
+
+% ---
+\diap{4}{Motivación y Problema}
+
+``Entonces, ¿cuál es el problema? Los sistemas iTUG comerciales que existen son costosos, poco portátiles y difíciles de integrar en un flujo de trabajo clínico cotidiano. Existe un trabajo previo en este mismo grupo de investigación, de Pérez Kuleshova, que fue un primer prototipo basado en smartphone, pero tenía limitaciones importantes: no gestionaba pacientes de forma autónoma, no guardaba los datos de manera estructurada y no estaba conectado a ninguna plataforma de análisis.
+
+La pregunta que guió este trabajo fue: ¿Es posible construir una solución autónoma, conectada y clínicamente válida usando únicamente el smartphone del profesional de salud? La respuesta de este trabajo es sí, y el resultado es el sistema autoTUG.''\tiempo{1:30}
+
+% ---
+\diap{5}{Objetivos}
+
+``El objetivo general fue desarrollar esa aplicación móvil Android y alcanzar el nivel de madurez tecnológica seis. Los cuatro objetivos específicos son los que ven en pantalla:
+
+El primero, implementar la adquisición de señales a cincuenta hertz, la segmentación temporal y el cálculo de variables biomecánicas. El segundo, el módulo de gestión de pacientes con modos offline y online, usando autenticación con tokens JWT. El tercero, integrar todo esto en la plataforma de la marcha del grupo GICI. Y el cuarto, validar el sistema frente al BTS GSensor mediante índices estadísticos de confiabilidad y acuerdo.''
+
+[Avanza sin detenerte en cada objetivo; el jurado los puede leer.]\tiempo{1:00}
+
+% ============================================================
+\section{Sistema Desarrollado}
+
+\diap{6}{Arquitectura General}
+
+``El sistema que desarrollé tiene tres capas. La primera es la aplicación Android, que captura las señales de los sensores MEMS del teléfono a cincuenta hertz, gestiona los pacientes y envía los datos. La segunda capa es el backend en PHP con autenticación JWT, que recibe los archivos CSV y los dirige al microservicio de análisis. La tercera capa es la plataforma de la marcha del grupo GICI, donde el microservicio TUG procesa las señales, segmenta la prueba y genera el informe automático con las variables biomecánicas.
+
+[Señala el flujo en el diagrama.] El resultado final regresa a la aplicación en forma de informe, que el profesional puede consultar directamente desde el teléfono o desde la plataforma web.''\tiempo{1:30}
+
+% ---
+\diap{7}{Aplicación Android autoTUG}
+
+``La aplicación, que llamé autoTUG, fue desarrollada en Kotlin para Android. Tiene dos modos de operación: el modo offline, donde todos los datos se guardan localmente en SQLite y no se necesita conexión a internet; y el modo online, donde los datos se sincronizan automáticamente con el servidor.
+
+Una característica importante es que la prueba inicia y termina de forma automática: el sistema detecta el inicio cuando el giroscopio supera un umbral de velocidad angular, y detecta el final cuando las señales permanecen por debajo de un umbral durante cinco segundos. Esto elimina la necesidad de que el profesional toque el teléfono durante la prueba, lo que mejora la reproducibilidad.''
+
+[Señala las capturas de pantalla de la derecha.]\tiempo{1:00}
+
+% ---
+\diap{8}{Ubicación y Calibración}
+
+``El teléfono se coloca en la región lumbar baja, aproximadamente a nivel de la segunda vértebra lumbar, L2. Esta ubicación es estándar en el campo y coincide con la del BTS GSensor, lo que facilita la comparación.
+
+Antes de cada prueba, el sistema ejecuta una fase de calibración que captura tres referencias de señal en reposo: el offset de velocidad angular del giroscopio en los tres ejes, que se usa para compensar el sesgo del sensor; el vector de gravedad del acelerómetro, que define la dirección vertical; y el offset de yaw, que alinea las aceleraciones con los ejes clínicos antero-posterior y medio-lateral.
+
+Adicionalmente, el sistema valida la orientación del teléfono: si la amplitud integrada en el eje Y es menor a la mitad de la del eje X, el sistema hace un intercambio automático de ejes por software. Esto hace que la asignación de ejes sea robusta independientemente de cómo quede orientado el teléfono en el portacelular.''\tiempo{1:30}
+
+% ============================================================
+\section{Procesamiento de Señales}
+
+\diap{9}{Adquisición Digital: 50 Hz}
+
+``El teléfono tiene sensores MEMS —un acelerómetro y un giroscopio de tres ejes— que entregan las muestras directamente en formato digital. La aplicación configura la lectura a una frecuencia nominal de cincuenta hertz.
+
+Un detalle importante de ingeniería: Android no es estrictamente determinista en la entrega de muestras, lo que significa que el intervalo entre muestras no es exactamente veinte milisegundos. Por eso, el algoritmo de procesamiento utiliza el timestamp real de cada muestra para calcular el delta tiempo en cada paso de integración, en lugar de asumir un período constante. Esto mejora la precisión de los desplazamientos angulares calculados.
+
+[Señala la tabla de la derecha.] Las señales se dividen en físicas, que son las que mide directamente el sensor —aceleraciones y velocidades angulares— e indirectas, que se calculan a partir de ellas: los desplazamientos angulares por integración, los ángulos de orientación y las aceleraciones en ejes clínicos.''\tiempo{1:30}
+
+% ---
+\diap{10}{Ejes del Giroscopio y Ejes Anatómicos}
+
+``Para que el algoritmo funcione correctamente, es necesario que los ejes del giroscopio del teléfono correspondan a los ejes anatómicos del paciente. El eje X del teléfono corresponde al movimiento de flexión y extensión del tronco, que es lo que ocurre en las transiciones de sentado a parado. El eje Y corresponde a los giros corporales de ciento ochenta grados. El eje Z, que apunta perpendicular a la pantalla, corresponde al balanceo lateral y no se utiliza en la segmentación.
+
+Como mencioné antes, el sistema verifica automáticamente esta asignación y hace el intercambio de ejes si es necesario. Esta es una de las mejoras respecto al trabajo previo, que requería una orientación fija del teléfono.''\tiempo{1:00}
+
+% ---
+\diap{11}{Algoritmo de Segmentación Temporal}
+
+``El corazón del sistema es el algoritmo de segmentación. La idea central es una medición indirecta: se integran numéricamente las velocidades angulares del giroscopio para obtener los desplazamientos angulares acumulados. Una transición postural o un giro real producen una acumulación sostenida en el desplazamiento; el ruido o las pequeñas oscilaciones durante la marcha no la alcanzan.
+
+Para detectar el levantamiento, el algoritmo busca que la velocidad angular en X supere cero punto un radián por segundo, y que el desplazamiento acumulado en X supere cero punto un radián. Esto garantiza que es un levantamiento real y no un ajuste postural menor.
+
+Para detectar el giro, el algoritmo usa un doble umbral en el desplazamiento en Y: primero confirma que el desplazamiento superó cero punto nueve radianes —lo que garantiza que el sujeto está girando de verdad— y luego hace una búsqueda retrospectiva con un umbral más bajo de cero punto seis radianes para acercar el instante detectado al inicio real del giro.
+
+Todos estos umbrales fueron ajustados empíricamente sobre mis propios datos de validación.''\tiempo{2:00}
+
+% ---
+\diap{12}{Robustez ante Variaciones de Trayectoria}
+
+``Quiero mostrarles un detalle que ilustra la robustez del algoritmo. [Señala la diapositiva.] En una prueba sin cono, el paciente gira de forma abrupta y el desplazamiento en Y crece rápidamente. En una prueba con cono, el paciente ajusta su trayectoria para rodear el cono, lo que produce un pequeño pico negativo en la velocidad angular Y justo antes del giro real.
+
+El doble umbral del algoritmo absorbe este comportamiento sin necesidad de casos especiales: el umbral externo de cero punto nueve radianes garantiza que ya hay acumulación suficiente para declarar el giro, y la búsqueda retrospectiva encuentra el inicio real. Esto es una mejora respecto al algoritmo previo, que era sensible al sentido y al estilo del giro.''\tiempo{1:00}
+
+% ---
+\diap{13}{Transformación de Marco y Variables Biomecánicas}
+
+``Una vez segmentada la prueba, el microservicio calcula las variables biomecánicas. El proceso comienza transformando las aceleraciones desde el marco del dispositivo al marco del mundo mediante una rotación de Euler en el orden Z, Y, X. Luego se compensa la gravedad restando 9.81 metros por segundo cuadrado en el eje vertical. Las señales resultantes se filtran con un filtro pasa-bajo de primer orden a nueve hercios, aplicado hacia adelante y hacia atrás para evitar desfase de fase. Esta frecuencia de corte se seleccionó porque el contenido frecuencial relevante de la marcha y las transiciones posturales está por debajo de ese valor, y está bien por debajo de la frecuencia de Nyquist de veinticinco hercios.
+
+Finalmente, se estima un offset de yaw como el promedio de los primeros tres segundos y se proyectan las aceleraciones a los ejes clínicos antero-posterior, medio-lateral y vertical.
+
+[Señala la lista de variables.] El microservicio reporta tiempos por subfase, rangos de aceleración, velocidad angular de giro y parámetros de flexión y extensión del tronco.''\tiempo{1:30}
+
+% ---
+\diap{14}{Plataforma GICI}
+
+``El microservicio TUG que desarrollé se integró en la plataforma de la marcha humana del grupo GICI. [Señala la figura de la arquitectura.] La plataforma recibe los datos del teléfono a través del servidor, los procesa y los almacena estructuradamente. [Señala los informes.] El profesional de salud puede consultar el informe desde un navegador web: en la primera sección aparecen los datos del paciente y las variables biomecánicas; en la segunda, los tiempos de cada subfase con una imagen de referencia para facilitar la interpretación.''\tiempo{1:00}
+
+% ============================================================
+\section{Validación Experimental}
+
+\diap{15}{Protocolo de Validación}
+
+``Para validar el sistema, realizamos ensayos en el laboratorio del Servicio de Rehabilitación Humana de la Universidad del Valle. Participaron siete sujetos adultos sanos, lo que dio un total de catorce ensayos. El protocolo fue aprobado por el Comité de Ética de la Universidad, ya que la prueba TUG es de bajo riesgo y no invasiva.
+
+Como referencia, usamos el BTS GSensor, que es un sensor inercial comercial certificado para uso clínico. Es importante aclarar que no lo usamos como gold standard biomecánico —ese sería un sistema optoelectrónico multicámara— sino como referencia clínica práctica disponible en el laboratorio.
+
+[Señala la foto.] El montaje simultáneo consistió en fijar primero el BTS en L2 con el portacelular y luego colocar el teléfono encima. De esta forma, ambos sensores comparten exactamente el mismo movimiento del tronco. Esta configuración introduce un pequeño offset espacial entre sensores, que es una de las limitaciones que discutimos más adelante.''\tiempo{1:30}
+
+% ============================================================
+\section{Resultados}
+
+\diap{16}{Resultados: Tiempo Total del TUG}
+
+``Los resultados para el tiempo total del TUG son muy buenos. [Señala la tabla.] El sesgo entre la aplicación y el BTS fue de cero punto ciento ochenta y seis segundos; los límites de concordancia de Bland-Altman fueron menos cero punto ciento noventa y dos y más cero punto quinientos sesenta y cinco segundos; el error porcentual absoluto medio fue de apenas el dos por ciento; y el coeficiente de correlación intraclase ICC(2,1) fue de cero punto noventa y cuatro con un intervalo de confianza que prácticamente llega a uno.
+
+¿Qué significa esto clínicamente? La literatura reporta que el cambio mínimo detectable para el TUG en poblaciones clínicas —adultos mayores, pacientes con Parkinson— es de entre dos y tres segundos. Mis límites de concordancia son menores a cero punto seis segundos, lo que está muy por debajo de ese umbral. En otras palabras, las diferencias observadas entre la aplicación y el BTS son \textbf{clínicamente poco relevantes} para el desenlace principal del TUG.''
+
+[Si el jurado pregunta por el Bland-Altman, explica la interpretación: la mayoría de los puntos deben estar entre los límites, y los límites deben ser más estrechos que el MDC.]\tiempo{2:00}
+
+% ---
+\diap{17}{Resultados: Subfases}
+
+``En las subfases, el comportamiento es más variable. La marcha inicial obtuvo un ICC excelente de cero punto noventa y dos. Los giros y las transiciones posturales tuvieron valores entre bajos y moderados.
+
+Esto es esperable por tres razones. Primero, las subfases son eventos cortos: una diferencia de medio segundo en una subfase de dos segundos genera un MAPE del veinticinco por ciento, aunque en magnitud absoluta sea pequeña. Segundo, el BTS usa un algoritmo propietario para delimitar las subfases, cuyos criterios exactos no son públicos; las diferencias pueden reflejar lógicas de segmentación distintas, no necesariamente un error de mi sistema. Tercero, el offset espacial entre sensores y la diferencia de muestreo —el BTS a cien hertz, mi aplicación a cincuenta— también contribuyen.
+
+Por estas razones, el análisis por subfases se presenta como información exploratoria complementaria, no como el desenlace primario.''\tiempo{1:30}
+
+% ============================================================
+\section{Conclusiones}
+
+\diap{18}{TRL 6}
+
+``El nivel de madurez tecnológica seis implica tener un prototipo funcional validado en un entorno relevante, con condiciones cercanas al uso real. Considero que este trabajo alcanza ese nivel porque tengo una aplicación integrada y funcional; la validación se realizó en un laboratorio con sujetos reales, protocolo controlado y una referencia clínica comercial; y los informes se generan automáticamente y son accesibles desde la plataforma web del grupo de investigación.''\tiempo{0:45}
+
+% ---
+\diap{19}{Conclusiones}
+
+``Para cerrar, las conclusiones principales son cinco.
+
+Primero, el sistema autoTUG es autónomo e integrado: las tres capas —app, backend y plataforma— funcionan de manera coordinada.
+
+Segundo, para el tiempo total del TUG el sistema es altamente confiable, con ICC próximo a uno y diferencias clínicamente aceptables respecto al BTS GSensor.
+
+Tercero, el algoritmo de segmentación con doble umbral y verificación de orientación es más robusto que el trabajo previo y opera de forma completamente autónoma.
+
+Cuarto, el microservicio TUG se integró exitosamente en la plataforma de la marcha del grupo GICI, generando informes automáticos con variables biomecánicas.
+
+Y quinto, se alcanzó el nivel TRL 6 con evidencia experimental en laboratorio.''\tiempo{1:30}
+
+% ---
+\diap{20}{Trabajos Futuros}
+
+``En cuanto a las líneas de trabajo futuro, la más prioritaria es la validación con población clínica real: adultos mayores y pacientes con condiciones neurológicas o musculoesqueléticas. También es importante optimizar la segmentación con enfoques adaptativos o supervisados para mejorar la confiabilidad en subfases. A más largo plazo, se puede establecer un protocolo de equivalencia de variables para poder comparar directamente con otros sistemas IMU comerciales. Y en la plataforma, agregar reportes longitudinales y herramientas de análisis para investigación clínica.''\tiempo{1:00}
+
+% ---
+\diap{21}{Gracias / Preguntas}
+
+``Eso concluye mi presentación. Quedo a disposición del jurado para responder cualquier pregunta.''
+
+[Silencio. Espera. No añadas nada más. El silencio después de "preguntas" es natural y esperado.]\tiempo{0:15}
+
+\vspace{1em}\hrule\vspace{1em}
+
+% ============================================================
+\section*{Guía para preguntas frecuentes del jurado}
+
+\subsection*{¿Por qué cincuenta hertz y no más?}
+
+``Cincuenta hertz ofrece un buen balance entre la representación de la dinámica de la marcha, cuyo contenido frecuencial relevante está por debajo de diez a quince hertz, y el costo computacional en el dispositivo. Además, según Nyquist, cincuenta hertz nos permite capturar frecuencias de hasta veinticinco hertz sin aliasing, lo que es suficiente para el análisis de la marcha. Valores más altos generarían archivos más grandes sin aportar información adicional útil.''
+
+\subsection*{¿Por qué nueve hertz para el filtro?}
+
+``Porque el espectro de aceleraciones durante la marcha y las transiciones posturales se concentra por debajo de ese valor. Nueve hertz es suficiente para atenuar el ruido de alta frecuencia del acelerómetro sin distorsionar los eventos de interés. Y está holgadamente por debajo de la frecuencia de Nyquist.''
+
+\subsection*{¿Por qué solo siete sujetos?}
+
+``El conjunto de validación incluyó siete sujetos adultos sanos. Las limitaciones del tamaño muestral se reconocen explícitamente en el documento: generan intervalos de confianza amplios en subfases y limitan la generalización a poblaciones clínicas. Por eso el trabajo futuro más prioritario es una validación con muestras más amplias y con población patológica real.''
+
+\subsection*{¿El BTS es gold standard?}
+
+``No. El gold standard biomecánico sería un sistema optoelectrónico multicámara con marcadores reflectivos. El BTS GSensor es una IMU clínica certificada ampliamente usada en evaluación funcional, que usamos como referencia clínica práctica por ser el sistema disponible en el laboratorio SERH. Esto se declara explícitamente en el documento.''
+
+\subsection*{¿Cómo se justifica afirmar que se mejoró el trabajo previo?}
+
+``El algoritmo previo tenía tres limitaciones concretas documentadas: el umbral de inicio del sentado-parado era más sensible al ruido, la detección del giro 1 requería una acumulación mayor con un esquema de búsqueda menos preciso, y la detección del giro 2 no estaba acotada simétricamente para ambos sentidos del giro. El algoritmo actual resuelve cada una de estas limitaciones con reglas explícitas y documentadas, y los resultados de validación confirman que la segmentación funciona sobre los datos reales.''
+
+\subsection*{¿Qué pasa si la orientación del teléfono está mal?}
+
+``El sistema tiene un mecanismo automático de verificación y corrección de orientación: compara la amplitud integrada de los dos ejes principales y, si detecta que están invertidos, los intercambia por software antes de proceder con la segmentación. Esto hace el sistema tolerante a variaciones de montaje, lo que es una ventaja importante para la usabilidad clínica.''
+
+\subsection*{¿Es posible escalar esto a uso clínico real?}
+
+``El nivel TRL 6 indica que estamos en la frontera entre el prototipo en entorno relevante y la demostración en entorno operacional, que sería TRL 7. Los pasos para escalar serían: validar con población clínica, desarrollar una interfaz más robusta para el registro de usuarios desde la app, escalar la infraestructura del servidor y obtener validación regulatoria si se busca un uso médico certificado. El trabajo sienta las bases técnicas para ese proceso.''
+
+\vspace{1em}\hrule\vspace{0.5em}
+\begin{center}
+  {\small \textit{Documento de uso exclusivo del expositor. No proyectar.}}
+\end{center}
+
+\end{document}
